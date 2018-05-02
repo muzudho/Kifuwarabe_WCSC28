@@ -1,0 +1,13 @@
+usi
+
+isready
+
+usinewgame
+
+position startpos moves 2g2f
+position sfen 9/9/2p6/9/9/9/7P1/9/9 w - 1 moves 7g7f
+
+go
+
+position startpos moves 2g2f 
+

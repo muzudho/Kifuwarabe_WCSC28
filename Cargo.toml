@@ -1,0 +1,9 @@
+[package]
+name = "kifuwarabe_shogi2018"
+version = "0.1.0"
+authors = ["muzudho <muzudho1@gmail.com>"]
+
+[dependencies]
+
+rand="0.3.0"
+lazy_static = "1.0"

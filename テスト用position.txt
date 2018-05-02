@@ -1,0 +1,443 @@
+u７七▲桂
+position sfen 9/9/9/9/9/9/2N6/9/9 w - 1
+
+８八▲桂
+position sfen 9/9/9/9/9/9/9/1N7/9 w - 1
+※ 9筋に利きが無い
+
+９九▲桂
+position sfen 9/9/9/9/9/9/9/9/N8 w - 1
+
+
+◆竜の長い利きで、王手されている局面。5i5hと返せばok。
+position startpos moves 6i5h 8c8d 9i9h 8d8e 3g3f 8e8f 5h4h 8f8g+ 1i1h 8g9h 2g2f 9h8h 9g9f 8h7i 2i3g 8b8i+ 2f2e 7i7h
+
+うさぎの利き
+position startpos moves 3g3f 3c3d 6i5h 3d3e 5h4h 3e3f 2g2f 3f3g+ 7i6h 3g4h 5i4h 2b7g+ 8h7i 7g6h 2h1h 6h5g 4h3g 5g4g 3g2h 4g3g 2i3g 8b3b 8g8f 3b3g+ 2h3g G*3e 3g4g S*4e 4g5g N*6e
+
+竜の利き（直線上で離れても、長い利きは伸びて利いてくる）
+position startpos moves 6i6h 7a6b 7g7f 3c3d 3i4h 6c6d 9i9h 4c4d 8h5e 6b6c 3g3f 3a4b 2h1h 8c8d 4h3i 4b4c 3i2h 7c7d 4i3h 5c5d 2h3g 5d5e 9g9f 8d8e 2g2f 8e8f 3g2h 8f8g+ 5i4i 8g8h 4i4h 8h7i 3h3i 8b8i+ 2i3g 8i9h 3i4i 9h6h
+>1:go btime 489000 wtime 68000 binc 10000 winc 10000
+<1:info string My raion 48.
+<1:info string My raion is 1 OUTED.
+<1:info OUTE: KmTori:68笆ｳpk->48.
+<1:info is_jisatusyu=true km_src=笆ｼ繧・sn_teban=笆ｼ kms=繧・sn_aite=笆ｳ ss.dst=58 kikisu=1
+<1:info is_jisatusyu=false km_src=笆ｼ繧・sn_teban=笆ｼ kms=繧・sn_aite=笆ｳ ss.dst=38 kikisu=0
+<1:info is_jisatusyu=false km_src=笆ｼ繧・sn_teban=笆ｼ kms=繧・sn_aite=笆ｳ ss.dst=39 kikisu=0
+<1:info is_jisatusyu=true km_src=笆ｼ繧・sn_teban=笆ｼ kms=繧・sn_aite=笆ｳ ss.dst=59 kikisu=1
+<1:info 2 solutions.
+<1:info solution:4h3h.
+<1:bestmove 4h3h
+>T:+4838OU
+<T:#ILLEGAL_MOVE
+<T:#LOSE
+>1:gameover lose
+>T:%%GAME floodgate-300-10F *
+>T: 
+
+
+角で王手
+position startpos moves 2h3h 3c3d 1i1h 2b7g+
+
+空き王手
+position startpos moves 5i5h 3c3d 4i4h 2b7g+ 3g3f 7g8g 4g4f 8g6i 5h4i 6i6h 4h3g 6h6g 4i3h 6g6f 1i1h 6f6e 3h4h 4c4d 8i7g 6e7e 2g2f 5c5d 9g9f 5d5e 2f2e 5e5f 7i7h 5f5g+ 4h3h 5g4g 3h4g 7e6e 4g5g 6e7e 5g4g 7e6e 4g5h 6e7f 5h6h 7f8f 2h5h 5a4b 5h5d 6a5b 6h5g 8f7e 5g5h 7e7f 5h5i 7f7g 5i5h 7g7f 5h6h 7f8f 6h5g 8f7e 5g5f 7e7d 5f6f 7d8d 6f6e 8d7d 6e7f 7d8d 5d5e 8d9d 7f7g 9d9e 7g6g 9e8e 5e8e 6c6d 7h8i 6d6e 9i9g 6e6f 8h6f 8b6b 9f9e 5b5c
+
+チェッカーを取らない
+position startpos moves 6i6h 3c3d 5g5f 3d3e 6h5h 3e3f 9g9f 3f3g+ 5i6i 3g2h 4i5i 2h3i 7g7f 3i4i 4g4f 4i5i 6i5i 2b8h+ 7f7e 8h8g 5i6h 8g8f 6h7h 8f9f 7h7g 9f9e 7g6f 9e8d 6f7g 8d9e 7g6f B*3i 6f7f R*9f 7f6e 6c6d 6e6d 8b6b 6d5c 3a3b 1g1f 3b3c 2g2f 3c4d 5c5d 7a7b 5h4g 7b6c 5d6e 7c7d 2i3g 3i5g+ 2f2e 5g5f
+
+玉が、と金の横に行こうとする
+position startpos moves 3i4h 3c3d 5g5f 2b7g+ 5i5h 7g7f 5f5e 6c6d 9i9h 6d6e 4g4f 6e6f 2g2f 6f6g+
+
+スライダーから逃げても　ひよこに当たっている？
+position startpos moves 9i9h 3c3d 6i7h 2b7g+ 8i7g 7c7d 1g1f 7d7e 2g2f 7e7f 7g8e 8b7b 2h2g 7f7g+ 1f1e 7g7h 2g1g 7h8h 7i6h 7b7h+ 5i4h 7h6h 4i5h S*5i 4h4i G*4h 3i4h 5i4h+ 4i4h S*5i 4h3i 6h5h 4g4f B*4h 3i2h 4h5g+ 2h2g 5g4f 9g9f G*2h 2g1f 4f3g 8g8f 3g3h 1f2e 3h4g 1g4g 5h5e
+>1:go btime 60000 wtime 42000 binc 1000 winc 1000
+<1:info string My raion 25.
+<1:info string My raion is 1 OUTED.
+<1:info OUTE: KmTori:55笆ｳpk-->25.
+<1:info ss=2e3e in slider attack.
+<1:info ss=2e3d evaluated in slider.
+<1:info 2e3d evaluated => 0 attackers. offence=笆ｳ->34
+<1:info SOLUTED ss=2e3d.
+<1:info ss=2e2d evaluated in slider.
+<1:info 2e2d evaluated => 0 attackers. offence=笆ｳ->24
+<1:info SOLUTED ss=2e2d.
+<1:info ss=2e1d evaluated in slider.
+<1:info 2e1d evaluated => 0 attackers. offence=笆ｳ->14
+<1:info SOLUTED ss=2e1d.
+<1:info ss=2e1f evaluated in slider.
+<1:info 2e1f evaluated => 0 attackers. offence=笆ｳ->16
+<1:info SOLUTED ss=2e1f.
+<1:info ss=2e3f evaluated in slider.
+<1:info 2e3f evaluated => 0 attackers. offence=笆ｳ->36
+<1:info SOLUTED ss=2e3f.
+<1:info 4g4e evaluated => 0 attackers. offence=笆ｳ->25
+<1:info SOLUTED ss=4g4e.
+<1:info 6 solutions.
+<1:info solution:2e2d.
+<1:bestmove 2e2d
+>1:gameover lose
+>1:quit
+
+◆合い駒を打たなかった
+position startpos moves 8g8f 3c3d 5i6h 2b7g+ 6h5h 7g8h 5g5f 8h7i 8f8e 7i6i 5h5g 6i5i 5g6f 5i4i 5f5e 4i3i 6f5f 3i2h 9i9h 2h1i 1g1f 1i2i 5f6f 2i4g 6f7e 4g6i 7e8f 6i7h 8f9e 7h8i 9e9f 8i9h 2g2f 9h9g 9f9g B*7i 9g9h 7i5g+ 9h9g 5g6g 9g9f 6g8e 9f9g 8e4i 9g8g 4i1f 8g9f 1f2f 9f8e 2f3g 8e9e 3g5e 9e9f R*9d 9f8f L*8d 8f7e 5e6d 7e6f 9d9f 6f6g L*6e 6g7g 9f9e 7g7f 3d3e 7f7g 9e7e
+>1:go btime 60000 wtime 55000 binc 1000 winc 1000
+<1:info string My raion 77.
+<1:info string My raion is 1 OUTED.
+<1:info OUTE: KmTori:75笆ｳ繧ｭ-->77.
+<1:info ss=7g7f in slider attack.
+<1:info ss=7g8h evaluated in slider.
+<1:info 7g8h evaluated => 1 attackers. offence=笆ｳ->88
+<1:info ms_atk=84.
+<1:info ss=7g7h in slider attack.
+<1:info ss=7g6g evaluated in slider.
+<1:info 7g6g evaluated => 1 attackers. offence=笆ｳ->67
+<1:info ms_atk=65.
+<1:info ss=7g6h evaluated in slider.
+<1:info 7g6h evaluated => 1 attackers. offence=笆ｳ->68
+<1:info ms_atk=65.
+<1:info ss=7g6f evaluated in slider.
+<1:info 7g6f evaluated => 1 attackers. offence=笆ｳ->66
+<1:info ms_atk=65.
+<1:info ss=7g8f evaluated in slider.
+<1:info 7g8f evaluated => 1 attackers. offence=笆ｳ->86
+<1:info ms_atk=84.
+<1:info ss=7g8g evaluated in slider.
+<1:info 7g8g evaluated => 1 attackers. offence=笆ｳ->87
+<1:info ms_atk=84.
+<1:info 0 solutions.
+<1:bestmove resign
+>1:gameover lose
+>1:quit
+
+◆合い駒で二歩した
+position startpos moves 2h1h 3c3d 4g4f 2b7g+ 1h6h 7g6h 7i6h 6c6d 3i4h 6d6e 4f4e 6e6f 5i5h 6f6g+ 6h6g 6a5b 8h7g 5b6c 6g6f 6c6d 5g5f 6d6e 9g9f 6e6f 9f9e 6f7g 5h5i 7g8g 4i3i B*7g 5i4i 8g7h 6i7h R*5i 4i3h S*4i 3h4g 5i5h+ 4g4f 5h4h 3i4h 7g6h+ B*5g 6h5g 4f3f 5g5h
+>1:go btime 60000 wtime 53000 binc 1000 winc 1000
+<1:info string My raion 36.
+<1:info string My raion is 1 OUTED.
+<1:info OUTE: KmTori:58笆ｳpz-->36.
+<1:info ss=3f4g in slider attack.
+<1:info ss=3f4f evaluated in slider.
+<1:info 3f4f evaluated => 0 attackers. offence=笆ｳ->46
+<1:info SOLUTED ss=3f4f.
+<1:info P*4g evaluated => 0 attackers. offence=笆ｳ->36
+<1:info SOLUTED ss=P*4g.
+<1:info ss=3f2e in slider attack.
+<1:info G*4g evaluated => 0 attackers. offence=笆ｳ->36
+<1:info SOLUTED ss=G*4g.
+<1:info R*4g evaluated => 0 attackers. offence=笆ｳ->36
+<1:info SOLUTED ss=R*4g.
+<1:info ss=3f3e evaluated in slider.
+<1:info 3f3e evaluated => 1 attackers. offence=笆ｳ->35
+<1:info ms_atk=34.
+<1:info 4h5h evaluated => 0 attackers. offence=笆ｳ->36
+<1:info SOLUTED ss=4h5h.
+<1:info ss=3f2f evaluated in slider.
+<1:info 3f2f evaluated => 0 attackers. offence=笆ｳ->26
+<1:info SOLUTED ss=3f2f.
+<1:info 4h4g evaluated => 0 attackers. offence=笆ｳ->36
+<1:info SOLUTED ss=4h4g.
+<1:info 7 solutions.
+<1:info solution:P*4g.
+<1:bestmove P*4g
+>1:gameover lose
+>1:quit
+
+◆反則負け（空き王手）
+>1:position startpos moves 4i4h 8c8d 3g3f 3c3d 5g5f 5a4b 5i4i 8d8e 4i5i 8e8f 5i4i 8f8g+ 4i3h 8g8h 1i1h 8h8i 4h3g 8i7i 3i4h 7i6i 7g7f 2b9i+ 9g9f 8b8h+ 1g1f S*1i
+>1:go btime 430000 wtime 146000 binc 10000 winc 10000
+<1:info string My raion 38.
+<1:info string My raion is not outed.
+<1:info solution:4h3i.
+<1:bestmove 4h3i
+>T:+4839GI
+<T:#ILLEGAL_MOVE
+<T:#LOSE
+>1:gameover lose
+>T:%%GAME floodgate-300-10F *
+
+◆反則負け（桂馬成らず）
+>1:position startpos moves 5g5f 3c3d 1g1f 2b7g+ 6i6h 7g8g 4i3h 5c5d 1i1g 5d5e 5i5h 5e5f 8h6f 8b5b 3h4h 6c6d 5h4i 7c7d 3i3h 7d7e 4i5h 4c4d 5h5i 8c8d 1f1e 7e7f 6f4d 1c1d P*7h 3a2b 6h6i 2b3c 6i6h 4a3b 5i5h 7a6b 4h4i 6d6e 6h6i 6e6f 2h1h 3d3e 4g4f 3e3f 4f4e 2c2d 6i5i 2d2e 1g1f 2e2f 1h1g 6b5c 4i3i 6a6b 5h6h 8a7c 3h4g 7c6e 5i6i 8d8e 3i4i 9c9d 4i5i 9d9e 1g1i 9e9f 6g6f 9f9g+ P*5e 9g9h 6i5h 9h9i 2i1g 9i8i 6h6i 8i8h 1i4i 2a1c 4g3h 5a6a 4d3e 5c4d 2g2f 6a7b P*9h 8g9h 4i1i 9h8g 3e6h 9a9e 1i2i 7b8c 5i4h 8c8d 3g3f 8e8f P*9b 8d8e 1e1d 8e9f P*8c 9f9g 4h4i 9g9h 6f6e 9h9i N*7d 8h8i 2i3i P*9g 3h2g 9g9h+ 3i3g 8g9g
+>1:go btime 60000 wtime 29000 binc 1000 winc 1000
+<1:info string My raion 69.
+<1:info string My raion is not outed.
+<1:info solution:7d8b.
+<1:bestmove 7d8b
+>1:gameover lose
+>1:quit
+
+◆成れない駒が、成れない場所で成った（９段目の▲金）
+>1:position startpos moves 2h3h 8c8d 5i6h 5a4b 4i4h 8d8e 7g7f 8e8f 2g2f 8f8g+ 2f2e 8g8h 6h7g 3c3d 6g6f 8b8g+ 7g6h 2b6f 3h1h 8h7i
+>1:go btime 392000 wtime 200000 binc 10000 winc 10000
+<1:info string My raion 68.
+<1:info string My raion is not outed.
+<1:info solution:6i7i+.
+<1:bestmove 6i7i+
+>T:+6979
+<T:#ILLEGAL_MOVE
+<T:#LOSE
+>1:gameover lose
+>T:%%GAME floodgate-300-10F *
+
+◆千日手判定用
+position startpos moves 5i5h 5a5b 5h5i 5b5a 5i5h 5a5b 5h5i 5b5a 5i5h 5a5b 5h5i 5b5a
+
+◆千日手回避判定用
+position startpos moves 5i5h 5a5b 5h5i 5b5a 5i5h 5a5b 5h5i 5b5a 5i5h 5a5b 5h5i
+
+◆長い利きの奥に逃げなかった
+>1:position startpos moves 7g7f 7a6b 3i4h 5a4b 2g2f 6c6d 2f2e 8b9b 2e2d 6b7a 2d2c+ 6a7b 2c2b 7c7d 2b1a 3c3d 1a2a 5c5d 2h2c+ 7b6b 8h3c+ 4b5c 3c4c
+>1:go btime 172000 wtime 396000 binc 10000 winc 10000
+<1:info string My raion 53.
+<1:info string My raion is 1 OUTED.
+<1:info OUTE: KmTori:43笆ｼPZ-->53.
+<1:info 5c4c evaluated => 1 attackers. offence=笆ｼ->43
+<1:info ms_atk=23.
+<1:info ss=5c4d evaluated in slider.
+<1:info 5c4d evaluated => 1 attackers. offence=笆ｼ->44
+<1:info ms_atk=43.
+<1:info ss=5c5b evaluated in slider.
+<1:info 5c5b evaluated => 1 attackers. offence=笆ｼ->52
+<1:info ms_atk=43.
+<1:info ss=5c4b evaluated in slider.
+<1:info 5c4b evaluated => 1 attackers. offence=笆ｼ->42
+<1:info ms_atk=43.
+<1:info ss=5c6c in slider attack.
+<1:info 0 solutions.
+<1:bestmove resign
+>T:%TORYO
+<T:%TORYO
+<T:#RESIGN
+<T:#LOSE
+>1:gameover lose
+>T:%%GAME floodgate-300-10F *
+
+//◆なんかエラー。ぞうの枚数？ アンドゥで駒の枚数がマイナスに。打った駒を相手に戻してる
+//position startpos moves 4i3h 3c3d 2g2f 2b7g+ 8i7g 7c7d
+
+◆玉が利きに飛び込んだ
+position startpos moves 5i4h 3c3d 7i7h 2b7g+ 8h7i 7g7h 9i9h 7h7i 4h3h 7i6i 3i4h G*7g 4h3i 7g6g 4i5h 6g5h 1i1h G*4i 2g2f B*5i
+>1:go btime 60000 wtime 55000 binc 1000 winc 1000
+<1:info string My raion 38.
+<1:info string My raion is not outed.
+<1:info solution:3h4h.
+<1:bestmove 3h4h
+>1:gameover lose
+>1:quit
+
+◆香車の１段目成らず。6b6aが含まれていなければok。
+position startpos moves 7g7f 3c3d 6i7h 2b8h+ 3i4h 8h7i 6g6f 7i7h 4g4f 7h8i 5i6i 8i9i 9g9f G*6g 4i5i 9i9h 1i1h 9h8g 6i7i 6g7g 2h3h S*9g 5i6h L*6g 1g1f 6g6h+ 7i8i G*8e 3h2h 8e7f 5g5f 7f8f 4h3i 8f9f 1h1g 9f8f 6f6e 8f7f 8i9i 7f6f 5f5e 6f6e 3i4h 6e5e 2h1h 5e4f 4h5i 4f3g 1h5h 3g2g 5h2h 2g1g 5i6h 1g1f L*6f 1f1g 2i1g L*2d G*1f 2d2h+ 6h7g 8g7g 9i8i S*8g G*3f 2h2g 6f6d 2g1g 3f3e 1g1f 3e3f 1f2f 3f3g 2f3g 8i7i G*6g 6d6c 3g3f P*4h 3f4g 7i6i 4g4h 6c6b 6a5b 6i7i G*5g 7i6i 4h4g 6i7i 3d3e
+>1:go btime 60000 wtime 49000 binc 1000 winc 1000
+<1:info string My raion 79.
+<1:info string My raion is not outed.
+<1:info 7i6h evaluated => 3 attackers. offence=笆ｳ->68
+<1:info ms_atk=67.
+<1:info ms_atk=57.
+<1:info ms_atk=77.
+<1:info 7i6i evaluated => 0 attackers. offence=笆ｳ->69
+<1:info SOLUTED ss=7i6i.
+<1:info 7i7h evaluated => 3 attackers. offence=笆ｳ->78
+<1:info ms_atk=87.
+<1:info ms_atk=77.
+<1:info ms_atk=67.
+<1:info 6b6a evaluated => 0 attackers. offence=笆ｳ->79
+<1:info SOLUTED ss=6b6a.
+<1:info 7i8h evaluated => 3 attackers. offence=笆ｳ->88
+<1:info ms_atk=87.
+<1:info ms_atk=77.
+<1:info ms_atk=97.
+<1:info 7i8i evaluated => 0 attackers. offence=笆ｳ->89
+<1:info SOLUTED ss=7i8i.
+<1:info 3 solutions.
+<1:info solution:6b6a.
+<1:bestmove 6b6a
+>1:gameover lose
+>1:quit
+
+◆二歩した？ sasiteコマンドで P*（歩打）が無いことを確認
+position startpos moves 6i5h 3c3d 5i6i 2b7g+ 2h3h 7g8g 6i6h 6c6d 8h7g 6d6e 5h4h 6e6f 7g6f 8b6b
+>1:go btime 60000 wtime 60000 binc 1000 winc 1000
+<1:info string My raion 68.
+<1:info string My raion is not outed.
+<1:info 6f1a evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f1a.
+<1:info 6f8d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f8d.
+<1:info P*3c evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*3c.
+<1:info 6f7e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f7e.
+<1:info P*8h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*8h.
+<1:info P*9f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*9f.
+<1:info 3i2h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=3i2h.
+<1:info 6h5i evaluated => 0 attackers. offence=笆ｳ->59
+<1:info SOLUTED ss=6h5i.
+<1:info 3h1h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=3h1h.
+<1:info P*1f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*1f.
+<1:info P*7d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*7d.
+<1:info P*7h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*7h.
+<1:info 4i5i evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=4i5i.
+<1:info P*4e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*4e.
+<1:info P*3e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*3e.
+<1:info P*5e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*5e.
+<1:info 4i5h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=4i5h.
+<1:info 6f8h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f8h.
+<1:info P*6d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*6d.
+<1:info P*2f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*2f.
+<1:info P*9b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*9b.
+<1:info P*3f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*3f.
+<1:info P*5h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*5h.
+<1:info 6h7h evaluated => 1 attackers. offence=笆ｳ->78
+<1:info ms_atk=87.
+<1:info P*9h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*9h.
+<1:info P*4d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*4d.
+<1:info P*4b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*4b.
+<1:info P*1d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*1d.
+<1:info P*8d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*8d.
+<1:info P*2b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*2b.
+<1:info P*5b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*5b.
+<1:info 7i8h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=7i8h.
+<1:info 6f2b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f2b.
+<1:info P*2h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*2h.
+<1:info 6h6i evaluated => 1 attackers. offence=笆ｳ->69
+<1:info ms_atk=87.
+<1:info 6f4d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f4d.
+<1:info P*7b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*7b.
+<1:info 3h2h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=3h2h.
+<1:info P*6e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*6e.
+<1:info P*1h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*1h.
+<1:info P*5f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*5f.
+<1:info P*7f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*7f.
+<1:info 4h5h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=4h5h.
+<1:info 6h7g evaluated => 1 attackers. offence=笆ｳ->77
+<1:info ms_atk=87.
+<1:info P*7e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*7e.
+<1:info 6f7g evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f7g.
+<1:info 6f9c evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f9c.
+<1:info P*6c evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*6c.
+<1:info P*4f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*4f.
+<1:info P*1e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*1e.
+<1:info 7i7h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=7i7h.
+<1:info P*7g evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*7g.
+<1:info P*3b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*3b.
+<1:info 6h5h evaluated => 0 attackers. offence=笆ｳ->58
+<1:info SOLUTED ss=6h5h.
+<1:info 6f5e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f5e.
+<1:info P*8b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*8b.
+<1:info 6f3c evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6f3c.
+<1:info P*2d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*2d.
+<1:info P*2e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*2e.
+<1:info P*9d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*9d.
+<1:info P*9e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*9e.
+<1:info P*5d evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*5d.
+<1:info P*8e evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*8e.
+<1:info P*8f evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*8f.
+<1:info P*1b evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=P*1b.
+<1:info 62 solutions.
+<1:info solution:P*1f.
+<1:bestmove P*1f
+>1:gameover lose
+>1:quit
+
+◆玉が香の利きに飛び込んだ。香の利きが９段目に届いていない。「成り」を認識してない。
+◆3dのひよこが動かない
+position startpos moves 5i5h 3c3d 3i4h 2b7g+ 8h7g 8b2b B*9b 9a9b 7i8h B*8f 2h3h 8f7g+ 6i6h 7g8h 5h5i 8h9i 4h3i 9i8i 3h4h 8i6g 6h6i 6g5g 3i3h 5g4h 5i6h 4h4i 3h4i R*4h 4i5h G*8h B*3i B*7e 6h6g S*4e 3i2h N*8e 2h3i 2c2d 6i5i 2d2e 5i4h 2e2f R*9i 2f2g+ 9i4i 2g3g 4h3g L*5d P*3c 2b2i+ 3g2g 2i2g 3i5g 2g1g 4i2i 1g1i 2i1i N*6d R*5b 5a5b 1i8i 8h8i 5h6i 8i8h 6i7h 8h8g 5g6h 8g9g 7h8i 9g8h 6h1c R*1i 8i8h 1i1c+ P*2f 1c1f 6g6h 1f2f G*3b 3a3b 6h7i 3b2c 8h9g 8e9g+ 7i8i 2f3g 8i7h 3g4g 7h6i 9g8h
+>1:go btime 60000 wtime 35000 binc 1000 winc 1000
+<1:info string My raion 69.
+<1:info string My raion is not outed.
+<1:info 6i5h evaluated => 2 attackers. offence=笆ｳ->58
+<1:info ms_atk=54.
+<1:info ms_atk=47.
+<1:info 6i5i evaluated => 0 attackers. offence=笆ｳ->59
+<1:info SOLUTED ss=6i5i.
+<1:info 6i6h evaluated => 0 attackers. offence=笆ｳ->68
+<1:info SOLUTED ss=6i6h.
+<1:info 6i7h evaluated => 1 attackers. offence=笆ｳ->78
+<1:info ms_atk=88.
+<1:info 6i7i evaluated => 1 attackers. offence=笆ｳ->79
+<1:info ms_atk=88.
+<1:info 2 solutions.
+<1:info solution:6i5i.
+<1:bestmove 6i5i
+>1:gameover lose
+>1:quit
+
+◆王手されてないのに、王手判定。圭を桂と思っている？
+position startpos moves 3i3h 8b4b 7g7f 4a3b 8i7g 6a7b 7i7h 7b6b 5i4h 7a8b 6i5h 4b4a 6g6f 3a4b 7h6g 6b7b 6f6e 3b3a 4h3i 5a6a 4g4f 6a7a 5h4g 7a6b 2g2f 8b7a 2h2g 4b5a 3i2h 5a5b 6g6f 6b5a 6f5e 7b8b 6e6d 5b6a 6d6c+ 3a4b 5e6d 8b9b 7g6e 4b5b 6c5b 5a5b G*3b 6a7b 6e5c+ 5b6a 3b4a
+>1:go btime 500000 wtime 540000 binc 10000 winc 10000
+<1:info string My raion 61.
+<1:info string My raion is 1 OUTED.
+<1:info OUTE: KmTori:53笆ｼPU->61.
+<1:info 6a5b evaluated => 1 attackers. offence=笆ｼ->52
+<1:info ms_atk=53.
+<1:info 6a5a evaluated => 1 attackers. offence=笆ｼ->51
+<1:info ms_atk=41.
+<1:info 6a6b evaluated => 1 attackers. offence=笆ｼ->62
+<1:info ms_atk=53.
+<1:info 0 solutions.
+<1:bestmove resign
+>T:%TORYO
+<T:%TORYO
+<T:#RESIGN
+<T:#LOSE
+>1:gameover lose
+>T:%%GAME floodgate-300-10F *
+
+◆成りテスト用局面
+position startpos moves 9i9h 3c3d 4i3h 2b7g+ 8h7g 3d3e 9g9f 3e3f 9h9g 3f3g+ 7i6h 3g2h 3i2h R*3i B*4i 3i2i+ 6h7i 2i1i P*7e 1i2h 1g1f 2h3h 4i3h L*7f 9f9e 7f7g+ 6i7h 7g8g 4g4f 8g9g 5i4i 8b3b 8i9g 3b3f L*8b 3f4f 3h4g 4f4g+ 4i3i 4g5g R*9b 5g6g 2g2f 6g7h 9b9a 7h7i 3i3h 7i9i 1f1e 9i9g L*4d 9g9e 4d4c 9e7e P*7b 7e1e
+
