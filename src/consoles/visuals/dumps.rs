@@ -1,12 +1,12 @@
 #![allow(dead_code)]
-/**
- * コレクションの内容をダンプ（全部見る）とかだぜ☆（＾～＾）
- */
-use teigi::conv::*;
-use teigi::shogi_syugo::*;
+//!
+//! コレクションの内容をダンプ（全部見る）とかだぜ☆（＾～＾）
+//!
+use super::super::super::jotai::uchu::*;
+use super::super::super::teigi::conv::*;
+use super::super::super::teigi::shogi_syugo::*;
+use super::super::super::tusin::usi::*;
 use std::collections::HashSet;
-use tusin::usi::*;
-use jotai::uchu::*;
 
 /******
  * 升 *
@@ -15,13 +15,12 @@ use jotai::uchu::*;
 /**
  * 升を表示
  */
-pub fn hyoji_ms_hashset(ms_hashset:&HashSet<umasu>){
-    g_writeln(&format!( "ms_hashset.len()={}", ms_hashset.len()));
-    
+pub fn hyoji_ms_hashset(ms_hashset: &HashSet<umasu>) {
+    g_writeln(&format!("ms_hashset.len()={}", ms_hashset.len()));
     for ms in ms_hashset {
         match *ms {
             MASU_0 => break,
-            _ =>g_writeln(&format!( "ms({})", ms))
+            _ => g_writeln(&format!("ms({})", ms)),
         }
     }
 }
@@ -29,13 +28,12 @@ pub fn hyoji_ms_hashset(ms_hashset:&HashSet<umasu>){
 /**
  * 升を表示
  */
-pub fn hyoji_ms_vec(ms_vec:&Vec<umasu>){
-    g_writeln(&format!( "ms_vec.len()={}", ms_vec.len()));
-    
+pub fn hyoji_ms_vec(ms_vec: &Vec<umasu>) {
+    g_writeln(&format!("ms_vec.len()={}", ms_vec.len()));
     for ms in ms_vec {
         match *ms {
             MASU_0 => break,
-            _ =>g_writeln(&format!( "ms({})", ms))
+            _ => g_writeln(&format!("ms({})", ms)),
         }
     }
 }
@@ -43,33 +41,31 @@ pub fn hyoji_ms_vec(ms_vec:&Vec<umasu>){
 /**********
  * 駒種類 *
  **********/
-pub fn hyoji_kms_hashset( num_kms_hashset:&HashSet<usize> ){
-    g_writeln(&format!( "num_kms_hashset.len()={}", num_kms_hashset.len()));
-    
+pub fn hyoji_kms_hashset(num_kms_hashset: &HashSet<usize>) {
+    g_writeln(&format!("num_kms_hashset.len()={}", num_kms_hashset.len()));
     for num_kms in num_kms_hashset {
-        g_writeln(&format!( "kms({})", num_to_kms( *num_kms ) ));
+        g_writeln(&format!("kms({})", num_to_kms(*num_kms)));
     }
 }
 
 /**********
  * 指し手 *
  **********/
-pub fn hyoji_ss_hashset( ss_hashset:&HashSet<u64> ){
-    g_writeln(&format!( "ss_hashset.len()={}", ss_hashset.len()));
-    
+pub fn hyoji_ss_hashset(ss_hashset: &HashSet<u64>) {
+    g_writeln(&format!("ss_hashset.len()={}", ss_hashset.len()));
     // 辞書順ソート
     let mut vec_ss_str = Vec::new();
     for ss_hash in ss_hashset {
-        let ss = Sasite::from_hash( *ss_hash );
-        let ss_str = format!( "{}", ss );
-        vec_ss_str.push( ss_str );
+        let ss = Sasite::from_hash(*ss_hash);
+        let ss_str = format!("{}", ss);
+        vec_ss_str.push(ss_str);
     }
     //vec_ss_str.sort();
     vec_ss_str.sort_by(|a_str, b_str| {
-        let a_arr : Vec<_> = a_str.chars().collect();
-        let b_arr : Vec<_> = b_str.chars().collect();
+        let a_arr: Vec<_> = a_str.chars().collect();
+        let b_arr: Vec<_> = b_str.chars().collect();
         use std::cmp::min;
-        let len = min( a_arr.len(), b_arr.len() );
+        let len = min(a_arr.len(), b_arr.len());
 
         use std::cmp::Ordering;
         for i in 0..len {
@@ -97,8 +93,7 @@ pub fn hyoji_ss_hashset( ss_hashset:&HashSet<u64> ){
 
     let mut i = 0;
     for ss_str in vec_ss_str {
-        g_writeln(&format!( "[{}] {}", i, ss_str ));
+        g_writeln(&format!("[{}] {}", i, ss_str));
         i += 1;
     }
 }
-

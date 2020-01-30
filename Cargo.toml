@@ -2,6 +2,7 @@
 name = "kifuwarabe_shogi2018"
 version = "0.1.0"
 authors = ["muzudho <muzudho1@gmail.com>"]
+edition = "2018"
 
 [dependencies]
 

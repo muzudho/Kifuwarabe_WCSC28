@@ -16,16 +16,16 @@ extern crate lazy_static;
  */
 // use したい モジュールは、最初に読み取られる　この main.rs ファイルに並べる
 
-mod config;
-mod consoles;
-mod jotai;
-mod kasetu;
-mod meidai;
-mod siko;
-mod syazo;
-mod teigi;
-//mod teiri;
-mod tusin;
+pub mod config;
+pub mod consoles;
+pub mod jotai;
+pub mod kasetu;
+pub mod meidai;
+pub mod siko;
+pub mod syazo;
+pub mod teigi;
+//pub mod teiri;
+pub mod tusin;
 
 use std::collections::HashSet;
 use std::io;

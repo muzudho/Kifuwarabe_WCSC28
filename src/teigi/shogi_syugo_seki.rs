@@ -1,17 +1,17 @@
 #![allow(dead_code)]
-/**
- * 積☆（＾～＾）　要するに組み合わせ
- */
+//!
+//! 積☆（＾～＾）　要するに組み合わせ
+//!
 
-use teigi::shogi_syugo::*;
+use super::super::teigi::shogi_syugo::*;
 
 /************
  * 升 × 駒 *
  ************/
 
 pub struct MsKm {
-    ms : umasu,
-    km : Koma,
+    ms: umasu,
+    km: Koma,
 }
 
 /****************
@@ -19,6 +19,6 @@ pub struct MsKm {
  ****************/
 
 pub struct MsKms {
-    ms : umasu,
+    ms: umasu,
     kms: KmSyurui,
 }
