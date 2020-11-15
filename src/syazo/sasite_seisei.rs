@@ -10,14 +10,14 @@ use super::super::teigi::shogi_syugo::*;
 use super::super::tusin::usi::*;
 use std::collections::HashSet;
 
-/**
- * 現局面の、任意の移動先升の、
- * - 盤上の駒の移動
- * - 打
- * の指し手を生成。
- *
- * 王手回避漏れや、千日手などのチェックは行っていない
- */
+///
+/// 現局面の、任意の移動先升の、
+/// - 盤上の駒の移動
+/// - 打
+/// の指し手を生成。
+///
+/// 王手回避漏れや、千日手などのチェックは行っていない
+///
 pub fn insert_potential_move(uchu: &Uchu, ss_hashset: &mut HashSet<u64>) {
     // +----------------+
     // | 盤上の駒の移動 |
@@ -122,12 +122,12 @@ pub fn insert_potential_move(uchu: &Uchu, ss_hashset: &mut HashSet<u64>) {
     } //dan
 }
 
-/**
- * 1. 移動先升指定  ms_dst
- * 2. 移動先駒指定  km_dst
- *
- * 盤上の駒の移動の最初の１つ。打を除く
- */
+///
+/// 1. 移動先升指定  ms_dst
+/// 2. 移動先駒指定  km_dst
+///
+/// 盤上の駒の移動の最初の１つ。打を除く
+///
 pub fn insert_ss_by_ms_km_on_banjo(
     uchu: &Uchu,
     ms_dst: umasu,
@@ -181,12 +181,12 @@ pub fn insert_ss_by_ms_km_on_banjo(
         ss_hashset.insert(ss_hash_builder.to_hash());
     }
 }
-/**
- * 打
-*
- * 1. 移動先升指定  ms_dst
- * 2. 移動先駒指定  km_dst
- */
+///
+/// 打
+///
+/// 1. 移動先升指定  ms_dst
+/// 2. 移動先駒指定  km_dst
+///
 pub fn insert_ss_by_ms_km_on_da(
     uchu: &Uchu,
     ms_dst: umasu,

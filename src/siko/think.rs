@@ -14,9 +14,9 @@ use super::super::syazo::sasite_seisei::*;
 use super::super::syazo::sasite_sentaku::*;
 use super::super::tusin::usi::*;
 
-/**
- * 現局面での最善手を返すぜ☆（*＾～＾*）
- */
+///
+/// 現局面での最善手を返すぜ☆（*＾～＾*）
+///
 pub fn think(mut uchu: &mut Uchu) -> Sasite {
     // TODO 王手放置漏れ回避　を最優先させたいぜ☆（＾～＾）
 

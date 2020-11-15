@@ -32,9 +32,9 @@ pub fn choice_1ss_by_hashset(ss_hashset: &HashSet<u64>) -> Sasite {
     Sasite::from_hash(ss_choice_hash)
 }
 
-/**
- * 王が取られる局面を除く手を選ぶぜ☆（＾～＾）
- */
+///
+/// 王が取られる局面を除く手を選ぶぜ☆（＾～＾）
+///
 pub fn filtering_ss_except_oute(ss_hashset_input: &mut HashSet<u64>, uchu: &mut Uchu) {
     // 自玉の位置
     let ms_r = uchu.get_ms_r(&Jiai::Ji);
@@ -94,10 +94,10 @@ pub fn filtering_ss_except_oute(ss_hashset_input: &mut HashSet<u64>, uchu: &mut 
     }
 }
 
-/**
- * 王手されていれば、王手を解除しろだぜ☆（＾～＾）
- * 千日手には喜んで飛び込めだぜ☆（＾▽＾）ｗｗｗ
- */
+///
+/// 王手されていれば、王手を解除しろだぜ☆（＾～＾）
+/// 千日手には喜んで飛び込めだぜ☆（＾▽＾）ｗｗｗ
+///
 pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: &mut Uchu) {
     // 残すのはここに退避する☆（＾～＾）
     let mut ss_hashset_pickup: HashSet<u64> = HashSet::new();
@@ -178,11 +178,11 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
     }
 }
 
-/**
- * 千日手の指し手を取り除いた集合を作るぜ☆（＾～＾）
- *
- * ただし、千日手を取り除くと手がない場合は、千日手を選ぶぜ☆（＾～＾）
- */
+///
+/// 千日手の指し手を取り除いた集合を作るぜ☆（＾～＾）
+///
+/// ただし、千日手を取り除くと手がない場合は、千日手を選ぶぜ☆（＾～＾）
+///
 pub fn filtering_ss_except_sennitite(ss_hashset_input: &mut HashSet<u64>, uchu: &mut Uchu) {
     let mut ss_hashset_pickup = HashSet::new();
 

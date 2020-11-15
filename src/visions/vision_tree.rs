@@ -8,10 +8,10 @@ use teigi::conv::*;
 use teigi::shogi_syugo::*;
 use tusin::usi::*;
 
-/**
- * 狙いは、この木にぶら下げていくぜ☆（*＾～＾*）
- * 思考で、内容はどんどん変わっていくぜ☆（＾～＾）
- */
+///
+/// 狙いは、この木にぶら下げていくぜ☆（*＾～＾*）
+/// 思考で、内容はどんどん変わっていくぜ☆（＾～＾）
+///
 pub struct VisionTree {
     // 相手玉の位置
     pub ms_ai_r: umasu,
@@ -33,9 +33,9 @@ impl VisionTree {
     }
 }
 
-/**
- * 楽観筋
- */
+///
+/// 楽観筋
+///
 pub fn insert_rakkansuji(uchu: &mut Uchu) {
     for sn in SN_ARRAY.iter() {
         let ai_sn = hanten_sn(sn);

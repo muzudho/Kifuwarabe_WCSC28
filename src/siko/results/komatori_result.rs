@@ -14,9 +14,9 @@ use super::super::super::teigi::geometries::geo_teigi::*;
 use super::super::super::teigi::shogi_syugo::*;
 use super::super::super::tusin::usi::*;
 
-/********************
- * 駒取り結果の結果 *
- ********************/
+///
+/// 駒取り結果の結果
+///
 pub enum KomatoriResultResult {
     // 駒は取られる
     Done,
@@ -31,9 +31,9 @@ pub enum KomatoriResultResult {
     Owari,
 }
 
-/**
- * 結果：駒取り
- */
+///
+/// 結果：駒取り
+///
 pub struct KomatoriResult {
     // 要因：王手をしてきている駒（１つ）
     km_attacker: Koma,
@@ -157,14 +157,14 @@ impl KomatoriResult {
     }
 }
 
-/**
- * 王手という原因を作っている関係を、（確率的洗いざらい）調べるぜ☆（＾～＾）
- *
- * sn        : 駒を「動かす」方はどっちだぜ☆（＾～＾）
- * ms_target : 取りたい駒がいる升
- *
- * return u64 : KomatoriResult のハッシュ
- */
+///
+/// 王手という原因を作っている関係を、（確率的洗いざらい）調べるぜ☆（＾～＾）
+///
+/// sn        : 駒を「動かす」方はどっちだぜ☆（＾～＾）
+/// ms_target : 取りたい駒がいる升
+///
+/// return u64 : KomatoriResult のハッシュ
+///
 pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Sengo, ms_target: umasu) -> HashSet<u64> {
     assert_banjo_ms(
         ms_target,

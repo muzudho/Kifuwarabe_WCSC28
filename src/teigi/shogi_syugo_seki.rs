@@ -5,19 +5,13 @@
 
 use super::super::teigi::shogi_syugo::*;
 
-/************
- * 升 × 駒 *
- ************/
-
+/// 升 × 駒
 pub struct MsKm {
     ms: umasu,
     km: Koma,
 }
 
-/****************
- * 升 × 駒種類 *
- ****************/
-
+/// 升 × 駒種類
 pub struct MsKms {
     ms: umasu,
     kms: KmSyurui,

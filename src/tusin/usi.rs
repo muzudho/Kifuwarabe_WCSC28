@@ -8,11 +8,11 @@ use super::super::teigi::conv::*;
 use super::super::teigi::shogi_syugo::*;
 use std::fmt;
 
-/**
- * 指し手
- * 棋譜にも使うので、取った駒の情報を記憶しておくんだぜ☆（＾～＾）
- * しかし、なんで英語が並んでるんだぜ☆（＾～＾）
- */
+///
+/// 指し手
+/// 棋譜にも使うので、取った駒の情報を記憶しておくんだぜ☆（＾～＾）
+/// しかし、なんで英語が並んでるんだぜ☆（＾～＾）
+///
 #[derive(Copy, Clone)]
 pub struct Sasite {
     // 移動元升。打った場合は 0。
@@ -62,9 +62,9 @@ impl Sasite {
         }
     }
 
-    /**
-     * 考えた結果、指し手が考え付いていれば真。
-     */
+    ///
+    /// 考えた結果、指し手が考え付いていれば真。
+    ///
     pub fn exists(&self) -> bool {
         self.dst != MASU_0
     }
@@ -146,13 +146,13 @@ impl fmt::Debug for Sasite {
     }
 }
 
-/**
- * 指し手読取
- * 例: 7g7f
- *
- * 読み取った指し手は、棋譜に入れる。
- * 現在の手目のところに入れ、手目のカウントアップも行う。
- */
+///
+/// 指し手読取
+/// 例: 7g7f
+///
+/// 読み取った指し手は、棋譜に入れる。
+/// 現在の手目のところに入れ、手目のカウントアップも行う。
+///
 pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) -> bool {
     // 4文字か5文字あるはず。
     if (len - *starts) < 4 {
@@ -403,9 +403,9 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
     true
 }
 
-/**
- * position コマンド 盤上部分のみ 読取
- */
+///
+/// position コマンド 盤上部分のみ 読取
+///
 pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
     // 盤部
     let mut suji = SUJI_9; //９筋から右方向へ読取
@@ -643,9 +643,9 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
     uchu.set_ky0_hash(ky_hash);
 }
 
-/**
- * position コマンド読取
- */
+///
+/// position コマンド読取
+///
 pub fn read_position(line: &String, uchu: &mut Uchu) {
     let mut starts = 0;
 

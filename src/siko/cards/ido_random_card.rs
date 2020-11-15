@@ -14,11 +14,11 @@ use super::super::super::teigi::shogi_syugo::*;
 use super::super::super::tusin::usi::*;
 use std::collections::HashSet;
 
-/**
- * ランダム移動
- *
- * km_dst : 移動した先の駒
- */
+///
+/// ランダム移動
+///
+/// km_dst : 移動した先の駒
+///
 pub fn get_ido_ss_by_km_random(uchu: &Uchu, km_dst: &Koma) -> Sasite {
     let mut ss_hashset = HashSet::new();
 
@@ -41,9 +41,9 @@ pub fn get_ido_ss_by_km_random(uchu: &Uchu, km_dst: &Koma) -> Sasite {
     Sasite::new()
 }
 
-/**
- * 指し手１つをランダム選出
- */
+///
+/// 指し手１つをランダム選出
+///
 pub fn get_ss_by_random(uchu: &Uchu) -> Sasite {
     let mut ss_hashset = HashSet::new();
 

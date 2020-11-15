@@ -8,19 +8,19 @@ use super::super::teigi::conv::*;
 use super::super::teigi::shogi_syugo::*;
 use std::collections::HashSet;
 
-/**
- * 成る前を含めない、移動元升生成
- *
- * 1. 移動先を指定          ms_dst
- * 2. 移動先にある駒を指定  km_dst
- *
- * その願いが叶う移動元の一覧を返す。
- * 最大２０升。合法手生成の逆の動き☆（＾～＾）
- *
- * 「成る前」を調べるのは別関数でやるぜ☆（＾～＾）
- *
- * TODO 先手１段目の香車とか、必ず成らないといけないぜ☆（＾～＾）
- */
+///
+/// 成る前を含めない、移動元升生成
+///
+/// 1. 移動先を指定          ms_dst
+/// 2. 移動先にある駒を指定  km_dst
+///
+/// その願いが叶う移動元の一覧を返す。
+/// 最大２０升。合法手生成の逆の動き☆（＾～＾）
+///
+/// 「成る前」を調べるのは別関数でやるぜ☆（＾～＾）
+///
+/// TODO 先手１段目の香車とか、必ず成らないといけないぜ☆（＾～＾）
+///
 pub fn insert_narazu_src_by_ms_km(
     ms_dst: umasu,
     km_dst: &Koma,
@@ -324,14 +324,14 @@ pub fn insert_narazu_src_by_ms_km(
         }
     }
 }
-/**
- * 成る前の移動元升生成
- *
- * 1. 移動先の升        ms_dst
- * 2. 移動先にある駒    km_dst
- *
- * 成り　の動きでその結果になるような、元の升を返す☆（＾～＾）
- */
+///
+/// 成る前の移動元升生成
+///
+/// 1. 移動先の升        ms_dst
+/// 2. 移動先にある駒    km_dst
+///
+/// 成り　の動きでその結果になるような、元の升を返す☆（＾～＾）
+///
 pub fn insert_narumae_src_by_ms_km(
     ms_dst: umasu,
     km_dst: &Koma,
@@ -632,14 +632,14 @@ pub fn insert_narumae_src_by_ms_km(
         }
     }
 }
-/**
- * 打の駒種類生成
- *
- * 1. 移動先の升    ms_dst
- * 2. 移動先の駒    km_dst  ※先後が要るので、kmsではなくkm。
- *
- * そこに打てる駒種類を返す。
- */
+///
+/// 打の駒種類生成
+///
+/// 1. 移動先の升    ms_dst
+/// 2. 移動先の駒    km_dst  ※先後が要るので、kmsではなくkm。
+///
+/// そこに打てる駒種類を返す。
+///
 pub fn insert_da_kms_by_ms_km(
     ms_dst: umasu,
     km_dst: &Koma,
@@ -733,19 +733,19 @@ pub fn insert_da_kms_by_ms_km(
     }
     result_kms.insert(kms_to_num(&kms_dst));
 }
-/**
- * 移動先升生成
- *
- * 1. 移動元升
- * 2. 移動したい駒
- *
- * 駒の移動先を取得。合法手生成の動き☆（＾～＾）
- *
- * km_src   : 移動元の駒
- * ms_src   : 移動元の升
- * to_nari  : 成りの手を生成するなら真
- * ky       : 現局面
- */
+///
+/// 移動先升生成
+///
+/// 1. 移動元升
+/// 2. 移動したい駒
+///
+/// 駒の移動先を取得。合法手生成の動き☆（＾～＾）
+///
+/// km_src   : 移動元の駒
+/// ms_src   : 移動元の升
+/// to_nari  : 成りの手を生成するなら真
+/// ky       : 現局面
+///
 pub fn insert_dst_by_ms_km(
     ms_src: umasu,
     km_src: &Koma,
@@ -1190,15 +1190,15 @@ pub fn insert_dst_by_ms_km(
         }
     }
 }
-/**
- * 移動元升生成
- *
- * 1. 手番の先後    sn
- * 2. 移動先升      ms_dst
- *
- * その升に到達できる駒が居る升を取得☆（＾～＾）
- * TODO 成りの動きも考えたい。升だけではなく、成りの有無☆（＾～＾）
- */
+///
+/// 移動元升生成
+///
+/// 1. 手番の先後    sn
+/// 2. 移動先升      ms_dst
+///
+/// その升に到達できる駒が居る升を取得☆（＾～＾）
+/// TODO 成りの動きも考えたい。升だけではなく、成りの有無☆（＾～＾）
+///
 pub fn insert_narazu_src_by_sn_ms(
     sn: &Sengo,
     ms_dst: umasu,
@@ -1552,9 +1552,9 @@ pub fn insert_narazu_src_by_sn_ms(
         }
     }
 }
-/**
- * 移動元升生成（成る前）
- */
+///
+/// 移動元升生成（成る前）
+///
 pub fn insert_narumae_src_by_sn_ms(
     sn: &Sengo,
     ms_dst: umasu,

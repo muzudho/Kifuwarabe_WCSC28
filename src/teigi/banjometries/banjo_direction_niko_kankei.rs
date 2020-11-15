@@ -8,12 +8,12 @@ use super::super::super::teigi::geometries::geo_direction_niko_kankei::*;
 use super::super::super::teigi::geometries::geo_teigi::*;
 use super::super::super::teigi::shogi_syugo::*;
 
-/**
- * 狙われている駒から見た、長い利きの駒の居る方向（８方向）
- *
- * 盤の方向は、後手から見た視点
- * 引数には、同じ升を指定しないものとする
- */
+///
+/// 狙われている駒から見た、長い利きの駒の居る方向（８方向）
+///
+/// 盤の方向は、後手から見た視点
+/// 引数には、同じ升を指定しないものとする
+///
 pub fn get_dir8_to_slider_from_target(
     ms_slider: umasu,
     km_slider: &Koma,

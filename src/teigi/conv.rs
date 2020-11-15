@@ -2,27 +2,26 @@
 //!
 //! 変換
 //!
+//! * 論理値
+//!
 
 use super::super::consoles::asserts::*;
 use super::super::teigi::geometries::geo_teigi::*;
 use super::super::teigi::shogi_syugo::*;
 
-/**********
- * 論理値 *
- **********/
-/**
- * false => 0
- * true => 1
- *
- * bool は i32 だが、_to_num 系は usize を返すように合わせるぜ☆（*＾～＾*）
- */
+///
+/// false => 0
+/// true => 1
+///
+/// bool は i32 だが、_to_num 系は usize を返すように合わせるぜ☆（*＾～＾*）
+///
 #[allow(dead_code)]
 pub fn bool_to_num(b: bool) -> usize {
     b as usize
 }
-/**
- * 0 なら偽、それ以外は真☆（＾～＾）
- */
+///
+/// 0 なら偽、それ以外は真☆（＾～＾）
+///
 #[allow(dead_code)]
 pub fn num_to_bool(n: usize) -> bool {
     match n {
@@ -30,30 +29,26 @@ pub fn num_to_bool(n: usize) -> bool {
         _ => true,
     }
 }
-/**
- * ハッシュ値を作る
- */
+///
+/// ハッシュ値を作る
+///
 #[allow(dead_code)]
 pub fn push_bool_to_hash(hash: u64, b: bool) -> u64 {
     // bool は i32 だが、hash は u64 なので u64 に合わせるぜ☆（*＾～＾*）
     (hash << 7) + b as u64
 }
-/**
- * ハッシュ値から作る
- */
+///
+/// ハッシュ値から作る
+///
 #[allow(dead_code)]
 pub fn pop_bool_from_hash(hash: u64) -> (u64, bool) {
     let b_num = num_to_bool((hash & 0b1) as usize);
     (hash >> 7, b_num)
 }
 
-/*********
- * 4角度 *
- *********/
-
-/*********
- * 8方向 *
- *********/
+///
+/// 8方向
+///
 #[allow(dead_code)]
 pub fn dir8_to_num(dir: &Dir8) -> usize {
     use super::super::teigi::shogi_syugo::Dir8::*;
@@ -84,17 +79,17 @@ pub fn num_to_dir8(n: usize) -> Dir8 {
         _ => Owari,
     }
 }
-/**
- * ハッシュ値を作る
- */
+///
+/// ハッシュ値を作る
+///
 #[allow(dead_code)]
 pub fn push_dir8_to_hash(hash: u64, dir: &Dir8) -> u64 {
     // エラー値含めて 9bit あるので 2^5
     (hash << 5) + dir8_to_num(dir) as u64
 }
-/**
- * ハッシュ値から作る
- */
+///
+/// ハッシュ値から作る
+///
 #[allow(dead_code)]
 pub fn pop_dir8_from_hash(hash: u64) -> (u64, Dir8) {
     // エラー値含めて 9bit あるので 2^5
@@ -102,9 +97,9 @@ pub fn pop_dir8_from_hash(hash: u64) -> (u64, Dir8) {
     (hash >> 5, dir)
 }
 
-/********
- * 先後 *
- ********/
+///
+/// 先後
+///
 pub fn sn_to_num(sn: &Sengo) -> usize {
     use super::super::teigi::shogi_syugo::Sengo::*;
     match *sn {
@@ -122,9 +117,9 @@ pub fn hanten_sn(sn: &Sengo) -> Sengo {
     }
 }
 
-/************
- * 自分相手 *
- ************/
+///
+/// 自分相手
+///
 pub fn jiai_to_num(jiai: &Jiai) -> usize {
     use super::super::teigi::shogi_syugo::Jiai::*;
     match *jiai {
@@ -142,19 +137,14 @@ pub fn hanten_jiai(jiai: &Jiai) -> Jiai {
     }
 }
 
-/******************
- * 盤、升、筋、段 *
- ******************/
-
-/**
- * umasu は 将棋盤座標
- *
- * 91 81 71 ...
- * 92 82 72
- * 93 83 73
- * ...
- */
-
+///
+/// umasu は 将棋盤座標
+///
+/// 91 81 71 ...
+/// 92 82 72
+/// 93 83 73
+/// ...
+///
 pub fn ms_to_suji_dan(ms: umasu) -> (i8, i8) {
     assert_banjo_ms(ms, "(203)Ｍs_to_suji_dan");
     ((ms / 10) as i8, (ms % 10) as i8)
@@ -184,17 +174,17 @@ pub fn p_to_ms(p: &Point) -> umasu {
 
     (p.x * 10 + p.y) as umasu
 }
-/**
- * ハッシュ値を作る
- */
+///
+/// ハッシュ値を作る
+///
 pub fn push_ms_to_hash(hash: u64, ms: umasu) -> u64 {
     // 0筋とか 0段とか 使ってないが、そのまま足す。
     // 0～100の101升と、ちょいなんで、128(=2^7) あれば十分
     (hash << 7) + ms as u64
 }
-/**
- * ハッシュ値から作る
- */
+///
+/// ハッシュ値から作る
+///
 pub fn pop_ms_from_hash(hash: u64) -> (u64, umasu) {
     // 0筋とか 0段とか 使ってないが、そのまま足す。
     // 0～100の101升と、ちょいなんで、128(=2^7) あれば十分
@@ -202,9 +192,9 @@ pub fn pop_ms_from_hash(hash: u64) -> (u64, umasu) {
     (hash >> 7, ms_num)
 }
 
-/**
- * 指し手のために、段をアルファベットにすることを想定
- */
+///
+/// 指し手のために、段をアルファベットにすることを想定
+///
 pub fn num_to_lower_case(num: i8) -> &'static str {
     match num {
         1 => "a",
@@ -219,9 +209,9 @@ pub fn num_to_lower_case(num: i8) -> &'static str {
         _ => "?", // 返却型が &'static str なので、エラー値を動的に作れない
     }
 }
-/****************************************************
- * 先手であれば、後手のように番号を振った座標に変換 *
- ****************************************************/
+///
+/// 先手であれば、後手のように番号を振った座標に変換
+///
 pub fn kaiten180_ms_by_ms_sn(ms: umasu, sn: &Sengo) -> umasu {
     use super::super::teigi::shogi_syugo::Sengo::*;
     match *sn {
@@ -230,13 +220,9 @@ pub fn kaiten180_ms_by_ms_sn(ms: umasu, sn: &Sengo) -> umasu {
     }
 }
 
-/**************
- * 先後付き駒 *
- **************/
-
-/**
- * 先後付き駒の数値化
- */
+///
+/// 先後付き駒の数値化
+///
 pub fn km_to_num(km: &Koma) -> usize {
     use super::super::teigi::shogi_syugo::Koma::*;
     match *km {
@@ -307,24 +293,24 @@ pub fn num_to_km(km_num: usize) -> Koma {
         _ => Owari,
     }
 }
-/**
- * ハッシュ値を作る
- */
+///
+/// ハッシュ値を作る
+///
 pub fn push_km_to_hash(hash: u64, km: &Koma) -> u64 {
     // 使ってるのは30駒番号ぐらいなんで、32(=2^5) あれば十分
     (hash << 5) + km_to_num(km) as u64
 }
-/**
- * ハッシュ値から作る
- */
+///
+/// ハッシュ値から作る
+///
 pub fn pop_km_from_hash(hash: u64) -> (u64, Koma) {
     // 使ってるのは30駒番号ぐらいなんで、32(=2^5) あれば十分
     let km_num = num_to_km((hash & 0b11111) as usize);
     (hash >> 5, km_num)
 }
-/**
- * 駒→成駒　（成れない駒は、そのまま）
- */
+///
+/// 駒→成駒　（成れない駒は、そのまま）
+///
 pub fn km_to_prokm(km: &Koma) -> Koma {
     use super::super::teigi::shogi_syugo::Koma::*;
     match *km {
@@ -360,9 +346,9 @@ pub fn km_to_prokm(km: &Koma) -> Koma {
         Owari => Owari,
     }
 }
-/**
- * 成駒→駒
- */
+///
+/// 成駒→駒
+///
 pub fn prokm_to_km(km: &Koma) -> Koma {
     use super::super::teigi::shogi_syugo::Koma::*;
     match *km {
@@ -398,15 +384,15 @@ pub fn prokm_to_km(km: &Koma) -> Koma {
         Owari => Owari,
     }
 }
-/**
- * 駒→長い利きの有無
- */
+///
+/// 駒→長い利きの有無
+///
 pub fn km_is_nagaikiki(km: &Koma) -> bool {
     kms_is_nagaikiki(&km_to_kms(km))
 }
-/**
- * 先後付き駒→駒種類
- */
+///
+/// 先後付き駒→駒種類
+///
 pub fn km_to_sn_kms(km: &Koma) -> (Sengo, KmSyurui) {
     // use super::super::teigi::shogi_syugo::KmSyurui;
     use super::super::teigi::shogi_syugo::KmSyurui::*;
@@ -446,9 +432,9 @@ pub fn km_to_sn_kms(km: &Koma) -> (Sengo, KmSyurui) {
         Koma::Owari => (Sengo::Owari, KmSyurui::Owari),
     }
 }
-/**
- * 先後付き駒　を　先後　へ変換。
- */
+///
+/// 先後付き駒　を　先後　へ変換。
+///
 #[allow(dead_code)]
 pub fn km_to_sn(km: &Koma) -> Sengo {
     use super::super::teigi::shogi_syugo::Koma::*;
@@ -486,9 +472,9 @@ pub fn km_to_sn(km: &Koma) -> Sengo {
         Koma::Owari => Sengo::Owari,
     }
 }
-/**
- * 先後付き駒→駒種類
- */
+///
+/// 先後付き駒→駒種類
+///
 pub fn km_to_kms(km: &Koma) -> KmSyurui {
     // use super::super::teigi::shogi_syugo::KmSyurui;
     use super::super::teigi::shogi_syugo::KmSyurui::*;
@@ -527,10 +513,10 @@ pub fn km_to_kms(km: &Koma) -> KmSyurui {
         Koma::Owari => KmSyurui::Owari,
     }
 }
-/**
- * 先後付き駒　を　持ち駒種類　へ変換。
- * 持ち駒にするので、先後は反転するぜ☆（＾～＾）
- */
+///
+/// 先後付き駒　を　持ち駒種類　へ変換。
+/// 持ち駒にするので、先後は反転するぜ☆（＾～＾）
+///
 pub fn km_to_mg(km_cap: Koma) -> Koma {
     use super::super::teigi::shogi_syugo::Koma::*;
     match km_cap {
@@ -567,13 +553,9 @@ pub fn km_to_mg(km_cap: Koma) -> Koma {
     }
 }
 
-/**********
- * 駒種類 *
- **********/
-
-/**
- * 駒種類の数値化
- */
+///
+/// 駒種類の数値化
+///
 pub fn kms_to_num(kms: &KmSyurui) -> usize {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     match *kms {
@@ -595,9 +577,9 @@ pub fn kms_to_num(kms: &KmSyurui) -> usize {
         Owari => 15,
     }
 }
-/**
- * 数値の駒種類化
- */
+///
+/// 数値の駒種類化
+///
 pub fn num_to_kms(n: usize) -> KmSyurui {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     match n {
@@ -619,16 +601,16 @@ pub fn num_to_kms(n: usize) -> KmSyurui {
         _ => Owari,
     }
 }
-/**
- * ハッシュ値を作る
- */
+///
+/// ハッシュ値を作る
+///
 pub fn push_kms_to_hash(hash: u64, kms: &KmSyurui) -> u64 {
     // 使ってるのは16駒種類番号ぐらいなんで、16(=2^4) あれば十分
     (hash << 4) + kms_to_num(kms) as u64
 }
-/**
- * ハッシュ値から作る
- */
+///
+/// ハッシュ値から作る
+///
 pub fn pop_kms_from_hash(hash: u64) -> (u64, KmSyurui) {
     // 使ってるのは16駒種類番号ぐらいなんで、16(=2^4) あれば十分
     let kms_num = num_to_kms((hash & 0b1111) as usize);
@@ -678,10 +660,10 @@ pub fn prokms_to_kms(kms: &KmSyurui) -> KmSyurui {
         Owari => Owari,
     }
 }
-/**
- * 駒種類→｛　長い利きの駒か否か　｝
- * 合い駒で防ぎえる可能性があれば真
- */
+///
+/// 駒種類→｛　長い利きの駒か否か　｝
+/// 合い駒で防ぎえる可能性があれば真
+///
 pub fn kms_is_nagaikiki(kms: &KmSyurui) -> bool {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     match *kms {
@@ -703,9 +685,9 @@ pub fn kms_is_nagaikiki(kms: &KmSyurui) -> bool {
         Owari => false,
     }
 }
-/**
- * 成れる駒
- */
+///
+/// 成れる駒
+///
 pub fn kms_can_pro(kms: &KmSyurui) -> bool {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     match *kms {
@@ -727,9 +709,9 @@ pub fn kms_can_pro(kms: &KmSyurui) -> bool {
         Owari => false,
     }
 }
-/**
- * 打てる駒
- */
+///
+/// 打てる駒
+///
 pub fn kms_can_da(kms: &KmSyurui) -> bool {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     match *kms {
@@ -751,7 +733,7 @@ pub fn kms_can_da(kms: &KmSyurui) -> bool {
         Owari => false,
     }
 }
-// 先後＆駒種類→先後付き駒
+/// 先後＆駒種類→先後付き駒
 pub fn sn_kms_to_km(sn: &Sengo, kms: &KmSyurui) -> Koma {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     use super::super::teigi::shogi_syugo::Koma::*;
@@ -794,13 +776,9 @@ pub fn sn_kms_to_km(sn: &Sengo, kms: &KmSyurui) -> Koma {
     }
 }
 
-/************
- * 駒の動き *
- ************/
-
-/**
- * 上下反転
- */
+///
+/// 上下反転
+///
 pub fn hanten_kmdir_joge(kmdir: &KmDir) -> KmDir {
     use super::super::teigi::shogi_syugo::KmDir::*;
     match *kmdir {

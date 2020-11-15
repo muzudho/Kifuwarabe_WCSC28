@@ -6,9 +6,9 @@
 use super::super::super::teigi::geometries::geo_teigi::Point;
 
 impl Point {
-    /**
-     * 西 p
-     */
+    ///
+    /// 西 p
+    ///
     pub fn to_east(&self) -> Point {
         Point {
             x: self.x + 1,
@@ -16,9 +16,9 @@ impl Point {
         }
     }
 
-    /**
-     * 北西 p
-     */
+    ///
+    /// 北西 p
+    ///
     pub fn to_north_east(&self) -> Point {
         Point {
             x: self.x + 1,
@@ -26,9 +26,9 @@ impl Point {
         }
     }
 
-    /**
-     * 北北西 p
-     */
+    ///
+    /// 北北西 p
+    ///
     pub fn to_north_north_east(&self) -> Point {
         Point {
             x: self.x + 1,
@@ -36,9 +36,9 @@ impl Point {
         }
     }
 
-    /**
-     * 北 p
-     */
+    ///
+    /// 北 p
+    ///
     pub fn to_north(&self) -> Point {
         Point {
             x: self.x + 1,
@@ -46,9 +46,9 @@ impl Point {
         }
     }
 
-    /**
-     * 北北西 p
-     */
+    ///
+    /// 北北西 p
+    ///
     pub fn to_north_north_west(&self) -> Point {
         Point {
             x: self.x - 1,
@@ -56,9 +56,9 @@ impl Point {
         }
     }
 
-    /**
-     * 北西 p
-     */
+    ///
+    /// 北西 p
+    ///
     pub fn to_north_west(&self) -> Point {
         Point {
             x: self.x - 1,
@@ -66,9 +66,9 @@ impl Point {
         }
     }
 
-    /**
-     * 西 p
-     */
+    ///
+    /// 西 p
+    ///
     pub fn to_west(&self) -> Point {
         Point {
             x: self.x - 1,
@@ -76,9 +76,9 @@ impl Point {
         }
     }
 
-    /**
-     * 南西 p
-     */
+    ///
+    /// 南西 p
+    ///
     pub fn to_south_west(&self) -> Point {
         Point {
             x: self.x - 1,
@@ -86,9 +86,9 @@ impl Point {
         }
     }
 
-    /**
-     * 南南西 p
-     */
+    ///
+    /// 南南西 p
+    ///
     pub fn to_south_south_west(&self) -> Point {
         Point {
             x: self.x - 1,
@@ -96,9 +96,9 @@ impl Point {
         }
     }
 
-    /**
-     * 南 p
-     */
+    ///
+    /// 南 p
+    ///
     pub fn to_south(&self) -> Point {
         Point {
             x: self.x,
@@ -106,9 +106,9 @@ impl Point {
         }
     }
 
-    /**
-     * 南南東 p
-     */
+    ///
+    /// 南南東 p
+    ///
     pub fn to_south_south_east(&self) -> Point {
         Point {
             x: self.x + 1,
@@ -116,9 +116,9 @@ impl Point {
         }
     }
 
-    /**
-     * 南東 p
-     */
+    ///
+    /// 南東 p
+    ///
     pub fn to_south_east(&self) -> Point {
         Point {
             x: self.x + 1,
