@@ -9,9 +9,7 @@ use super::super::teigi::conv::*;
 use super::super::teigi::shogi_syugo::*;
 use super::super::teigi::shogi_syugo_seki::*;
 
-/**
- * 後手視点で、相手らいおんの南側１升に、頭が丸い自駒がない？
- */
+/// 後手視点で、相手らいおんの南側１升に、頭が丸い自駒がない？
 pub fn is_s(uchu: &Uchu) -> bool {
     // 相手玉の位置
     let ms_r = uchu.get_ms_r(&Jiai::Ai);
@@ -47,40 +45,38 @@ pub fn is_s(uchu: &Uchu) -> bool {
     return true;
 }
 
-/**
- * 頭金か？
- *
- * 三駒定形｛　ms_ai_r、 kms_set_ai_c_r、 ms_atama、 ms_kin、ms_behind、Ｔ　｝において、
- * 　｛　升　×　相手玉　　　　　｝∈ ms_aiR　かつ　、
- * 　｛　升　×　玉以外の相手駒　｝∈ kms_set_ai_c_r　かつ　、
- * 　｛　升　×　駒無し含む玉以外の相手駒　｝∈ ms_atama、
- * 　升　×　｛金、と、杏、圭、全、馬、竜｝　∈ ms_kin、
- * 　　　　　　　　　　　　　　升　×　自駒　∈ ms_behind、
- * 　Ｔは　１手　固定とし、
- *
- * ms_ai_r の下段左中右＝移動不可升
- * かつ、
- * ms_ai_r（北０）ms_atama
- * かつ、
- * ms_behind （利き→）ms_atama、
- * かつ、
- * （
- * 　　（　ms_atama は空升　かつ　｛金｝∈自持駒　）
- * 　　または
- * 　　（　ms_kin （利き→）ms_atama　）
- * ）
- * かつ、
- * kms_set_ai_c_r（利き→） ms_atama でない、
- *
- * のとき、
- *
- * 一手詰め逃さない公理から、
- *
- * ms_ai_r の９近傍非空升　⊂　ms_atama に指す（ ms_ai_r、kms_set_ai_c_r，ms_atama、 ms_kin， ms_behind，Ｔ）
- *
- * が成り立つ
- * FIXME Aが動いたときの、逆王手が未考慮
- */
+/// 頭金か？
+///
+/// 三駒定形｛　ms_ai_r、 kms_set_ai_c_r、 ms_atama、 ms_kin、ms_behind、Ｔ　｝において、
+/// 　｛　升　×　相手玉　　　　　｝∈ ms_aiR　かつ　、
+/// 　｛　升　×　玉以外の相手駒　｝∈ kms_set_ai_c_r　かつ　、
+/// 　｛　升　×　駒無し含む玉以外の相手駒　｝∈ ms_atama、
+/// 　升　×　｛金、と、杏、圭、全、馬、竜｝　∈ ms_kin、
+/// 　　　　　　　　　　　　　　升　×　自駒　∈ ms_behind、
+/// 　Ｔは　１手　固定とし、
+///
+/// ms_ai_r の下段左中右＝移動不可升
+/// かつ、
+/// ms_ai_r（北０）ms_atama
+/// かつ、
+/// ms_behind （利き→）ms_atama、
+/// かつ、
+/// （
+/// 　　（　ms_atama は空升　かつ　｛金｝∈自持駒　）
+/// 　　または
+/// 　　（　ms_kin （利き→）ms_atama　）
+/// ）
+/// かつ、
+/// kms_set_ai_c_r（利き→） ms_atama でない、
+///
+/// のとき、
+///
+/// 一手詰め逃さない公理から、
+///
+/// ms_ai_r の９近傍非空升　⊂　ms_atama に指す（ ms_ai_r、kms_set_ai_c_r，ms_atama、 ms_kin， ms_behind，Ｔ）
+///
+/// が成り立つ
+/// FIXME Aが動いたときの、逆王手が未考慮
 pub fn is_atamakin(
     _mskms_l: &MsKms,
     _mskms_s: &MsKms,

@@ -4,9 +4,7 @@
 use super::super::jotai::uchu::*;
 use super::super::teigi::shogi_syugo::*;
 
-/**
- * 利き数表示
- */
+/// 利き数表示
 pub fn cmd_kikisu(uchu: &Uchu) {
     for km in KM_ARRAY.iter() {
         g_writeln(&format!("利き数：{}", km));

@@ -3,9 +3,7 @@
 //!
 use super::super::teigi::geometries::geo_teigi::*;
 
-/**
- * 升Pは、点ABで作る平面上にあるか？
- */
+/// 升Pは、点ABで作る平面上にあるか？
 pub fn intersect_point_on_plane(p: &Point, a: &Point, b: &Point) -> bool {
     // まず、x,y軸共に 点P は 線分AB の内側にあるよう、絞り込む
     if reflexive_ordered3_i8(a.x, p.x, b.x) && reflexive_ordered3_i8(a.y, p.y, b.y) {
@@ -14,9 +12,7 @@ pub fn intersect_point_on_plane(p: &Point, a: &Point, b: &Point) -> bool {
     false
 }
 
-/**
- * 升Pは、線分AB上にあるか？
- */
+/// 升Pは、線分AB上にあるか？
 pub fn intersect_point_on_line_segment(p: &Point, a: &Point, b: &Point) -> bool {
     // 升Pは、点ABで作る平面上にあるか？
     if intersect_point_on_plane(&p, &a, &b) {

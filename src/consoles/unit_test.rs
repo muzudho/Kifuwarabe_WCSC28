@@ -14,10 +14,8 @@ use super::super::teigi::shogi_syugo::*;
 use super::super::tusin::usi::*;
 use std::collections::HashSet;
 
-/**
- * test 2
- * といったコマンドに対応☆（＾～＾）
- */
+/// test 2
+/// といったコマンドに対応☆（＾～＾）
 pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
     // いろいろな動作テスト
     g_writeln(&format!("test starts={} len={}", *starts, len));

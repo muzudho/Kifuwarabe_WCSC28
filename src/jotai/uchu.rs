@@ -38,9 +38,7 @@ use std::sync::Mutex;
 // 「How can I use mutable lazy_static?」
 // https://users.rust-lang.org/t/how-can-i-use-mutable-lazy-static/3751/3
 lazy_static! {
-    /**
-      * ログ・ファイル
-      */
+    /// ログ・ファイル
     pub static ref LOGFILE: Mutex<File> = {
         // File::createの返り値は`io::Result<File>` なので .unwrap() で中身を取り出す
         Mutex::new(File::create(Path::new(LOG_FILE_PATH)).unwrap())
@@ -74,10 +72,8 @@ pub fn g_writeln(s: &str) {
     }
 }
 
-/**
- * 局面ハッシュ種
- * ゾブリストハッシュを使って、局面の一致判定をするのに使う☆（＾～＾）
- */
+/// 局面ハッシュ種
+/// ゾブリストハッシュを使って、局面の一致判定をするのに使う☆（＾～＾）
 pub struct KyHashSeed {
     // 盤上の駒
     pub km: [[u64; KM_LN]; BAN_SIZE],
@@ -87,10 +83,8 @@ pub struct KyHashSeed {
     pub sn: [u64; SN_LN],
 }
 
-/**
- * グローバル変数の作り方が分からないので、
- * ここに全部入れてあるぜ☆（＾～＾）
- */
+/// グローバル変数の作り方が分からないので、
+/// ここに全部入れてあるぜ☆（＾～＾）
 pub struct Uchu {
     // 対話モード
     pub dialogue_mode: bool,
@@ -711,9 +705,7 @@ impl Uchu {
             vision_tree_by_sn: [VisionTree::new(), VisionTree::new(), VisionTree::new()],
         }
     }
-    /**
-     * 宇宙誕生
-     */
+    /// 宇宙誕生
     pub fn big_bang(&mut self) {
         // 局面ハッシュの種をリセット
 
@@ -737,18 +729,14 @@ impl Uchu {
             self.ky_hash_seed.sn[i_sn] = rand::thread_rng().gen_range(0, 18446744073709551615);
         }
     }
-    /**
-     * 初期局面、現局面ともにクリアーします。
-     * 手目も 0 に戻します。
-     */
+    /// 初期局面、現局面ともにクリアーします。
+    /// 手目も 0 に戻します。
     pub fn clear_ky01(&mut self) {
         self.ky0.clear();
         self.ky.clear();
         self.set_teme(0);
     }
-    /**
-     * 初期局面を、現局面にコピーします
-     */
+    /// 初期局面を、現局面にコピーします
     pub fn copy_ky0_to_ky1(&mut self) {
         // 盤上
         for i_ms in 0..BAN_SIZE {
@@ -760,9 +748,7 @@ impl Uchu {
         }
     }
 
-    /* **********************
-     * コマンド・バッファー *
-     ************************/
+    /// コマンド・バッファー
     pub fn is_empty_command(&mut self) -> bool {
         self.vec_command.len() == 0
     }
@@ -773,13 +759,7 @@ impl Uchu {
         self.vec_command.pop().unwrap()
     }
 
-    /* ******
-     * 盤上 *
-     ********/
-
-    /**
-     * 初期局面の盤上に駒の位置を設定するもの
-     */
+    /// 初期局面の盤上に駒の位置を設定するもの
     pub fn set_ky0_ban_km(&mut self, suji: i8, dan: i8, km: Koma) {
         self.ky0.set_km_by_ms(suji_dan_to_ms(suji, dan), km);
     }
@@ -796,17 +776,15 @@ impl Uchu {
         }
     }
 
-    /* ******
-     * 棋譜 *
-     ********/
-
+    /// 手目
     pub fn set_teme(&mut self, teme: usize) {
         self.teme = teme
     }
+    /// 手目
     pub fn get_teme(&self) -> usize {
         self.teme
     }
-    // 手番
+    /// 手番
     pub fn get_teban(&self, jiai: &Jiai) -> Sengo {
         use teigi::shogi_syugo::Jiai::*;
         match *jiai {
@@ -830,9 +808,7 @@ impl Uchu {
         }
     }
 
-    /**
-     * 棋譜の作成
-     */
+    /// 棋譜の作成
     pub fn set_sasite_src(&mut self, src: umasu) {
         self.kifu[self.teme].src = src
     }
@@ -862,11 +838,9 @@ impl Uchu {
     pub fn get_ky_hash(&mut self) -> u64 {
         self.ky_hash[self.teme]
     }
-    /**
-     * 使い方
-     * let s = uchu.kaku_kifu();
-     * g_writeln( &s );
-     */
+    /// 使い方
+    /// let s = uchu.kaku_kifu();
+    /// g_writeln( &s );
     pub fn kaku_kifu(&self) -> String {
         let mut s = String::new();
         for teme in 0..self.teme {
@@ -887,9 +861,7 @@ impl Uchu {
         s
     }
 
-    /**
-     * 自陣
-     */
+    /// 自陣
     #[allow(dead_code)]
     pub fn get_ji_jin(&self) -> Vec<umasu> {
         if let Sengo::Sen = self.get_teban(&Jiai::Ji) {
@@ -898,9 +870,7 @@ impl Uchu {
             teigi::shogi_syugo::GoteJin::to_elm()
         }
     }
-    /**
-     * 相手陣
-     */
+    /// 相手陣
     #[allow(dead_code)]
     pub fn get_aite_jin(&self) -> Vec<umasu> {
         if let Sengo::Sen = self.get_teban(&Jiai::Ji) {
@@ -910,12 +880,10 @@ impl Uchu {
         }
     }
 
-    /**
-     * 表示
-     *
-     * 後手から見た盤を表示するぜ☆（＾～＾）
-     * デカルト座標の第一象限と x,y 方向が一致するメリットがあるぜ☆（＾～＾）
-     */
+    /// 表示
+    ///
+    /// 後手から見た盤を表示するぜ☆（＾～＾）
+    /// デカルト座標の第一象限と x,y 方向が一致するメリットがあるぜ☆（＾～＾）
     pub fn kaku_ky(&self, num: &KyNums) -> String {
         let ky = match *num {
             KyNums::Current => &self.ky,
@@ -1051,9 +1019,7 @@ impl Uchu {
         )
     }
 
-    /**
-     * 表示
-     */
+    /// 表示
     pub fn kaku_number_board(&self, sn: &Sengo, km: &Koma) -> String {
         let nb = match *sn {
             Sengo::Owari => &self.kiki_su_by_km[km_to_num(&km)],
@@ -1167,7 +1133,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         )
     }
 
-    // 駒の動きを出力
+    /// 駒の動きを出力
     pub fn hyoji_kmugoki(&self) {
         for kms in KMS_ARRAY.iter() {
             g_write(&format!("{} ", kms));
@@ -1184,7 +1150,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         }
     }
 
-    // 入れた指し手の通り指すぜ☆（＾～＾）
+    /// 入れた指し手の通り指すぜ☆（＾～＾）
     pub fn do_ss(&mut self, ss: &Sasite) {
         // もう入っているかも知れないが、棋譜に入れる☆
         let sn = self.get_teban(&Jiai::Ji);
@@ -1222,9 +1188,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         }
     }
 
-    /**
-     * 初期局面ハッシュを作り直す
-     */
+    /// 初期局面ハッシュを作り直す
     pub fn create_ky0_hash(&self) -> u64 {
         let mut hash = self.ky0.create_hash(&self);
 
@@ -1234,9 +1198,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         hash
     }
 
-    /**
-     * 局面ハッシュを作り直す
-     */
+    /// 局面ハッシュを作り直す
     pub fn create_ky1_hash(&self) -> u64 {
         let mut hash = self.ky.create_hash(&self);
 
@@ -1251,10 +1213,8 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         hash
     }
 
-    /**
-     * 千日手を調べるために、
-     * 現局面は、同一局面が何回目かを調べるぜ☆（＾～＾）
-     */
+    /// 千日手を調べるために、
+    /// 現局面は、同一局面が何回目かを調べるぜ☆（＾～＾）
     pub fn count_same_ky(&self) -> i8 {
         if self.get_teme() < 1 {
             return 0;

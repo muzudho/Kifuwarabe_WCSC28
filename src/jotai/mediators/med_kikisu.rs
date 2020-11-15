@@ -9,11 +9,9 @@ use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 use std::collections::HashSet;
 
-/**
- * 盤上の利き升調べ
- *
- * 用途：自殺手防止他
- */
+/// 盤上の利き升調べ
+///
+/// 用途：自殺手防止他
 pub fn read_kikisu(uchu: &mut Uchu) {
     // ゼロ・リセット
     for km in KM_ARRAY.iter() {

@@ -3,9 +3,7 @@
 //!
 use super::super::teigi::shogi_syugo::*;
 
-/**
- * 打はテストできない
- */
+/// 打はテストできない
 pub fn assert_banjo_ms(ms: umasu, hint: &str) {
     debug_assert!(
         (10 < ms && ms < 20)

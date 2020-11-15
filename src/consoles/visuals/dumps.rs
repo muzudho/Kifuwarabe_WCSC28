@@ -2,19 +2,16 @@
 //!
 //! コレクションの内容をダンプ（全部見る）とかだぜ☆（＾～＾）
 //!
+//! * 升
+//! * 駒種類
+//!
 use super::super::super::jotai::uchu::*;
 use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 use super::super::super::tusin::usi::*;
 use std::collections::HashSet;
 
-/******
- * 升 *
- ******/
-
-/**
- * 升を表示
- */
+/// 升を表示
 pub fn hyoji_ms_hashset(ms_hashset: &HashSet<umasu>) {
     g_writeln(&format!("ms_hashset.len()={}", ms_hashset.len()));
     for ms in ms_hashset {
@@ -25,9 +22,7 @@ pub fn hyoji_ms_hashset(ms_hashset: &HashSet<umasu>) {
     }
 }
 
-/**
- * 升を表示
- */
+/// 升を表示
 pub fn hyoji_ms_vec(ms_vec: &Vec<umasu>) {
     g_writeln(&format!("ms_vec.len()={}", ms_vec.len()));
     for ms in ms_vec {
@@ -38,9 +33,7 @@ pub fn hyoji_ms_vec(ms_vec: &Vec<umasu>) {
     }
 }
 
-/**********
- * 駒種類 *
- **********/
+/// 駒種類
 pub fn hyoji_kms_hashset(num_kms_hashset: &HashSet<usize>) {
     g_writeln(&format!("num_kms_hashset.len()={}", num_kms_hashset.len()));
     for num_kms in num_kms_hashset {
@@ -48,9 +41,7 @@ pub fn hyoji_kms_hashset(num_kms_hashset: &HashSet<usize>) {
     }
 }
 
-/**********
- * 指し手 *
- **********/
+/// 指し手
 pub fn hyoji_ss_hashset(ss_hashset: &HashSet<u64>) {
     g_writeln(&format!("ss_hashset.len()={}", ss_hashset.len()));
     // 辞書順ソート
