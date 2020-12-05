@@ -5,6 +5,8 @@
 extern crate rand;
 #[macro_use]
 extern crate lazy_static;
+extern crate serde;
+extern crate toml;
 
 // Rust言語の mod や ソース置き場の説明
 //      「Rust のモジュールシステム」
@@ -22,6 +24,7 @@ pub mod teigi;
 //pub mod teiri;
 pub mod tusin;
 
+use crate::config::EngineFile;
 use std::collections::HashSet;
 use std::io;
 
@@ -32,6 +35,8 @@ use consoles::visuals::title::*;
 use jotai::uchu::*;
 use rand::Rng;
 use siko::think::*;
+use std::fs::{self, File};
+use std::io::Write;
 use syazo::sasite_seisei::*;
 use teigi::constants::*;
 use teigi::conv::*;
@@ -189,9 +194,24 @@ fn main() {
             let s = uchu.kaku_ky(&KyNums::Start);
             g_writeln(&s);
         } else if 2 < len && &line[starts..3] == "usi" {
-            g_writeln(&format!("id name {}", ENGINE_NAME));
-            g_writeln(&format!("id author {}", ENGINE_AUTHOR));
-            g_writeln("usiok");
+            match fs::read_to_string("profile/Engine.toml") {
+                Ok(text) => {
+                    let engine_file: Result<EngineFile, toml::de::Error> = toml::from_str(&text);
+                    match engine_file {
+                        Ok(engine_file) => {
+                            g_writeln(&format!("id name {}", engine_file.engine.name));
+                            g_writeln(&format!("id author {}", engine_file.engine.author));
+                            g_writeln("usiok");
+                        }
+                        Err(why) => {
+                            panic!("{}", why);
+                        }
+                    }
+                }
+                Err(why) => {
+                    panic!("{}", why);
+                }
+            }
         } else if 1 < len && &line[starts..2] == "go" {
             // 思考開始と、bestmoveコマンドの返却
             // go btime 40000 wtime 50000 binc 10000 winc 10000

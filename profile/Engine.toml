@@ -1,0 +1,9 @@
+[engine]
+
+# 将棋ソフトの表示名です。
+# 大会出場時 "Kifuwarabe WCSC28"
+name = "Kifuwarust Bld1"
+
+# 将棋ソフトの制作者名です。
+# 大会出場時 "TAKAHASHI, Satoshi" 作者の名前。姓・名の順にしたいぜ☆（＾～＾）異文化に通じる表記方法はないものか☆（＾～＾）
+author = "Satoshi TAKAHASHI"
