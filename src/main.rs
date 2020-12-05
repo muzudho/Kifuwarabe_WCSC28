@@ -28,15 +28,13 @@ use crate::config::EngineFile;
 use std::collections::HashSet;
 use std::io;
 
-use config::*;
 use consoles::unit_test::*;
 use consoles::visuals::dumps::*;
 use consoles::visuals::title::*;
 use jotai::uchu::*;
 use rand::Rng;
 use siko::think::*;
-use std::fs::{self, File};
-use std::io::Write;
+use std::fs::{self};
 use syazo::sasite_seisei::*;
 use teigi::constants::*;
 use teigi::conv::*;
