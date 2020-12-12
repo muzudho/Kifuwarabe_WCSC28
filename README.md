@@ -2,13 +2,18 @@
 
 2020年11月の 電竜戦から きふわらすと(Kifuwarust)にリネームして開発再開だぜ☆（＾～＾）  
 
-|                         | ファイル                                                    |
-| ----------------------- | ----------------------------------------------------------- |
-| ソース                  | `Kifuwarabe_WCSC28/Cargo.toml`                              |
-| 将棋エンジン ソース     | `Kifuwarabe_WCSC28/src/main.rs`                             |
-| GUI                     | なし                                                        |
-| 将棋エンジン ランタイム | `Kifuwarabe_WCSC28/target/release/kifuwarabe_shogi2018.exe` |
-| 設定ファイル            | `kifuwarabe_shogi2018.exe` から見て `profile/Engine.toml`   |
+|                         | ファイル                                                           |
+| ----------------------- | ------------------------------------------------------------------ |
+| ソース                  | `Kifuwarabe_WCSC28/Cargo.toml`                                     |
+| 将棋エンジン ソース     | `Kifuwarabe_WCSC28/src/main.rs`                                    |
+| GUI                     | なし                                                               |
+| 将棋エンジン ランタイム | `Kifuwarabe_WCSC28/target/release/grayscale_kifuwarust_engine.exe` |
+| 設定ファイル1           | `Kifuwarabe_WCSC28/grayscale_kifuwarust_engine.exe.config.toml`    |
+| 設定ファイル2           | `Kifuwarabe_WCSC28/profile/Engine.toml`                            |
+
+* `cargo biuld --release` コマンドを打鍵して `将棋エンジン ランタイム` を生成してください。
+* 将棋エンジン ランタイムと同じディレクトリーに 設定ファイル1 を置いてください。
+* 設定ファイル1 の `profile = "./profile"` ファイルパスを 設定ファイル2のディレクトリーに合わせてください。
 
 ## Manual
 
@@ -19,5 +24,4 @@ Rust言語だぜ☆（＾～＾）　開発している最中のまま投げ込�
 ```shell
 cargo run --release
 # cargo run
-# cargo biuld --release
 ```

@@ -4,6 +4,12 @@ version = "0.1.0"
 authors = ["muzudho <muzudho1@gmail.com>"]
 edition = "2018"
 
+[[bin]]
+# 不本意だが C#言語のファイル名の付け方に揃えてみる……☆（＾～＾）
+# Rust言語では 実行ファイル名は クレート名のルールに揃える必要があるらしい☆（＾～＾）？
+name = "grayscale_kifuwarust_engine"
+path = "src/main.rs"
+
 [dependencies]
 
 rand = "0.7.3"
