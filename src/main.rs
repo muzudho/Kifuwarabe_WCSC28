@@ -222,7 +222,8 @@ fn main() {
                     let config: Result<EngineFile, toml::de::Error> = toml::from_str(&text);
                     match config {
                         Ok(config) => {
-                            g_writeln(&format!("id name {}", config.engine.name));
+                            const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+                            g_writeln(&format!("id name {} {}", config.engine.name, VERSION));
                             g_writeln(&format!("id author {}", config.engine.author));
                             g_writeln("usiok");
                         }
