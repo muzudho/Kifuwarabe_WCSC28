@@ -186,48 +186,11 @@ fn main() {
             let s = uchu.kaku_ky(&KyNums::Start);
             g_writeln(&s);
         } else if 2 < len && &line[starts..3] == "usi" {
-            // 実行ファイル名
-            let exe_name = std::env::current_exe()
-                .expect("Can't get the exec path")
-                .file_name()
-                .expect("Can't get the exec name")
-                .to_string_lossy()
-                .into_owned();
-            // Example: "kifuwarabe_shogi2018.exe.config.toml"
-            let engine_path = match fs::read_to_string(format!("{}.config.toml", exe_name)) {
-                Ok(text) => {
-                    let config: Result<ExeConfigFile, toml::de::Error> = toml::from_str(&text);
-                    match config {
-                        Ok(config) => Path::new(&config.app.profile).join("Engine.toml"),
-                        Err(why) => {
-                            panic!("{}", why);
-                        }
-                    }
-                }
-                Err(why) => {
-                    panic!("{}", why);
-                }
-            };
-            // Example: "./profile\Engine.toml"
-            match fs::read_to_string(format!("{}", engine_path.to_string_lossy())) {
-                Ok(text) => {
-                    let config: Result<EngineFile, toml::de::Error> = toml::from_str(&text);
-                    match config {
-                        Ok(config) => {
-                            const VERSION: &'static str = env!("CARGO_PKG_VERSION");
-                            g_writeln(&format!("id name {} {}", config.engine.name, VERSION));
-                            g_writeln(&format!("id author {}", config.engine.author));
-                            g_writeln("usiok");
-                        }
-                        Err(why) => {
-                            panic!("{}", why);
-                        }
-                    }
-                }
-                Err(why) => {
-                    panic!("{}", why);
-                }
-            }
+            let engine_file = EngineFile::read();
+            const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+            g_writeln(&format!("id name {} {}", engine_file.engine.name, VERSION));
+            g_writeln(&format!("id author {}", engine_file.engine.author));
+            g_writeln("usiok");
         } else if 1 < len && &line[starts..2] == "go" {
             // 思考開始と、bestmoveコマンドの返却
             // go btime 40000 wtime 50000 binc 10000 winc 10000
