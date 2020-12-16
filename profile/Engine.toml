@@ -7,3 +7,8 @@ name = "Kifuwarust"
 # 将棋ソフトの制作者名です。
 # 大会出場時 "TAKAHASHI, Satoshi" 作者の名前。姓・名の順にしたいぜ☆（＾～＾）異文化に通じる表記方法はないものか☆（＾～＾）
 author = "Satoshi TAKAHASHI"
+
+[resources]
+
+log_file = "kifuwarabe_WCSC28.log"
+log_enabled = true

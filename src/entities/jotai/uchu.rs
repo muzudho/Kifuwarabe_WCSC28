@@ -38,17 +38,24 @@ use std::sync::Mutex;
 // 「How can I use mutable lazy_static?」
 // https://users.rust-lang.org/t/how-can-i-use-mutable-lazy-static/3751/3
 lazy_static! {
-    /// ログ・ファイル
+    /// ログ・ファイルのミューテックス（排他制御）
     pub static ref LOGFILE: Mutex<File> = {
+        let engine_file = EngineFile::read();
+
         // File::createの返り値は`io::Result<File>` なので .unwrap() で中身を取り出す
-        Mutex::new(File::create(Path::new(LOG_FILE_PATH)).unwrap())
+        Mutex::new(File::create(Path::new(&engine_file.resources.log_file)).unwrap())
+    };
+
+    pub static ref LOG_ENABLED: Mutex<bool> = {
+        let engine_file = EngineFile::read();
+        Mutex::new(engine_file.resources.log_enabled)
     };
 }
 
 #[allow(dead_code)]
 pub fn g_write(s: &str) {
     println!("{}", s);
-    if LOG_ENABLE {
+    if *LOG_ENABLED.lock().unwrap() {
         // write_allメソッドを使うには use std::io::Write; が必要
         match LOGFILE.lock().unwrap().write_all(s.as_bytes()) {
             // 大会向けに、ログ書き込み失敗は出力しないことにする
@@ -60,7 +67,7 @@ pub fn g_write(s: &str) {
 #[allow(dead_code)]
 pub fn g_writeln(s: &str) {
     println!("{}", s);
-    if LOG_ENABLE {
+    if *LOG_ENABLED.lock().unwrap() {
         match LOGFILE
             .lock()
             .unwrap()

@@ -6,10 +6,6 @@ use serde::{Deserialize, Serialize};
 use std::fs::{self};
 use std::path::Path;
 
-/// ログ
-pub const LOG_FILE_PATH: &'static str = "kifuwarabe_WCSC28.log";
-pub const LOG_ENABLE: bool = true; //false;
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ExeConfigFile {
     pub app: App,
@@ -23,12 +19,19 @@ pub struct App {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EngineFile {
     pub engine: Engine,
+    pub resources: Resources,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Engine {
     pub name: String,
     pub author: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Resources {
+    pub log_file: String,
+    pub log_enabled: bool,
 }
 
 impl EngineFile {
