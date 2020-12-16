@@ -6,4 +6,5 @@ pub mod siko;
 pub mod syazo;
 pub mod teigi;
 //pub mod teiri;
+pub mod logging;
 pub mod tusin;
