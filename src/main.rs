@@ -14,34 +14,26 @@ extern crate toml;
 //
 // use したい モジュールは、最初に読み取られる　この main.rs ファイルに並べる
 pub mod config;
-pub mod consoles;
-pub mod jotai;
-pub mod kasetu;
-pub mod meidai;
-pub mod siko;
-pub mod syazo;
-pub mod teigi;
-//pub mod teiri;
-pub mod tusin;
+pub mod entities;
 
 use crate::config::EngineFile;
 use crate::config::ExeConfigFile;
 use std::collections::HashSet;
 use std::io;
 
-use consoles::unit_test::*;
-use consoles::visuals::dumps::*;
-use consoles::visuals::title::*;
-use jotai::uchu::*;
+use entities::consoles::unit_test::*;
+use entities::consoles::visuals::dumps::*;
+use entities::consoles::visuals::title::*;
+use entities::jotai::uchu::*;
+use entities::siko::think::*;
+use entities::syazo::sasite_seisei::*;
+use entities::teigi::constants::*;
+use entities::teigi::conv::*;
+use entities::teigi::shogi_syugo::*;
+use entities::tusin::usi::*;
 use rand::Rng;
-use siko::think::*;
 use std::fs::{self};
 use std::path::Path;
-use syazo::sasite_seisei::*;
-use teigi::constants::*;
-use teigi::conv::*;
-use teigi::shogi_syugo::*;
-use tusin::usi::*;
 
 fn main() {
     // 宇宙
@@ -92,7 +84,7 @@ fn main() {
             //}else if 9<len && &line[0..10] == "kmugokidir" {
             g_writeln("9<len kmugokidir");
             // 駒の動きの移動元として有りえる方角
-            let kms = siko::randommove::rnd_kms();
+            let kms = entities::siko::randommove::rnd_kms();
             g_writeln(&format!("{}のムーブ元", &kms));
             uchu.hyoji_kmugoki_dir(kms);
             g_writeln(""); //改行
@@ -100,7 +92,7 @@ fn main() {
             uchu.clear_ky01();
         } else if line.starts_with("position") {
             // positionコマンドの読取を丸投げ
-            tusin::usi::read_position(&line, &mut uchu);
+            entities::tusin::usi::read_position(&line, &mut uchu);
         } else if 6 < len && &line[starts..7] == "isready" {
             g_writeln("readyok");
         } else if 6 < len && &line[starts..7] == "kmugoki" {
@@ -109,14 +101,14 @@ fn main() {
             uchu.hyoji_kmugoki();
         } else if 5 < len && &line[starts..6] == "hirate" {
             // 平手初期局面
-            tusin::usi::read_position(&KY1.to_string(), &mut uchu);
+            entities::tusin::usi::read_position(&KY1.to_string(), &mut uchu);
         } else if 5 < len && &line[starts..6] == "kikisu" {
             // 利き数表示
-            consoles::commands::cmd_kikisu(&uchu);
+            entities::consoles::commands::cmd_kikisu(&uchu);
         } else if 5 < len && &line[starts..6] == "rndkms" {
             g_writeln("5<len rndkms");
             // 乱駒種類
-            let kms = siko::randommove::rnd_kms();
+            let kms = entities::siko::randommove::rnd_kms();
             g_writeln(&format!("乱駒種類={}", &kms));
         } else if 5 < len && &line[starts..6] == "sasite" {
             // FIXME 合法手とは限らない
@@ -127,7 +119,7 @@ fn main() {
             g_writeln("----指し手生成 ここまで----");
         } else if 4 < len && &line[starts..5] == "rndms" {
             // 乱升
-            let ms = siko::randommove::rnd_ms();
+            let ms = entities::siko::randommove::rnd_ms();
             g_writeln(&format!("乱升={}", ms));
         } else if 3 < len && &line[starts..4] == "teigi::conv" {
             g_writeln("teigi::convのテスト");

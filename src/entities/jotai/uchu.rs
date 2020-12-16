@@ -7,7 +7,7 @@
 extern crate rand;
 use rand::Rng;
 
-use super::super::config::*;
+use super::super::super::config::*;
 use super::super::jotai::ky::*;
 use super::super::jotai::number_board::*;
 use super::super::siko::visions::vision_tree::*;

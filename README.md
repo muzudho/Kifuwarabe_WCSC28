@@ -23,6 +23,7 @@ Rust言語だぜ☆（＾～＾）　開発している最中のまま投げ込�
 ## Run
 
 ```shell
+# cargo build --release
 cargo run --release
 # cargo run
 ```
