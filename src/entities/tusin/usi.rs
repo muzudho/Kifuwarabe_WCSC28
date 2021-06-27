@@ -21,7 +21,7 @@ pub struct Sasite {
     pub dst: umasu,
     // 移動後に成るなら真
     pub pro: bool,
-    // 打の場合、打った駒種類
+    // 打の場合、打った駒種類。 TODO 持駒の種類に絞りこみたい
     pub drop: KmSyurui,
 }
 impl Sasite {
@@ -43,7 +43,7 @@ impl Sasite {
     pub fn to_hash(&self) -> u64 {
         let mut hash = 0;
         // 正順で取り出すことを考えて、逆順で押し込む☆（＾～＾）
-        hash = push_kms_to_hash(hash, &self.drop);
+        hash = push_kms_to_hash(hash, &self.drop); // TODO 持駒の種類に絞りこみたい
         hash = push_bool_to_hash(hash, self.pro);
         hash = push_ms_to_hash(hash, self.dst);
         push_ms_to_hash(hash, self.src)

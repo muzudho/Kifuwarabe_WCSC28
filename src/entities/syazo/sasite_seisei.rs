@@ -18,7 +18,7 @@ use std::collections::HashSet;
 ///
 /// 王手回避漏れや、千日手などのチェックは行っていない
 ///
-pub fn insert_potential_move(uchu: &Uchu, ss_hashset: &mut HashSet<u64>) {
+pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>) {
     // +----------------+
     // | 盤上の駒の移動 |
     // +----------------+
@@ -45,7 +45,7 @@ pub fn insert_potential_move(uchu: &Uchu, ss_hashset: &mut HashSet<u64>) {
                 // hyoji_ms_hashset( &dst_hashset );
 
                 for ms_dst in &dst_hashset {
-                    ss_hashset.insert(
+                    some_moves_hashset.insert(
                         Sasite {
                             src: ms_src,
                             dst: *ms_dst,
@@ -65,7 +65,7 @@ pub fn insert_potential_move(uchu: &Uchu, ss_hashset: &mut HashSet<u64>) {
                     &mut dst_hashset,
                 );
                 for ms_dst in &dst_hashset {
-                    ss_hashset.insert(
+                    some_moves_hashset.insert(
                         Sasite {
                             src: ms_src,
                             dst: *ms_dst,
@@ -105,7 +105,7 @@ pub fn insert_potential_move(uchu: &Uchu, ss_hashset: &mut HashSet<u64>) {
                     }
                     for num_kms_da in da_kms_hashset {
                         let kms = num_to_kms(num_kms_da);
-                        ss_hashset.insert(
+                        some_moves_hashset.insert(
                             Sasite {
                                 src: SS_SRC_DA, // 駒大
                                 dst: ms_dst,    // どの升へ行きたいか
@@ -132,7 +132,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
     uchu: &Uchu,
     ms_dst: umasu,
     km_dst: &Koma,
-    ss_hashset: &mut HashSet<u64>,
+    some_moves_hashset: &mut HashSet<u64>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_ss_by_ms_km_on_banjo");
 
@@ -163,7 +163,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
         // 成らず
         ss_hash_builder.pro = false;
         ss_hash_builder.drop = KmSyurui::Kara;
-        ss_hashset.insert(ss_hash_builder.to_hash());
+        some_moves_hashset.insert(ss_hash_builder.to_hash());
     }
 
     // +--------------+
@@ -178,7 +178,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
         // 成り
         ss_hash_builder.pro = true;
         ss_hash_builder.drop = KmSyurui::Kara;
-        ss_hashset.insert(ss_hash_builder.to_hash());
+        some_moves_hashset.insert(ss_hash_builder.to_hash());
     }
 }
 ///
@@ -191,7 +191,7 @@ pub fn insert_ss_by_ms_km_on_da(
     uchu: &Uchu,
     ms_dst: umasu,
     km_dst: &Koma,
-    ss_hashset: &mut HashSet<u64>,
+    some_moves_hashset: &mut HashSet<u64>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_ss_by_ms_km_on_da");
 
@@ -228,6 +228,6 @@ pub fn insert_ss_by_ms_km_on_da(
             drop: kms_da,
         }
         .to_hash();
-        ss_hashset.insert(hash_ss);
+        some_moves_hashset.insert(hash_ss);
     }
 }
