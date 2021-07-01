@@ -14,5 +14,5 @@ pub struct MsKm {
 /// 升 × 駒種類
 pub struct MsKms {
     sq: Square,
-    kms: PieceType,
+    pt: PieceType,
 }

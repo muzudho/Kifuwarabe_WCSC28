@@ -790,8 +790,8 @@ impl Uchu {
     pub fn set_sasite_pro(&mut self, pro: bool) {
         self.kifu[self.teme].pro = pro
     }
-    pub fn set_sasite_drop(&mut self, kms: PieceType) {
-        self.kifu[self.teme].drop = kms
+    pub fn set_sasite_drop(&mut self, pt: PieceType) {
+        self.kifu[self.teme].drop = pt
     }
     pub fn set_ky0_hash(&mut self, hash: u64) {
         self.ky0_hash = hash
@@ -1106,15 +1106,15 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
     }
 
     /// 駒の動きを出力
-    pub fn hyoji_kmugoki(&self) {
-        for kms in KMS_ARRAY.iter() {
-            g_write(&format!("{} ", kms));
-            self.hyoji_kmugoki_dir(&kms);
+    pub fn print_pcugoki(&self) {
+        for pt in KMS_ARRAY.iter() {
+            g_write(&format!("{} ", pt));
+            self.print_pcugoki_dir(&pt);
             g_writeln(""); //改行
         }
     }
-    pub fn hyoji_kmugoki_dir(&self, kms: &PieceType) {
-        for kmdir in KM_UGOKI.back[kms_to_num(kms)].iter() {
+    pub fn print_pcugoki_dir(&self, pt: &PieceType) {
+        for kmdir in KM_UGOKI.back[kms_to_num(pt)].iter() {
             match *kmdir {
                 KmDir::Owari => break,
                 _ => g_write(&format!("{},", kmdir)),

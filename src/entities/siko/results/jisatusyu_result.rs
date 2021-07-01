@@ -20,8 +20,8 @@ pub fn is_jisatusyu(uchu: &Uchu, ss: &Sasite) -> bool {
     let kikisu = uchu.kiki_su_by_sn[sn_to_num(&sn_aite)].get_su_by_ms(ss.dst);
     let result = 0 < kikisu;
     // g_writeln(&format!(
-    //     "info is_jisatusyu={} km_src={} sn_teban={} kms={} sn_aite={} ss.dst={} kikisu={}"
-    //     ,result ,km_src ,sn_teban ,kms ,sn_aite ,ss.dst ,kikisu
+    //     "info is_jisatusyu={} km_src={} sn_teban={} pt={} sn_aite={} ss.dst={} kikisu={}"
+    //     ,result ,km_src ,sn_teban ,pt ,sn_aite ,ss.dst ,kikisu
     // ));
 
     result

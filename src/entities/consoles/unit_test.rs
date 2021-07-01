@@ -25,32 +25,32 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         g_writeln("4<len mvsrc");
         // 駒の移動元升
         g_writeln("駒の移動元升");
-        let kms = randommove::rnd_kms();
-        let pc = sn_kms_to_km(&uchu.get_teban(&Jiai::Ji), kms);
-        let to = randommove::rnd_ms();
-        g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
+        let pt = randommove::rnd_pt();
+        let pc = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), pt);
+        let to = randommove::rnd_sq();
+        g_writeln(&format!("pt={} pc={} to={}", pt, pc, to));
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
-        let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-        insert_narazu_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-        insert_narumae_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-        insert_da_kms_by_ms_km(to, &pc, &uchu, &mut da_kms_hashset);
-        hyoji_ms_hashset(&mv_src_hashset);
-        hyoji_kms_hashset(&da_kms_hashset);
-    } else if 3 < (len - *starts) && &line[*starts..*starts + 4] == "mvkm" {
+        let mut drop_pt_hashset: HashSet<usize> = HashSet::new();
+        insert_nopromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+        insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+        insert_drop_pt_by_sq_pc(to, &pc, &uchu, &mut drop_pt_hashset);
+        print_sq_hashset(&mv_src_hashset);
+        print_pt_hashset(&drop_pt_hashset);
+    } else if 3 < (len - *starts) && &line[*starts..*starts + 4] == "mvpc" {
         *starts += 4;
         // 移動後の駒
-        let kms = randommove::rnd_kms();
-        let pc = sn_kms_to_km(&uchu.get_teban(&Jiai::Ji), &kms);
+        let pt = randommove::rnd_pt();
+        let pc = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), &pt);
         // 移動先の升、および　不成駒／成駒
-        let to = randommove::rnd_ms();
+        let to = randommove::rnd_sq();
         let pro_dst = randommove::rnd_bool();
         let mut ss = Sasite::new();
         // 移動可能な元升
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
-        //let mut da_kms_hashset : HashSet<usize> = HashSet::new();
-        insert_narazu_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-        insert_narumae_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-        //insert_da_kms_by_ms_km      ( to, &pc, &uchu, &mut da_kms_hashset );
+        //let mut drop_pt_hashset : HashSet<usize> = HashSet::new();
+        insert_nopromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+        insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+        //insert_drop_pt_by_sq_pc      ( to, &pc, &uchu, &mut drop_pt_hashset );
         for ms_src in mv_src_hashset {
             ss.src = ms_src;
             g_writeln(&format!("移動可能な駒がある升={}", ms_src));
@@ -65,59 +65,59 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 駒の移動元升
         {
             g_writeln("利きテスト1");
-            let kms = PieceType::PP; // ぱわーあっぷひよこ
-            let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
+            let pt = PieceType::PP; // ぱわーあっぷひよこ
+            let pc = ph_pt_to_pc(&Phase::Second, &pt); // △ph
             let to = 79;
-            g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
+            g_writeln(&format!("pt={} pc={} to={}", pt, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
-            let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(to, &pc, &uchu, &mut da_kms_hashset);
-            hyoji_ms_hashset(&mv_src_hashset);
-            hyoji_kms_hashset(&da_kms_hashset);
+            let mut drop_pt_hashset: HashSet<usize> = HashSet::new();
+            insert_nopromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_drop_pt_by_sq_pc(to, &pc, &uchu, &mut drop_pt_hashset);
+            print_sq_hashset(&mv_src_hashset);
+            print_pt_hashset(&drop_pt_hashset);
         }
         {
             g_writeln("利きテスト2");
-            let kms = PieceType::PP; // ぱわーあっぷひよこ
-            let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
+            let pt = PieceType::PP; // ぱわーあっぷひよこ
+            let pc = ph_pt_to_pc(&Phase::Second, &pt); // △ph
             let to = 68;
-            g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
+            g_writeln(&format!("pt={} pc={} to={}", pt, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
-            let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(to, &pc, &uchu, &mut da_kms_hashset);
-            hyoji_ms_hashset(&mv_src_hashset);
-            hyoji_kms_hashset(&da_kms_hashset);
+            let mut drop_pt_hashset: HashSet<usize> = HashSet::new();
+            insert_nopromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_drop_pt_by_sq_pc(to, &pc, &uchu, &mut drop_pt_hashset);
+            print_sq_hashset(&mv_src_hashset);
+            print_pt_hashset(&drop_pt_hashset);
         }
         {
             g_writeln("利きテスト3");
-            let kms = PieceType::PP; // ぱわーあっぷひよこ
-            let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
+            let pt = PieceType::PP; // ぱわーあっぷひよこ
+            let pc = ph_pt_to_pc(&Phase::Second, &pt); // △ph
             let to = 77;
-            g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
+            g_writeln(&format!("pt={} pc={} to={}", pt, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
-            let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(to, &pc, &uchu, &mut da_kms_hashset);
-            hyoji_ms_hashset(&mv_src_hashset);
-            hyoji_kms_hashset(&da_kms_hashset);
+            let mut drop_pt_hashset: HashSet<usize> = HashSet::new();
+            insert_nopromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_drop_pt_by_sq_pc(to, &pc, &uchu, &mut drop_pt_hashset);
+            print_sq_hashset(&mv_src_hashset);
+            print_pt_hashset(&drop_pt_hashset);
         }
         {
             g_writeln("利きテスト2");
-            let kms = PieceType::K; // らいおん
-            let pc = sn_kms_to_km(&Phase::First, &kms); // ▼ら
+            let pt = PieceType::K; // らいおん
+            let pc = ph_pt_to_pc(&Phase::First, &pt); // ▼ら
             let to = 58;
-            g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
+            g_writeln(&format!("pt={} pc={} to={}", pt, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
-            let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(to, &pc, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(to, &pc, &uchu, &mut da_kms_hashset);
-            hyoji_ms_hashset(&mv_src_hashset);
-            hyoji_kms_hashset(&da_kms_hashset);
+            let mut drop_pt_hashset: HashSet<usize> = HashSet::new();
+            insert_nopromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
+            insert_drop_pt_by_sq_pc(to, &pc, &uchu, &mut drop_pt_hashset);
+            print_sq_hashset(&mv_src_hashset);
+            print_pt_hashset(&drop_pt_hashset);
         }
     } else if 0 < (len - *starts) && &line[*starts..*starts + 1] == "2" {
         *starts += 1;

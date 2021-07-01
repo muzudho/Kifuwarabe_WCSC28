@@ -18,7 +18,7 @@ pub fn rnd_bool() -> bool {
 ///
 /// (筋1～9,段1～9)の範囲で、ランダムに マス座標を返す
 ///
-pub fn rnd_ms() -> Square {
+pub fn rnd_sq() -> Square {
     suji_dan_to_ms(
         rand::thread_rng().gen_range(1, 10),
         rand::thread_rng().gen_range(1, 10),
@@ -28,6 +28,6 @@ pub fn rnd_ms() -> Square {
 ///
 /// ランダムに 駒の種類を返す
 ///
-pub fn rnd_kms() -> &'static PieceType {
+pub fn rnd_pt() -> &'static PieceType {
     &KMS_ARRAY[rand::thread_rng().gen_range(0, KMS_ARRAY_LN)]
 }

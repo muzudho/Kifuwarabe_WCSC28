@@ -297,7 +297,7 @@ pub fn match_km(a: &Piece, b: &Piece) -> bool {
 
 pub const KM_ARRAY_HALF_LN: usize = 14;
 pub const KM_ARRAY_LN: usize = 28;
-pub const KM_ARRAY: [Piece; KM_ARRAY_LN] = [
+pub const PC_ARRAY: [Piece; KM_ARRAY_LN] = [
     Piece::R0,  // らいおん
     Piece::K0,  // きりん
     Piece::Z0,  // ぞう
@@ -389,7 +389,7 @@ impl KmSyugo {
     ///
     pub fn new_all() -> KmSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
-        for pc in KM_ARRAY.iter() {
+        for pc in PC_ARRAY.iter() {
             num_syugo1.insert(km_to_num(pc));
         }
         let km_syugo = KmSyugo {
@@ -403,7 +403,7 @@ impl KmSyugo {
     pub fn new_jiai(&self, jiai: &Jiai, uchu: &Uchu) -> KmSyugo {
         let sn0 = uchu.get_teban(&jiai);
         let mut num_syugo1: HashSet<usize> = HashSet::new();
-        for pc in KM_ARRAY.iter() {
+        for pc in PC_ARRAY.iter() {
             let (sn1, _kms) = km_to_sn_kms(pc);
             if match_sn(&sn0, &sn1) {
                 num_syugo1.insert(km_to_num(pc));
@@ -563,16 +563,16 @@ impl KmsSyugo {
     ///
     pub fn new_all() -> KmsSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
-        for kms in KMS_ARRAY.iter() {
-            num_syugo1.insert(kms_to_num(kms));
+        for pt in KMS_ARRAY.iter() {
+            num_syugo1.insert(kms_to_num(pt));
         }
         let kms_syugo = KmsSyugo {
             num_syugo: num_syugo1,
         };
         kms_syugo
     }
-    pub fn remove(&mut self, kms: &PieceType) {
-        self.num_syugo.remove(&kms_to_num(kms));
+    pub fn remove(&mut self, pt: &PieceType) {
+        self.num_syugo.remove(&kms_to_num(pt));
     }
 }
 

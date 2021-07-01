@@ -76,8 +76,8 @@ impl Kyokumen {
         for dan in DAN_1..DAN_10 {
             let sq = suji_dan_to_ms(suji, dan);
             let pc = self.get_km_by_ms(sq);
-            let (sn_km, kms) = km_to_sn_kms(&pc);
-            if match_sn(&sn_km, phase) && match_kms(&kms, &PieceType::P) {
+            let (sn_km, pt) = km_to_sn_kms(&pc);
+            if match_sn(&sn_km, phase) && match_kms(&pt, &PieceType::P) {
                 return true;
             }
         }
@@ -117,7 +117,7 @@ impl Kyokumen {
 
         // 打かどうか
         if ss.src == SS_SRC_DA {
-            pc = sn_kms_to_km(&phase, &ss.drop);
+            pc = ph_pt_to_pc(&phase, &ss.drop);
             // 自分の持ち駒を減らす
             self.add_mg(pc, -1);
         } else {
@@ -155,7 +155,7 @@ impl Kyokumen {
 
         // 打かどうか
         if ss.src == SS_SRC_DA {
-            pc = sn_kms_to_km(phase, &ss.drop);
+            pc = ph_pt_to_pc(phase, &ss.drop);
             // 自分の持ち駒を増やす
             //let mg = km_to_mg(pc);
             //self.add_mg(mg,1);
@@ -204,8 +204,8 @@ impl Kyokumen {
     pub fn is_natta(&self, ms_src: Square, to: Square) -> bool {
         let km_src = &self.get_km_by_ms(ms_src);
         let kms_src = km_to_kms(&km_src);
-        let km_dst = &self.get_km_by_ms(to);
-        let kms_dst = km_to_kms(&km_dst);
+        let to_pc = &self.get_km_by_ms(to);
+        let kms_dst = km_to_kms(&to_pc);
         // 移動先の駒が成り駒で、 移動元の駒が不成駒なら、成る
         let pro_dst = kms_is_pro(&kms_dst);
         let pro_src = kms_is_pro(&kms_src);
@@ -227,7 +227,7 @@ impl Kyokumen {
 
         // 持ち駒ハッシュ
         for i_km in 0..KM_ARRAY_LN {
-            let pc = KM_ARRAY[i_km];
+            let pc = PC_ARRAY[i_km];
             let num_km = km_to_num(&pc);
 
             let maisu = self.get_mg(&pc);

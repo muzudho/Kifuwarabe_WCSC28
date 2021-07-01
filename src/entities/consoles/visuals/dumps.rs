@@ -12,7 +12,7 @@ use super::super::super::tusin::usi::*;
 use std::collections::HashSet;
 
 /// 升を表示
-pub fn hyoji_ms_hashset(ms_hashset: &HashSet<Square>) {
+pub fn print_sq_hashset(ms_hashset: &HashSet<Square>) {
     g_writeln(&format!("ms_hashset.len()={}", ms_hashset.len()));
     for sq in ms_hashset {
         match *sq {
@@ -34,10 +34,10 @@ pub fn hyoji_ms_vec(ms_vec: &Vec<Square>) {
 }
 
 /// 駒種類
-pub fn hyoji_kms_hashset(num_kms_hashset: &HashSet<usize>) {
-    g_writeln(&format!("num_kms_hashset.len()={}", num_kms_hashset.len()));
-    for num_kms in num_kms_hashset {
-        g_writeln(&format!("kms({})", num_to_kms(*num_kms)));
+pub fn print_pt_hashset(num_pt_hashset: &HashSet<usize>) {
+    g_writeln(&format!("num_pt_hashset.len()={}", num_pt_hashset.len()));
+    for num_kms in num_pt_hashset {
+        g_writeln(&format!("pt({})", num_to_kms(*num_kms)));
     }
 }
 

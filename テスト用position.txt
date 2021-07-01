@@ -20,11 +20,11 @@ position startpos moves 6i6h 7a6b 7g7f 3c3d 3i4h 6c6d 9i9h 4c4d 8h5e 6b6c 3g3f 3
 >1:go btime 489000 wtime 68000 binc 10000 winc 10000
 <1:info string My raion 48.
 <1:info string My raion is 1 OUTED.
-<1:info OUTE: KmTori:68△pk->48.
-<1:info is_jisatusyu=true km_src=▼めEsn_teban=▼ kms=めEsn_aite=△ ss.dst=58 kikisu=1
-<1:info is_jisatusyu=false km_src=▼めEsn_teban=▼ kms=めEsn_aite=△ ss.dst=38 kikisu=0
-<1:info is_jisatusyu=false km_src=▼めEsn_teban=▼ kms=めEsn_aite=△ ss.dst=39 kikisu=0
-<1:info is_jisatusyu=true km_src=▼めEsn_teban=▼ kms=めEsn_aite=△ ss.dst=59 kikisu=1
+<1:info OUTE: PC_Tori:68△pk->48.
+<1:info is_jisatusyu=true from_pc=▼めEsn_teban=▼ pt=めEsn_aite=△ ss.dst=58 kikisu=1
+<1:info is_jisatusyu=false from_pc=▼めEsn_teban=▼ pt=めEsn_aite=△ ss.dst=38 kikisu=0
+<1:info is_jisatusyu=false from_pc=▼めEsn_teban=▼ pt=めEsn_aite=△ ss.dst=39 kikisu=0
+<1:info is_jisatusyu=true from_pc=▼めEsn_teban=▼ pt=めEsn_aite=△ ss.dst=59 kikisu=1
 <1:info 2 solutions.
 <1:info solution:4h3h.
 <1:bestmove 4h3h
@@ -53,7 +53,7 @@ position startpos moves 9i9h 3c3d 6i7h 2b7g+ 8i7g 7c7d 1g1f 7d7e 2g2f 7e7f 7g8e 
 >1:go btime 60000 wtime 42000 binc 1000 winc 1000
 <1:info string My raion 25.
 <1:info string My raion is 1 OUTED.
-<1:info OUTE: KmTori:55△pk-->25.
+<1:info OUTE: PCTori:55△pk-->25.
 <1:info ss=2e3e in slider attack.
 <1:info ss=2e3d evaluated in slider.
 <1:info 2e3d evaluated => 0 attackers. offence=△->34
@@ -83,7 +83,7 @@ position startpos moves 8g8f 3c3d 5i6h 2b7g+ 6h5h 7g8h 5g5f 8h7i 8f8e 7i6i 5h5g 
 >1:go btime 60000 wtime 55000 binc 1000 winc 1000
 <1:info string My raion 77.
 <1:info string My raion is 1 OUTED.
-<1:info OUTE: KmTori:75△キ-->77.
+<1:info OUTE: PCTori:75△キ-->77.
 <1:info ss=7g7f in slider attack.
 <1:info ss=7g8h evaluated in slider.
 <1:info 7g8h evaluated => 1 attackers. offence=△->88
@@ -114,7 +114,7 @@ position startpos moves 2h1h 3c3d 4g4f 2b7g+ 1h6h 7g6h 7i6h 6c6d 3i4h 6d6e 4f4e 
 >1:go btime 60000 wtime 53000 binc 1000 winc 1000
 <1:info string My raion 36.
 <1:info string My raion is 1 OUTED.
-<1:info OUTE: KmTori:58△pz-->36.
+<1:info OUTE: PCTori:58△pz-->36.
 <1:info ss=3f4g in slider attack.
 <1:info ss=3f4f evaluated in slider.
 <1:info 3f4f evaluated => 0 attackers. offence=△->46
@@ -189,7 +189,7 @@ position startpos moves 5i5h 5a5b 5h5i 5b5a 5i5h 5a5b 5h5i 5b5a 5i5h 5a5b 5h5i
 >1:go btime 172000 wtime 396000 binc 10000 winc 10000
 <1:info string My raion 53.
 <1:info string My raion is 1 OUTED.
-<1:info OUTE: KmTori:43▼PZ-->53.
+<1:info OUTE: PCTori:43▼PZ-->53.
 <1:info 5c4c evaluated => 1 attackers. offence=▼->43
 <1:info ms_atk=23.
 <1:info ss=5c4d evaluated in slider.
@@ -422,7 +422,7 @@ position startpos moves 3i3h 8b4b 7g7f 4a3b 8i7g 6a7b 7i7h 7b6b 5i4h 7a8b 6i5h 4
 >1:go btime 500000 wtime 540000 binc 10000 winc 10000
 <1:info string My raion 61.
 <1:info string My raion is 1 OUTED.
-<1:info OUTE: KmTori:53▼PU->61.
+<1:info OUTE: PCTori:53▼PU->61.
 <1:info 6a5b evaluated => 1 attackers. offence=▼->52
 <1:info ms_atk=53.
 <1:info 6a5a evaluated => 1 attackers. offence=▼->51

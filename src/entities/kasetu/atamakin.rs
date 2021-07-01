@@ -32,10 +32,10 @@ pub fn is_s(uchu: &Uchu) -> bool {
         ms_r, pc, jiai_km
     ));
 
-    let kms = km_to_kms(&pc);
+    let pt = km_to_kms(&pc);
 
     use super::super::teigi::shogi_syugo::PieceType::*;
-    match kms {
+    match pt {
         B | L => {
             return false;
         }

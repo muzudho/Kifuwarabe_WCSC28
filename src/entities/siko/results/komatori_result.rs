@@ -184,13 +184,13 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
 
     for kms_dst in KMS_ARRAY.iter() {
         // 移動した後の相手の駒
-        let km_dst = sn_kms_to_km(&phase, kms_dst);
-        //let km_dst = sn_kms_to_km( &phase, rnd_kms() );
+        let to_pc = ph_pt_to_pc(&phase, kms_dst);
+        //let to_pc = ph_pt_to_pc( &phase, rnd_pt() );
         // 指定マスに移動できるか
         // 打は除く
 
         ss_hashset.clear();
-        insert_ss_by_ms_km_on_banjo(&uchu, ms_target, &km_dst, &mut ss_hashset);
+        insert_ss_by_ms_km_on_banjo(&uchu, ms_target, &to_pc, &mut ss_hashset);
 
         // g_writeln( &format!("テスト lookup_banjo_catch insert_ss_by_ms_km_on_banjo kms_dst={}.",kms_dst) );
         // use consoles::visuals::dumps::*;
@@ -201,13 +201,13 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
             assert_banjo_ms(
                 ss.src,
                 &format!(
-                    "(123)Ｌookup_banjo_catch ss.src /  ms_target={} km_dst={} ss={}",
-                    ms_target, km_dst, ss
+                    "(123)Ｌookup_banjo_catch ss.src /  ms_target={} to_pc={} ss={}",
+                    ms_target, to_pc, ss
                 ),
             );
 
             let oute_result = KomatoriResult {
-                km_attacker: km_dst,
+                km_attacker: to_pc,
                 ms_attacker: ss.src, // FIXME 打だと 0 になるのでは
                 ms_target: ms_target,
             };

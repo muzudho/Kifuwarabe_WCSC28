@@ -81,13 +81,13 @@ fn main() {
                 g_writeln(&s);
             }
         // 文字数の長いものからチェック
-        } else if line.starts_with("kmugokidir") {
-            //}else if 9<len && &line[0..10] == "kmugokidir" {
-            g_writeln("9<len kmugokidir");
+        } else if line.starts_with("pcugokidir") {
+            //}else if 9<len && &line[0..10] == "pcugokidir" {
+            g_writeln("9<len pcugokidir");
             // 駒の動きの移動元として有りえる方角
-            let kms = entities::siko::randommove::rnd_kms();
-            g_writeln(&format!("{}のムーブ元", &kms));
-            uchu.hyoji_kmugoki_dir(kms);
+            let pt = entities::siko::randommove::rnd_pt();
+            g_writeln(&format!("{}のムーブ元", &pt));
+            uchu.print_pcugoki_dir(pt);
             g_writeln(""); //改行
         } else if 9 < len && &line[starts..10] == "usinewgame" {
             uchu.clear_ky01();
@@ -96,21 +96,21 @@ fn main() {
             entities::tusin::usi::read_position(&line, &mut uchu);
         } else if 6 < len && &line[starts..7] == "isready" {
             g_writeln("readyok");
-        } else if 6 < len && &line[starts..7] == "kmugoki" {
-            g_writeln("6<len kmugoki");
+        } else if 6 < len && &line[starts..7] == "pcugoki" {
+            g_writeln("6<len pcugoki");
             // 駒の動きを出力
-            uchu.hyoji_kmugoki();
+            uchu.print_pcugoki();
         } else if 5 < len && &line[starts..6] == "hirate" {
             // 平手初期局面
             entities::tusin::usi::read_position(&KY1.to_string(), &mut uchu);
         } else if 5 < len && &line[starts..6] == "kikisu" {
             // 利き数表示
             entities::consoles::commands::cmd_kikisu(&uchu);
-        } else if 5 < len && &line[starts..6] == "rndkms" {
-            g_writeln("5<len rndkms");
+        } else if 5 < len && &line[starts..6] == "rndpt" {
+            g_writeln("5<len rndpt");
             // 乱駒種類
-            let kms = entities::siko::randommove::rnd_kms();
-            g_writeln(&format!("乱駒種類={}", &kms));
+            let pt = entities::siko::randommove::rnd_pt();
+            g_writeln(&format!("乱駒種類={}", &pt));
         } else if 5 < len && &line[starts..6] == "sasite" {
             // FIXME 合法手とは限らない
             let mut ss_potential_hashset = HashSet::new();
@@ -118,9 +118,9 @@ fn main() {
             g_writeln("----指し手生成 ここから----");
             hyoji_ss_hashset(&ss_potential_hashset);
             g_writeln("----指し手生成 ここまで----");
-        } else if 4 < len && &line[starts..5] == "rndms" {
+        } else if 4 < len && &line[starts..5] == "rndsq" {
             // 乱升
-            let sq = entities::siko::randommove::rnd_ms();
+            let sq = entities::siko::randommove::rnd_sq();
             g_writeln(&format!("乱升={}", sq));
         } else if 3 < len && &line[starts..4] == "teigi::conv" {
             g_writeln("teigi::convのテスト");
