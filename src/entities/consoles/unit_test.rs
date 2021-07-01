@@ -66,7 +66,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         {
             g_writeln("利きテスト1");
             let kms = KmSyurui::PH; // ぱわーあっぷひよこ
-            let pc = sn_kms_to_km(&Sengo::Go, &kms); // △ph
+            let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 79;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
@@ -80,7 +80,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         {
             g_writeln("利きテスト2");
             let kms = KmSyurui::PH; // ぱわーあっぷひよこ
-            let pc = sn_kms_to_km(&Sengo::Go, &kms); // △ph
+            let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 68;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
@@ -94,7 +94,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         {
             g_writeln("利きテスト3");
             let kms = KmSyurui::PH; // ぱわーあっぷひよこ
-            let pc = sn_kms_to_km(&Sengo::Go, &kms); // △ph
+            let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 77;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
@@ -108,7 +108,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         {
             g_writeln("利きテスト2");
             let kms = KmSyurui::R; // らいおん
-            let pc = sn_kms_to_km(&Sengo::Sen, &kms); // ▼ら
+            let pc = sn_kms_to_km(&Phase::First, &kms); // ▼ら
             let to = 58;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();

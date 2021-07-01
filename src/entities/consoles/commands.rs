@@ -8,7 +8,7 @@ use super::super::teigi::shogi_syugo::*;
 pub fn cmd_kikisu(uchu: &Uchu) {
     for pc in KM_ARRAY.iter() {
         g_writeln(&format!("利き数：{}", pc));
-        let s = uchu.kaku_number_board(&Sengo::Owari, &pc);
+        let s = uchu.kaku_number_board(&Phase::Owari, &pc);
         g_writeln(&s);
     }
 

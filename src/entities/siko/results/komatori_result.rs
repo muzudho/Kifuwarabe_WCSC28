@@ -165,7 +165,7 @@ impl KomatoriResult {
 ///
 /// return u64 : KomatoriResult のハッシュ
 ///
-pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Sengo, ms_target: Square) -> HashSet<u64> {
+pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Phase, ms_target: Square) -> HashSet<u64> {
     assert_banjo_ms(
         ms_target,
         &format!("(119)Ｌookup_banjo_catch sn={} ms_target={}", sn, ms_target),

@@ -72,7 +72,7 @@ impl Kyokumen {
         ];
     }
     /// 歩が置いてあるか確認
-    pub fn exists_fu_by_sn_suji(&self, sn: &Sengo, suji: i8) -> bool {
+    pub fn exists_fu_by_sn_suji(&self, sn: &Phase, suji: i8) -> bool {
         for dan in DAN_1..DAN_10 {
             let sq = suji_dan_to_ms(suji, dan);
             let pc = self.get_km_by_ms(sq);
@@ -90,10 +90,10 @@ impl Kyokumen {
     /// 升で指定して駒を置く
     pub fn set_km_by_ms(&mut self, sq: Square, pc: Piece) {
         self.ban[sq] = pc;
-        use super::super::teigi::shogi_syugo::Sengo::*;
+        use super::super::teigi::shogi_syugo::Phase::*;
         match pc {
-            Piece::R0 => self.ms_r[Sen as usize] = sq,
-            Piece::R1 => self.ms_r[Go as usize] = sq,
+            Piece::R0 => self.ms_r[First as usize] = sq,
+            Piece::R1 => self.ms_r[Second as usize] = sq,
             _ => {}
         }
     }
@@ -109,7 +109,7 @@ impl Kyokumen {
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
     ///
     /// return : 取った駒
-    pub fn do_sasite(&mut self, sn: &Sengo, ss: &Sasite) -> Piece {
+    pub fn do_sasite(&mut self, sn: &Phase, ss: &Sasite) -> Piece {
         // 動かす駒
         let pc;
         // 取った駒
@@ -149,7 +149,7 @@ impl Kyokumen {
 
     /// 指し手の　進む戻る　を逆さにして、盤上の駒配置を動かすぜ☆（＾～＾）
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
-    pub fn undo_sasite(&mut self, sn: &Sengo, ss: &Sasite, cap: &Piece) {
+    pub fn undo_sasite(&mut self, sn: &Phase, ss: &Sasite, cap: &Piece) {
         // 移動先の駒
         let pc;
 
@@ -196,7 +196,7 @@ impl Kyokumen {
     }
 
     /// 指定の升にある駒の先後、または空升
-    pub fn get_sn_by_ms(&self, sq: Square) -> Sengo {
+    pub fn get_sn_by_ms(&self, sq: Square) -> Phase {
         km_to_sn(&self.get_km_by_ms(sq))
     }
 

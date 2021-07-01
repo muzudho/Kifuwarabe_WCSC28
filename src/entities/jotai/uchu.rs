@@ -757,26 +757,26 @@ impl Uchu {
         self.teme
     }
     /// 手番
-    pub fn get_teban(&self, jiai: &Jiai) -> Sengo {
+    pub fn get_teban(&self, jiai: &Jiai) -> Phase {
         use teigi::shogi_syugo::Jiai::*;
         match *jiai {
             Ji => {
                 // 手番
                 if self.teme % 2 == 0 {
-                    Sengo::Sen
+                    Phase::First
                 } else {
-                    Sengo::Go
+                    Phase::Second
                 }
             }
             Ai => {
                 // 相手番
                 if self.teme % 2 == 0 {
-                    Sengo::Go
+                    Phase::Second
                 } else {
-                    Sengo::Sen
+                    Phase::First
                 }
             }
-            _ => Sengo::Owari,
+            _ => Phase::Owari,
         }
     }
 
@@ -836,7 +836,7 @@ impl Uchu {
     /// 自陣
     #[allow(dead_code)]
     pub fn get_ji_jin(&self) -> Vec<Square> {
-        if let Sengo::Sen = self.get_teban(&Jiai::Ji) {
+        if let Phase::First = self.get_teban(&Jiai::Ji) {
             teigi::shogi_syugo::SenteJin::to_elm()
         } else {
             teigi::shogi_syugo::GoteJin::to_elm()
@@ -845,7 +845,7 @@ impl Uchu {
     /// 相手陣
     #[allow(dead_code)]
     pub fn get_aite_jin(&self) -> Vec<Square> {
-        if let Sengo::Sen = self.get_teban(&Jiai::Ji) {
+        if let Phase::First = self.get_teban(&Jiai::Ji) {
             teigi::shogi_syugo::GoteJin::to_elm()
         } else {
             teigi::shogi_syugo::SenteJin::to_elm()
@@ -992,9 +992,9 @@ impl Uchu {
     }
 
     /// 表示
-    pub fn kaku_number_board(&self, sn: &Sengo, pc: &Piece) -> String {
+    pub fn kaku_number_board(&self, sn: &Phase, pc: &Piece) -> String {
         let nb = match *sn {
-            Sengo::Owari => &self.kiki_su_by_km[km_to_num(&pc)],
+            Phase::Owari => &self.kiki_su_by_km[km_to_num(&pc)],
             _ => &self.kiki_su_by_sn[sn_to_num(&sn)],
         };
 
@@ -1175,7 +1175,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         let mut hash = self.ky.create_hash(&self);
 
         // 手番ハッシュ
-        use teigi::shogi_syugo::Sengo::*;
+        use teigi::shogi_syugo::Phase::*;
         match self.get_teban(&Jiai::Ji) {
             Sen => hash ^= self.ky_hash_seed.sn[SN_SEN],
             Go => hash ^= self.ky_hash_seed.sn[SN_GO],

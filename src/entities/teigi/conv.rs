@@ -100,19 +100,19 @@ pub fn pop_dir8_from_hash(hash: u64) -> (u64, Dir8) {
 ///
 /// 先後
 ///
-pub fn sn_to_num(sn: &Sengo) -> usize {
-    use super::super::teigi::shogi_syugo::Sengo::*;
+pub fn sn_to_num(sn: &Phase) -> usize {
+    use super::super::teigi::shogi_syugo::Phase::*;
     match *sn {
-        Sen => 0,
-        Go => 1,
+        First => 0,
+        Second => 1,
         Owari => 2,
     }
 }
-pub fn hanten_sn(sn: &Sengo) -> Sengo {
-    use super::super::teigi::shogi_syugo::Sengo::*;
+pub fn hanten_sn(sn: &Phase) -> Phase {
+    use super::super::teigi::shogi_syugo::Phase::*;
     match *sn {
-        Sen => Go,
-        Go => Sen,
+        First => Second,
+        Second => First,
         Owari => Owari,
     }
 }
@@ -212,10 +212,10 @@ pub fn num_to_lower_case(num: i8) -> &'static str {
 ///
 /// 先手であれば、後手のように番号を振った座標に変換
 ///
-pub fn kaiten180_ms_by_ms_sn(sq: Square, sn: &Sengo) -> Square {
-    use super::super::teigi::shogi_syugo::Sengo::*;
+pub fn kaiten180_ms_by_ms_sn(sq: Square, sn: &Phase) -> Square {
+    use super::super::teigi::shogi_syugo::Phase::*;
     match *sn {
-        Sen => BAN_MAX - sq + BAN_MIN,
+        First => BAN_MAX - sq + BAN_MIN,
         _ => sq,
     }
 }
@@ -393,83 +393,83 @@ pub fn km_is_nagaikiki(pc: &Piece) -> bool {
 ///
 /// 先後付き駒→駒種類
 ///
-pub fn km_to_sn_kms(pc: &Piece) -> (Sengo, KmSyurui) {
+pub fn km_to_sn_kms(pc: &Piece) -> (Phase, KmSyurui) {
     // use super::super::teigi::shogi_syugo::KmSyurui;
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     // use super::super::teigi::shogi_syugo::Piece;
+    use super::super::teigi::shogi_syugo::Phase::*;
     use super::super::teigi::shogi_syugo::Piece::*;
-    use super::super::teigi::shogi_syugo::Sengo::*;
     match *pc {
-        R0 => (Sen, R),
-        K0 => (Sen, K),
-        Z0 => (Sen, Z),
-        I0 => (Sen, I),
-        N0 => (Sen, N),
-        U0 => (Sen, U),
-        S0 => (Sen, S),
-        H0 => (Sen, H),
-        PK0 => (Sen, PK),
-        PZ0 => (Sen, PZ),
-        PN0 => (Sen, PN),
-        PU0 => (Sen, PU),
-        PS0 => (Sen, PS),
-        PH0 => (Sen, PH),
-        R1 => (Go, R),
-        K1 => (Go, K),
-        Z1 => (Go, Z),
-        I1 => (Go, I),
-        N1 => (Go, N),
-        U1 => (Go, U),
-        S1 => (Go, S),
-        H1 => (Go, H),
-        PK1 => (Go, PK),
-        PZ1 => (Go, PZ),
-        PN1 => (Go, PN),
-        PU1 => (Go, PU),
-        PS1 => (Go, PS),
-        PH1 => (Go, PH),
-        Piece::Kara => (Sengo::Owari, KmSyurui::Kara),
-        Piece::Owari => (Sengo::Owari, KmSyurui::Owari),
+        R0 => (First, R),
+        K0 => (First, K),
+        Z0 => (First, Z),
+        I0 => (First, I),
+        N0 => (First, N),
+        U0 => (First, U),
+        S0 => (First, S),
+        H0 => (First, H),
+        PK0 => (First, PK),
+        PZ0 => (First, PZ),
+        PN0 => (First, PN),
+        PU0 => (First, PU),
+        PS0 => (First, PS),
+        PH0 => (First, PH),
+        R1 => (Second, R),
+        K1 => (Second, K),
+        Z1 => (Second, Z),
+        I1 => (Second, I),
+        N1 => (Second, N),
+        U1 => (Second, U),
+        S1 => (Second, S),
+        H1 => (Second, H),
+        PK1 => (Second, PK),
+        PZ1 => (Second, PZ),
+        PN1 => (Second, PN),
+        PU1 => (Second, PU),
+        PS1 => (Second, PS),
+        PH1 => (Second, PH),
+        Piece::Kara => (Phase::Owari, KmSyurui::Kara),
+        Piece::Owari => (Phase::Owari, KmSyurui::Owari),
     }
 }
 ///
 /// 先後付き駒　を　先後　へ変換。
 ///
 #[allow(dead_code)]
-pub fn km_to_sn(pc: &Piece) -> Sengo {
+pub fn km_to_sn(pc: &Piece) -> Phase {
+    use super::super::teigi::shogi_syugo::Phase::*;
     use super::super::teigi::shogi_syugo::Piece::*;
-    use super::super::teigi::shogi_syugo::Sengo::*;
     match *pc {
-        R0 => Sen,
-        K0 => Sen,
-        Z0 => Sen,
-        I0 => Sen,
-        N0 => Sen,
-        U0 => Sen,
-        S0 => Sen,
-        H0 => Sen,
-        PK0 => Sen,
-        PZ0 => Sen,
-        PN0 => Sen,
-        PU0 => Sen,
-        PS0 => Sen,
-        PH0 => Sen,
-        R1 => Go,
-        K1 => Go,
-        Z1 => Go,
-        I1 => Go,
-        N1 => Go,
-        U1 => Go,
-        S1 => Go,
-        H1 => Go,
-        PK1 => Go,
-        PZ1 => Go,
-        PN1 => Go,
-        PU1 => Go,
-        PS1 => Go,
-        PH1 => Go,
-        Kara => Sengo::Owari,
-        Piece::Owari => Sengo::Owari,
+        R0 => First,
+        K0 => First,
+        Z0 => First,
+        I0 => First,
+        N0 => First,
+        U0 => First,
+        S0 => First,
+        H0 => First,
+        PK0 => First,
+        PZ0 => First,
+        PN0 => First,
+        PU0 => First,
+        PS0 => First,
+        PH0 => First,
+        R1 => Second,
+        K1 => Second,
+        Z1 => Second,
+        I1 => Second,
+        N1 => Second,
+        U1 => Second,
+        S1 => Second,
+        H1 => Second,
+        PK1 => Second,
+        PZ1 => Second,
+        PN1 => Second,
+        PU1 => Second,
+        PS1 => Second,
+        PH1 => Second,
+        Kara => Phase::Owari,
+        Piece::Owari => Phase::Owari,
     }
 }
 ///
@@ -734,11 +734,11 @@ pub fn kms_can_da(kms: &KmSyurui) -> bool {
     }
 }
 /// 先後＆駒種類→先後付き駒
-pub fn sn_kms_to_km(sn: &Sengo, kms: &KmSyurui) -> Piece {
+pub fn sn_kms_to_km(sn: &Phase, kms: &KmSyurui) -> Piece {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     use super::super::teigi::shogi_syugo::Piece::*;
     match *sn {
-        Sengo::Sen => match *kms {
+        Phase::First => match *kms {
             R => R0,
             K => K0,
             Z => Z0,
@@ -755,7 +755,7 @@ pub fn sn_kms_to_km(sn: &Sengo, kms: &KmSyurui) -> Piece {
             PH => PH0,
             _ => Piece::Owari,
         },
-        Sengo::Go => match *kms {
+        Phase::Second => match *kms {
             R => R1,
             K => K1,
             Z => Z1,
@@ -772,7 +772,7 @@ pub fn sn_kms_to_km(sn: &Sengo, kms: &KmSyurui) -> Piece {
             PH => PH1,
             _ => Piece::Owari,
         },
-        Sengo::Owari => Piece::Owari,
+        Phase::Owari => Piece::Owari,
     }
 }
 

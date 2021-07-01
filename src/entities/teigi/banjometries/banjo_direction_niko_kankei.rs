@@ -33,7 +33,7 @@ pub fn get_dir8_to_slider_from_target(
 
     let (sn_slider, kms) = km_to_sn_kms(&km_slider);
     use super::super::super::teigi::shogi_syugo::KmSyurui::*;
-    use super::super::super::teigi::shogi_syugo::Sengo::*;
+    use super::super::super::teigi::shogi_syugo::Phase::*;
     match kms {
         K => {
             // 筋か、段かのどちらかが同じ
