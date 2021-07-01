@@ -22,19 +22,19 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
     // +----------------+
     // | 盤上の駒の移動 |
     // +----------------+
-    for dan_src in 1..10 {
-        for suji_src in 1..10 {
-            let ms_src = suji_dan_to_ms(suji_src, dan_src);
-            let km_src = uchu.ky.get_km_by_ms(ms_src);
-            let sn = km_to_sn(&km_src);
+    for rank_from in 1..10 {
+        for file_from in 1..10 {
+            let from = suji_dan_to_ms(file_from, rank_from);
+            let pc_from = uchu.ky.get_km_by_ms(from);
+            let sn = km_to_sn(&pc_from);
 
             if match_sn(&sn, &uchu.get_teban(&Jiai::Ji)) {
                 // 手番の駒
 
                 let mut dst_hashset: HashSet<Square> = HashSet::new();
                 insert_dst_by_ms_km(
-                    ms_src,
-                    &km_src,
+                    from,
+                    &pc_from,
                     false, // 成らず
                     &uchu,
                     &mut dst_hashset,
@@ -47,7 +47,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                 for to in &dst_hashset {
                     some_moves_hashset.insert(
                         Sasite {
-                            src: ms_src,
+                            src: from,
                             dst: *to,
                             pro: false, // 成らず
                             drop: KmSyurui::Kara,
@@ -58,8 +58,8 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
 
                 dst_hashset.clear();
                 insert_dst_by_ms_km(
-                    ms_src,
-                    &km_src,
+                    from,
+                    &pc_from,
                     true, // 成り
                     &uchu,
                     &mut dst_hashset,
@@ -67,7 +67,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                 for to in &dst_hashset {
                     some_moves_hashset.insert(
                         Sasite {
-                            src: ms_src,
+                            src: from,
                             dst: *to,
                             pro: true, // 成り
                             drop: KmSyurui::Kara,
@@ -145,16 +145,16 @@ pub fn insert_ss_by_ms_km_on_banjo(
     ss_hash_builder.dst = to;
 
     // 移動元の升
-    let mut mv_src_hashset: HashSet<Square> = HashSet::new();
+    let mut mv_from_hashset: HashSet<Square> = HashSet::new();
 
     // +----------------+
     // | 盤上（成らず） |
     // +----------------+
-    insert_narazu_src_by_ms_km(to, &km_dst, &uchu, &mut mv_src_hashset);
-    for ms_src in &mv_src_hashset {
-        assert_banjo_ms(*ms_src, "Ｉnsert_ss_by_ms_km_on_banjo ms_src(成らず)");
+    insert_narazu_src_by_ms_km(to, &km_dst, &uchu, &mut mv_from_hashset);
+    for from in &mv_from_hashset {
+        assert_banjo_ms(*from, "Ｉnsert_ss_by_ms_km_on_banjo from(成らず)");
 
-        ss_hash_builder.src = *ms_src;
+        ss_hash_builder.src = *from;
         // 成らず
         ss_hash_builder.pro = false;
         ss_hash_builder.drop = KmSyurui::Kara;
@@ -164,12 +164,12 @@ pub fn insert_ss_by_ms_km_on_banjo(
     // +--------------+
     // | 盤上（成り） |
     // +--------------+
-    mv_src_hashset.clear();
-    insert_narumae_src_by_ms_km(to, &km_dst, &uchu, &mut mv_src_hashset);
-    for ms_src in &mv_src_hashset {
-        assert_banjo_ms(*ms_src, "Ｉnsert_ss_by_ms_km_on_banjo ms_src(成り)");
+    mv_from_hashset.clear();
+    insert_narumae_src_by_ms_km(to, &km_dst, &uchu, &mut mv_from_hashset);
+    for from in &mv_from_hashset {
+        assert_banjo_ms(*from, "Ｉnsert_ss_by_ms_km_on_banjo from(成り)");
 
-        ss_hash_builder.src = *ms_src;
+        ss_hash_builder.src = *from;
         // 成り
         ss_hash_builder.pro = true;
         ss_hash_builder.drop = KmSyurui::Kara;
@@ -204,7 +204,7 @@ pub fn insert_ss_by_ms_km_on_da(
     ss_hash_builder.dst = to;
 
     // 移動元の升
-    //let mut mv_src_hashset : HashSet<Square> = HashSet::new();
+    //let mut mv_from_hashset : HashSet<Square> = HashSet::new();
 
     // +----+
     // | 打 |
