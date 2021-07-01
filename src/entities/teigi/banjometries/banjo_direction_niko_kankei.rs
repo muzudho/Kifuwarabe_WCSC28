@@ -53,7 +53,7 @@ pub fn get_dir8_to_slider_from_target(
                 Dir8::Owari
             }
         }
-        Z => {
+        B => {
             // 左上がり筋か、左下がり筋かのどちらかが同じ
             if match_argangle45_p_p(&p_slider, &p_target) {
                 if match_a_west_of_b(&p_slider, &p_target) {

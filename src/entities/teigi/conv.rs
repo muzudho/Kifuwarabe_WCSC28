@@ -400,9 +400,9 @@ pub fn km_to_sn_kms(pc: &Piece) -> (Phase, PieceType) {
     use super::super::teigi::shogi_syugo::Phase::*;
     use super::super::teigi::shogi_syugo::Piece::*;
     match *pc {
-        R0 => (First, R),
+        R0 => (First, KING),
         K0 => (First, K),
-        Z0 => (First, Z),
+        Z0 => (First, B),
         I0 => (First, I),
         N0 => (First, N),
         U0 => (First, U),
@@ -414,9 +414,9 @@ pub fn km_to_sn_kms(pc: &Piece) -> (Phase, PieceType) {
         PU0 => (First, PU),
         PS0 => (First, PS),
         PH0 => (First, PH),
-        R1 => (Second, R),
+        R1 => (Second, KING),
         K1 => (Second, K),
-        Z1 => (Second, Z),
+        Z1 => (Second, B),
         I1 => (Second, I),
         N1 => (Second, N),
         U1 => (Second, U),
@@ -481,9 +481,9 @@ pub fn km_to_kms(pc: &Piece) -> PieceType {
     // use super::super::teigi::shogi_syugo::Piece;
     use super::super::teigi::shogi_syugo::Piece::*;
     match *pc {
-        R0 => R,
+        R0 => KING,
         K0 => K,
-        Z0 => Z,
+        Z0 => B,
         I0 => I,
         N0 => N,
         U0 => U,
@@ -495,9 +495,9 @@ pub fn km_to_kms(pc: &Piece) -> PieceType {
         PU0 => PU,
         PS0 => PS,
         PH0 => PH,
-        R1 => R,
+        R1 => KING,
         K1 => K,
-        Z1 => Z,
+        Z1 => B,
         I1 => I,
         N1 => N,
         U1 => U,
@@ -559,9 +559,9 @@ pub fn km_to_mg(km_cap: Piece) -> Piece {
 pub fn kms_to_num(kms: &PieceType) -> usize {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *kms {
-        R => 0,
+        KING => 0,
         K => 1,
-        Z => 2,
+        B => 2,
         I => 3,
         N => 4,
         U => 5,
@@ -583,9 +583,9 @@ pub fn kms_to_num(kms: &PieceType) -> usize {
 pub fn num_to_kms(n: usize) -> PieceType {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match n {
-        0 => R,
+        0 => KING,
         1 => K,
-        2 => Z,
+        2 => B,
         3 => I,
         4 => N,
         5 => U,
@@ -620,9 +620,9 @@ pub fn pop_kms_from_hash(hash: u64) -> (u64, PieceType) {
 pub fn kms_is_pro(kms: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *kms {
-        R => false,
+        KING => false,
         K => false,
-        Z => false,
+        B => false,
         I => false,
         N => false,
         U => false,
@@ -642,16 +642,16 @@ pub fn kms_is_pro(kms: &PieceType) -> bool {
 pub fn prokms_to_kms(kms: &PieceType) -> PieceType {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *kms {
-        R => Kara,
+        KING => Kara,
         K => Kara,
-        Z => Kara,
+        B => Kara,
         I => Kara,
         N => Kara,
         U => Kara,
         S => Kara,
         H => Kara,
         PK => K,
-        PZ => Z,
+        PZ => B,
         PN => N,
         PU => U,
         PS => S,
@@ -667,9 +667,9 @@ pub fn prokms_to_kms(kms: &PieceType) -> PieceType {
 pub fn kms_is_nagaikiki(kms: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *kms {
-        R => false,
+        KING => false,
         K => true,
-        Z => true,
+        B => true,
         I => false,
         N => false,
         U => false,
@@ -691,9 +691,9 @@ pub fn kms_is_nagaikiki(kms: &PieceType) -> bool {
 pub fn kms_can_pro(kms: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *kms {
-        R => false,
+        KING => false,
         K => true,
-        Z => true,
+        B => true,
         I => false,
         N => true,
         U => true,
@@ -715,9 +715,9 @@ pub fn kms_can_pro(kms: &PieceType) -> bool {
 pub fn kms_can_da(kms: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *kms {
-        R => false,
+        KING => false,
         K => true,
-        Z => true,
+        B => true,
         I => true,
         N => true,
         U => true,
@@ -739,9 +739,9 @@ pub fn sn_kms_to_km(phase: &Phase, kms: &PieceType) -> Piece {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *phase {
         Phase::First => match *kms {
-            R => R0,
+            KING => R0,
             K => K0,
-            Z => Z0,
+            B => Z0,
             I => I0,
             N => N0,
             U => U0,
@@ -756,9 +756,9 @@ pub fn sn_kms_to_km(phase: &Phase, kms: &PieceType) -> Piece {
             _ => Piece::Owari,
         },
         Phase::Second => match *kms {
-            R => R1,
+            KING => R1,
             K => K1,
-            Z => Z1,
+            B => Z1,
             I => I1,
             N => N1,
             U => U1,
