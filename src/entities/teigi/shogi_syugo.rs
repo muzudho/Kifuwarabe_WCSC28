@@ -436,8 +436,8 @@ pub enum PieceType {
     B,
     // 金 Gold
     G,
-    // ねこ
-    N,
+    // 銀 Silver
+    S,
     // うさぎ
     U,
     // 香 Lance
@@ -470,7 +470,7 @@ impl fmt::Display for PieceType {
             K => write!(f, "き"),
             B => write!(f, "ぞ"),
             G => write!(f, "い"),
-            N => write!(f, "ね"),
+            S => write!(f, "ね"),
             U => write!(f, "う"),
             L => write!(f, "い"),
             P => write!(f, "ひ"),
@@ -500,7 +500,7 @@ pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::K,    // きりん
     PieceType::B,    // ぞう
     PieceType::G,    // いぬ
-    PieceType::N,    // ねこ
+    PieceType::S,    // ねこ
     PieceType::U,    // うさぎ
     PieceType::L,    // いのしし
     PieceType::P,    // ひよこ
@@ -520,7 +520,7 @@ pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
     PieceType::K,    // きりん
     PieceType::B,    // ぞう
     PieceType::G,    // いぬ
-    PieceType::N,    // ねこ
+    PieceType::S,    // ねこ
     PieceType::U,    // うさぎ
     PieceType::L,    // いのしし
     PieceType::P,    // ひよこ
@@ -545,7 +545,7 @@ pub const MGS_ARRAY: [PieceType; MGS_ARRAY_LN] = [
     PieceType::K,
     PieceType::B,
     PieceType::G,
-    PieceType::N,
+    PieceType::S,
     PieceType::U,
     PieceType::L,
     PieceType::P,
