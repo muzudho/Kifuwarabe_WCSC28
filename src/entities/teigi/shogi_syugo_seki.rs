@@ -7,12 +7,12 @@ use super::super::teigi::shogi_syugo::*;
 
 /// 升 × 駒
 pub struct MsKm {
-    ms: umasu,
+    ms: Square,
     km: Koma,
 }
 
 /// 升 × 駒種類
 pub struct MsKms {
-    ms: umasu,
+    ms: Square,
     kms: KmSyurui,
 }

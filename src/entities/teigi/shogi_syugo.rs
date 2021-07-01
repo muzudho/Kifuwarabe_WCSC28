@@ -144,23 +144,23 @@ pub const DAN_10: i8 = 10;
 /// 該当なしの場合 0 を使う
 ///
 #[allow(non_camel_case_types)]
-pub type umasu = usize;
+pub type Square = usize;
 ///
 /// 升の検索等で、該当なしの場合
 ///
-pub const MASU_0: umasu = 0;
+pub const MASU_0: Square = 0;
 
 ///
 /// 指し手。打の場合のsrc
 ///
-pub const SS_SRC_DA: umasu = 0;
+pub const SS_SRC_DA: Square = 0;
 
 ///
 /// 先手陣
 ///
 pub struct SenteJin {}
 impl SenteJin {
-    pub fn to_elm() -> Vec<umasu> {
+    pub fn to_elm() -> Vec<Square> {
         vec![
             91, 81, 71, 61, 51, 41, 31, 21, 11, 92, 82, 72, 62, 52, 42, 32, 22, 12, 93, 83, 73, 63,
             53, 43, 33, 23, 13,
@@ -173,7 +173,7 @@ impl SenteJin {
 ///
 pub struct GoteJin {}
 impl GoteJin {
-    pub fn to_elm() -> Vec<umasu> {
+    pub fn to_elm() -> Vec<Square> {
         vec![
             91, 81, 71, 61, 51, 41, 31, 21, 11, 92, 82, 72, 62, 52, 42, 32, 22, 12, 93, 83, 73, 63,
             53, 43, 33, 23, 13,

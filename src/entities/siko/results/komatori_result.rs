@@ -38,9 +38,9 @@ pub struct KomatoriResult {
     // 要因：王手をしてきている駒（１つ）
     km_attacker: Koma,
     // 要因：アタッカーが居る升
-    ms_attacker: umasu,
+    ms_attacker: Square,
     // 要因：狙われている駒が居る升
-    ms_target: umasu,
+    ms_target: Square,
 }
 impl fmt::Display for KomatoriResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -60,7 +60,7 @@ impl fmt::Display for KomatoriResult {
 }
 impl KomatoriResult {
     #[allow(dead_code)]
-    pub fn get_ms_attacker(&self) -> umasu {
+    pub fn get_ms_attacker(&self) -> Square {
         self.ms_attacker
     }
     pub fn to_hash(&self) -> u64 {
@@ -165,7 +165,7 @@ impl KomatoriResult {
 ///
 /// return u64 : KomatoriResult のハッシュ
 ///
-pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Sengo, ms_target: umasu) -> HashSet<u64> {
+pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Sengo, ms_target: Square) -> HashSet<u64> {
     assert_banjo_ms(
         ms_target,
         &format!("(119)Ｌookup_banjo_catch sn={} ms_target={}", sn, ms_target),

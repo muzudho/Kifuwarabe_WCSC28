@@ -15,9 +15,9 @@ use super::super::super::teigi::shogi_syugo::*;
 /// 引数には、同じ升を指定しないものとする
 ///
 pub fn get_dir8_to_slider_from_target(
-    ms_slider: umasu,
+    ms_slider: Square,
     km_slider: &Koma,
-    ms_target: umasu,
+    ms_target: Square,
 ) -> Dir8 {
     debug_assert!(
         ms_slider != ms_target,

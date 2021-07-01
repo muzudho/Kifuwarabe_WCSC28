@@ -127,7 +127,7 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
 
         // 利きの再計算
         // 有り得る移動元が入る☆（＾～＾）
-        let mut attackers: HashSet<umasu> = HashSet::new();
+        let mut attackers: HashSet<Square> = HashSet::new();
         insert_narazu_src_by_sn_ms(
             &uchu.get_teban(&Jiai::Ji), // 指定の升に駒を動かそうとしている手番
             ms_r_new,                   // 指定の升

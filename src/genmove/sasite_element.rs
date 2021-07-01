@@ -22,15 +22,15 @@ use std::collections::HashSet;
 /// TODO 先手１段目の香車とか、必ず成らないといけないぜ☆（＾～＾）
 ///
 pub fn insert_narazu_src_by_ms_km(
-    ms_dst: umasu,
+    ms_dst: Square,
     km_dst: &Koma,
     uchu: &Uchu,
-    result: &mut HashSet<umasu>,
+    result: &mut HashSet<Square>,
 ) {
     assert_banjo_ms(ms_dst, "ｉnsert_narazu_src_by_ms_km");
 
     /*
-     * umasu は 将棋盤座標
+     * Square は 将棋盤座標
      *
      * ...
      * 13 23 33
@@ -333,10 +333,10 @@ pub fn insert_narazu_src_by_ms_km(
 /// 成り　の動きでその結果になるような、元の升を返す☆（＾～＾）
 ///
 pub fn insert_narumae_src_by_ms_km(
-    ms_dst: umasu,
+    ms_dst: Square,
     km_dst: &Koma,
     uchu: &Uchu,
-    result: &mut HashSet<umasu>,
+    result: &mut HashSet<Square>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_narumae_src_by_ms_km");
 
@@ -356,7 +356,7 @@ pub fn insert_narumae_src_by_ms_km(
     let km_src = sn_kms_to_km(&sn, &kms_src);
 
     /*
-     * umasu は 将棋盤座標
+     * Square は 将棋盤座標
      *
      * ...
      * 13 23 33
@@ -641,7 +641,7 @@ pub fn insert_narumae_src_by_ms_km(
 /// そこに打てる駒種類を返す。
 ///
 pub fn insert_da_kms_by_ms_km(
-    ms_dst: umasu,
+    ms_dst: Square,
     km_dst: &Koma,
     uchu: &Uchu,
     result_kms: &mut HashSet<usize>,
@@ -675,7 +675,7 @@ pub fn insert_da_kms_by_ms_km(
     // 回転していない将棋盤から見た筋番号
     let (suji, dy) = ms_to_suji_dan(ms_dst);
     /*
-     * umasu は 将棋盤座標
+     * Square は 将棋盤座標
      *
      * 考えることを打に限れば、先手も、後手も、後手から見た座標を使えば十分だぜ☆（＾～＾）
      *
@@ -747,11 +747,11 @@ pub fn insert_da_kms_by_ms_km(
 /// ky       : 現局面
 ///
 pub fn insert_dst_by_ms_km(
-    ms_src: umasu,
+    ms_src: Square,
     km_src: &Koma,
     to_nari: bool,
     uchu: &Uchu,
-    result: &mut HashSet<umasu>,
+    result: &mut HashSet<Square>,
 ) {
     assert_banjo_ms(ms_src, "Ｉnsert_dst_by_ms_km");
 
@@ -1051,7 +1051,7 @@ pub fn insert_dst_by_ms_km(
             K0 | Z0 | N0 => {
                 // ▼きりん、▼ぞう、▼ねこ　は
                 // 移動元または移動先が　１～３段目なら成れる
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_sx2, sy2) = ms_to_suji_dan(ms_src);
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
@@ -1068,7 +1068,7 @@ pub fn insert_dst_by_ms_km(
             U0 | S0 | H0 => {
                 // ▼うさぎ、▼しし、▼ひよこ　は
                 // 移動先が　１～３段目なら成れる
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
                     if dy2 < DAN_4 {
@@ -1084,7 +1084,7 @@ pub fn insert_dst_by_ms_km(
             K1 | Z1 | N1 => {
                 // △きりん、△ぞう、△ねこ　は
                 // 移動元または移動先が　７～９段目なら成れる
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_sx2, sy2) = ms_to_suji_dan(ms_src);
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
@@ -1101,7 +1101,7 @@ pub fn insert_dst_by_ms_km(
             U1 | S1 | H1 => {
                 // △うさぎ、△しし、△ひよこ　は
                 // 移動先が　７～９段目なら成れる
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
                     if DAN_6 < dy2 {
@@ -1124,7 +1124,7 @@ pub fn insert_dst_by_ms_km(
         match *km_src {
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
                     if dy2 < DAN_3 {
@@ -1140,7 +1140,7 @@ pub fn insert_dst_by_ms_km(
             }
             S0 | H0 => {
                 // ▼しし、▼ひよこ　は１段目には進めない
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
                     if dy2 < DAN_2 {
@@ -1156,7 +1156,7 @@ pub fn insert_dst_by_ms_km(
             }
             U1 => {
                 // △うさぎ　は８、９段目には進めない
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
                     if DAN_7 < dy2 {
@@ -1172,7 +1172,7 @@ pub fn insert_dst_by_ms_km(
             }
             S1 | H1 => {
                 // △しし、△ひよこ　は９段目には進めない
-                let mut result2: HashSet<umasu> = HashSet::new();
+                let mut result2: HashSet<Square> = HashSet::new();
                 for ms_dst in result.iter() {
                     let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
                     if DAN_8 < dy2 {
@@ -1201,9 +1201,9 @@ pub fn insert_dst_by_ms_km(
 ///
 pub fn insert_narazu_src_by_sn_ms(
     sn: &Sengo,
-    ms_dst: umasu,
+    ms_dst: Square,
     uchu: &Uchu,
-    result: &mut HashSet<umasu>,
+    result: &mut HashSet<Square>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_narazu_src_by_sn_ms");
 
@@ -1557,9 +1557,9 @@ pub fn insert_narazu_src_by_sn_ms(
 ///
 pub fn insert_narumae_src_by_sn_ms(
     sn: &Sengo,
-    ms_dst: umasu,
+    ms_dst: Square,
     uchu: &Uchu,
-    result: &mut HashSet<umasu>,
+    result: &mut HashSet<Square>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_narumae_src_by_sn_ms");
 
@@ -1910,10 +1910,10 @@ pub fn insert_narumae_src_by_sn_ms(
 #[allow(dead_code)]
 pub fn get_ms_vec_as_aigoma(
     sn_atk:&Sengo,
-    ms_atk:umasu,
-    ms_tgt:umasu,
+    ms_atk:Square,
+    ms_tgt:Square,
     kms_atk:&KmSyurui
-    )->Vec<umasu> {
+    )->Vec<Square> {
     let vec = Vec::new();
 
     use teigi::shogi_syugo::KmSyurui::*;

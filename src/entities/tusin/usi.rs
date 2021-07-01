@@ -16,9 +16,9 @@ use std::fmt;
 #[derive(Copy, Clone)]
 pub struct Sasite {
     // 移動元升。打った場合は 0。
-    pub src: umasu,
+    pub src: Square,
     // 移動先升。これが 0 なら投了とするぜ☆（＾～＾）
-    pub dst: umasu,
+    pub dst: Square,
     // 移動後に成るなら真
     pub pro: bool,
     // 打の場合、打った駒種類。 TODO 持駒の種類に絞りこみたい

@@ -31,7 +31,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
             if match_sn(&sn, &uchu.get_teban(&Jiai::Ji)) {
                 // 手番の駒
 
-                let mut dst_hashset: HashSet<umasu> = HashSet::new();
+                let mut dst_hashset: HashSet<Square> = HashSet::new();
                 insert_dst_by_ms_km(
                     ms_src,
                     &km_src,
@@ -130,7 +130,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
 ///
 pub fn insert_ss_by_ms_km_on_banjo(
     uchu: &Uchu,
-    ms_dst: umasu,
+    ms_dst: Square,
     km_dst: &Koma,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
@@ -150,7 +150,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
     ss_hash_builder.dst = ms_dst;
 
     // 移動元の升
-    let mut mv_src_hashset: HashSet<umasu> = HashSet::new();
+    let mut mv_src_hashset: HashSet<Square> = HashSet::new();
 
     // +----------------+
     // | 盤上（成らず） |
@@ -189,7 +189,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
 ///
 pub fn insert_ss_by_ms_km_on_da(
     uchu: &Uchu,
-    ms_dst: umasu,
+    ms_dst: Square,
     km_dst: &Koma,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
@@ -209,7 +209,7 @@ pub fn insert_ss_by_ms_km_on_da(
     ss_hash_builder.dst = ms_dst;
 
     // 移動元の升
-    //let mut mv_src_hashset : HashSet<umasu> = HashSet::new();
+    //let mut mv_src_hashset : HashSet<Square> = HashSet::new();
 
     // +----+
     // | 打 |

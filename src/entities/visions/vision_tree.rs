@@ -14,7 +14,7 @@ use tusin::usi::*;
 ///
 pub struct VisionTree {
     // 相手玉の位置
-    pub ms_ai_r: umasu,
+    pub ms_ai_r: Square,
     // 相手玉を取る楽観筋
     pub ss_tume_hashset: HashSet<u64>,
 }
@@ -28,7 +28,7 @@ impl VisionTree {
     pub fn clear(&mut self) {
         self.ss_tume_hashset.clear();
     }
-    pub fn set_ai_r(&mut self, ms: umasu) {
+    pub fn set_ai_r(&mut self, ms: Square) {
         self.ms_ai_r = ms;
     }
 }
@@ -43,7 +43,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
         // 相手の　らいおん　の位置を覚える
         &uchu.vision_tree_by_sn[sn_to_num(sn)].set_ai_r(uchu.ky.ms_r[sn_to_num(&ai_sn)]);
         // 盤上に相手の　らいおん１枚　しかないと想定して、アタックする手
-        let mut mv_src_hashset: HashSet<umasu> = HashSet::new();
+        let mut mv_src_hashset: HashSet<Square> = HashSet::new();
         //let mut da_kms_hashset : HashSet<usize> = HashSet::new();
 
         for kms_dst in KMS_ARRAY.iter() {

@@ -12,7 +12,7 @@ use super::super::super::tusin::usi::*;
 use std::collections::HashSet;
 
 /// 升を表示
-pub fn hyoji_ms_hashset(ms_hashset: &HashSet<umasu>) {
+pub fn hyoji_ms_hashset(ms_hashset: &HashSet<Square>) {
     g_writeln(&format!("ms_hashset.len()={}", ms_hashset.len()));
     for ms in ms_hashset {
         match *ms {
@@ -23,7 +23,7 @@ pub fn hyoji_ms_hashset(ms_hashset: &HashSet<umasu>) {
 }
 
 /// 升を表示
-pub fn hyoji_ms_vec(ms_vec: &Vec<umasu>) {
+pub fn hyoji_ms_vec(ms_vec: &Vec<Square>) {
     g_writeln(&format!("ms_vec.len()={}", ms_vec.len()));
     for ms in ms_vec {
         match *ms {

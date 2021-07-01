@@ -138,25 +138,25 @@ pub fn hanten_jiai(jiai: &Jiai) -> Jiai {
 }
 
 ///
-/// umasu は 将棋盤座標
+/// Square は 将棋盤座標
 ///
 /// 91 81 71 ...
 /// 92 82 72
 /// 93 83 73
 /// ...
 ///
-pub fn ms_to_suji_dan(ms: umasu) -> (i8, i8) {
+pub fn ms_to_suji_dan(ms: Square) -> (i8, i8) {
     assert_banjo_ms(ms, "(203)Ｍs_to_suji_dan");
     ((ms / 10) as i8, (ms % 10) as i8)
 }
-pub fn ms_to_p(ms: umasu) -> Point {
+pub fn ms_to_p(ms: Square) -> Point {
     assert_banjo_ms(ms, "(203b)ms_to_p");
     Point {
         x: (ms / 10) as i8,
         y: (ms % 10) as i8,
     }
 }
-pub fn suji_dan_to_ms(suji: i8, dan: i8) -> umasu {
+pub fn suji_dan_to_ms(suji: i8, dan: i8) -> Square {
     debug_assert!(
         (SUJI_0 < suji && suji < SUJI_10) && (DAN_0 < dan && dan < DAN_10),
         "(204)suji_dan_to_ms suji={},dan={}",
@@ -164,20 +164,20 @@ pub fn suji_dan_to_ms(suji: i8, dan: i8) -> umasu {
         dan
     );
 
-    (suji * 10 + dan) as umasu
+    (suji * 10 + dan) as Square
 }
 pub fn p_in_ban(p: &Point) -> bool {
     (SUJI_0 < p.x && p.x < SUJI_10) && (DAN_0 < p.y && p.y < DAN_10)
 }
-pub fn p_to_ms(p: &Point) -> umasu {
+pub fn p_to_ms(p: &Point) -> Square {
     debug_assert!(p_in_ban(&p), "(204b)p_to_ms x={},y={}", p.x, p.y);
 
-    (p.x * 10 + p.y) as umasu
+    (p.x * 10 + p.y) as Square
 }
 ///
 /// ハッシュ値を作る
 ///
-pub fn push_ms_to_hash(hash: u64, ms: umasu) -> u64 {
+pub fn push_ms_to_hash(hash: u64, ms: Square) -> u64 {
     // 0筋とか 0段とか 使ってないが、そのまま足す。
     // 0～100の101升と、ちょいなんで、128(=2^7) あれば十分
     (hash << 7) + ms as u64
@@ -185,10 +185,10 @@ pub fn push_ms_to_hash(hash: u64, ms: umasu) -> u64 {
 ///
 /// ハッシュ値から作る
 ///
-pub fn pop_ms_from_hash(hash: u64) -> (u64, umasu) {
+pub fn pop_ms_from_hash(hash: u64) -> (u64, Square) {
     // 0筋とか 0段とか 使ってないが、そのまま足す。
     // 0～100の101升と、ちょいなんで、128(=2^7) あれば十分
-    let ms_num = (hash & 0b1111111) as umasu;
+    let ms_num = (hash & 0b1111111) as Square;
     (hash >> 7, ms_num)
 }
 
@@ -212,7 +212,7 @@ pub fn num_to_lower_case(num: i8) -> &'static str {
 ///
 /// 先手であれば、後手のように番号を振った座標に変換
 ///
-pub fn kaiten180_ms_by_ms_sn(ms: umasu, sn: &Sengo) -> umasu {
+pub fn kaiten180_ms_by_ms_sn(ms: Square, sn: &Sengo) -> Square {
     use super::super::teigi::shogi_syugo::Sengo::*;
     match *sn {
         Sen => BAN_MAX - ms + BAN_MIN,

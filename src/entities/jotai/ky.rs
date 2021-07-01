@@ -24,7 +24,7 @@ pub struct Kyokumen {
     pub mg: [i8; KM_LN],
     /// らいおんの位置
     /// [先後]
-    pub ms_r: [umasu; SN_LN],
+    pub ms_r: [Square; SN_LN],
 }
 impl Kyokumen {
     pub fn new() -> Kyokumen {
@@ -84,11 +84,11 @@ impl Kyokumen {
         false
     }
     /// 升で指定して駒を取る
-    pub fn get_km_by_ms(&self, ms: umasu) -> Koma {
+    pub fn get_km_by_ms(&self, ms: Square) -> Koma {
         self.ban[ms]
     }
     /// 升で指定して駒を置く
-    pub fn set_km_by_ms(&mut self, ms: umasu, km: Koma) {
+    pub fn set_km_by_ms(&mut self, ms: Square, km: Koma) {
         self.ban[ms] = km;
         use super::super::teigi::shogi_syugo::Sengo::*;
         match km {
@@ -186,22 +186,22 @@ impl Kyokumen {
     }
 
     /// 指定の升に駒があれば真
-    pub fn exists_km(&self, ms: umasu) -> bool {
+    pub fn exists_km(&self, ms: Square) -> bool {
         !match_km(&self.get_km_by_ms(ms), &Koma::Kara)
     }
 
     /// 指定の升に指定の駒があれば真
-    pub fn has_ms_km(&self, ms: umasu, km: &Koma) -> bool {
+    pub fn has_ms_km(&self, ms: Square, km: &Koma) -> bool {
         match_km(&self.get_km_by_ms(ms), km)
     }
 
     /// 指定の升にある駒の先後、または空升
-    pub fn get_sn_by_ms(&self, ms: umasu) -> Sengo {
+    pub fn get_sn_by_ms(&self, ms: Square) -> Sengo {
         km_to_sn(&self.get_km_by_ms(ms))
     }
 
     /// 移動先と移動元を比較し、違う駒があれば、成ったと判定するぜ☆（＾～＾）
-    pub fn is_natta(&self, ms_src: umasu, ms_dst: umasu) -> bool {
+    pub fn is_natta(&self, ms_src: Square, ms_dst: Square) -> bool {
         let km_src = &self.get_km_by_ms(ms_src);
         let kms_src = km_to_kms(&km_src);
         let km_dst = &self.get_km_by_ms(ms_dst);
@@ -220,7 +220,7 @@ impl Kyokumen {
 
         // 盤上の駒
         for i_ms in MASU_0..BAN_SIZE {
-            let km = self.get_km_by_ms(i_ms as umasu);
+            let km = self.get_km_by_ms(i_ms as Square);
             let num_km = km_to_num(&km);
             hash ^= uchu.ky_hash_seed.km[i_ms][num_km];
         }

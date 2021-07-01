@@ -781,10 +781,10 @@ impl Uchu {
     }
 
     /// 棋譜の作成
-    pub fn set_sasite_src(&mut self, src: umasu) {
+    pub fn set_sasite_src(&mut self, src: Square) {
         self.kifu[self.teme].src = src
     }
-    pub fn set_sasite_dst(&mut self, dst: umasu) {
+    pub fn set_sasite_dst(&mut self, dst: Square) {
         self.kifu[self.teme].dst = dst
     }
     pub fn set_sasite_pro(&mut self, pro: bool) {
@@ -835,7 +835,7 @@ impl Uchu {
 
     /// 自陣
     #[allow(dead_code)]
-    pub fn get_ji_jin(&self) -> Vec<umasu> {
+    pub fn get_ji_jin(&self) -> Vec<Square> {
         if let Sengo::Sen = self.get_teban(&Jiai::Ji) {
             teigi::shogi_syugo::SenteJin::to_elm()
         } else {
@@ -844,7 +844,7 @@ impl Uchu {
     }
     /// 相手陣
     #[allow(dead_code)]
-    pub fn get_aite_jin(&self) -> Vec<umasu> {
+    pub fn get_aite_jin(&self) -> Vec<Square> {
         if let Sengo::Sen = self.get_teban(&Jiai::Ji) {
             teigi::shogi_syugo::GoteJin::to_elm()
         } else {
