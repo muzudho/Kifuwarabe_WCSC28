@@ -487,27 +487,27 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "R" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::K0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::R0);
                 suji -= 1;
             }
             "B" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Z0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::B0);
                 suji -= 1;
             }
             "G" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::I0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::G0);
                 suji -= 1;
             }
             "S" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::N0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::S0);
                 suji -= 1;
             }
             "N" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::U0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::N0);
                 suji -= 1;
             }
             "L" => {
@@ -517,7 +517,7 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "P" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::H0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::P0);
                 suji -= 1;
             }
             "k" => {
@@ -565,32 +565,32 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
                 match &line[*starts..(*starts + 1)] {
                     "R" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PK0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PR0);
                         suji -= 1;
                     }
                     "B" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PZ0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PB0);
                         suji -= 1;
                     }
                     "S" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PN0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PS0);
                         suji -= 1;
                     }
                     "N" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PU0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PN0);
                         suji -= 1;
                     }
                     "L" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PS0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PL0);
                         suji -= 1;
                     }
                     "P" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PH0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PP0);
                         suji -= 1;
                     }
                     "r" => {
@@ -615,7 +615,7 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
                     }
                     "l" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PS1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PL1);
                         suji -= 1;
                     }
                     "p" => {
@@ -779,23 +779,23 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                     let pc: Piece;
                     match &line[starts..(starts + 1)] {
                         "R" => {
-                            pc = K0;
+                            pc = R0;
                             starts += 1;
                         }
                         "B" => {
-                            pc = Z0;
+                            pc = B0;
                             starts += 1;
                         }
                         "G" => {
-                            pc = I0;
+                            pc = G0;
                             starts += 1;
                         }
                         "S" => {
-                            pc = N0;
+                            pc = S0;
                             starts += 1;
                         }
                         "N" => {
-                            pc = U0;
+                            pc = N0;
                             starts += 1;
                         }
                         "L" => {
@@ -803,7 +803,7 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                             starts += 1;
                         }
                         "P" => {
-                            pc = H0;
+                            pc = P0;
                             starts += 1;
                         }
                         "r" => {

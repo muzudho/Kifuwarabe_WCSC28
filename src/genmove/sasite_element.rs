@@ -48,13 +48,13 @@ pub fn insert_nopromote_from_by_sq_pc(
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
     use super::super::entities::teigi::shogi_syugo::Piece::*;
     match *to_pc {
-        U0 => {
+        N0 => {
             // ▼うさぎ　は１、２段目には進めない
             if dy < DAN_3 {
                 return;
             }
         }
-        L0 | H0 => {
+        L0 | P0 => {
             // ▼しし、▼ひよこ　は１段目には進めない
             if dy < DAN_2 {
                 return;
@@ -693,7 +693,7 @@ pub fn insert_drop_pt_by_sq_pc(
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
     use super::super::entities::teigi::shogi_syugo::Piece::*;
     match *to_pc {
-        U0 => {
+        N0 => {
             // ▼うさぎ　は１、２段目には進めない
             if dy < DAN_3 {
                 return;
@@ -705,7 +705,7 @@ pub fn insert_drop_pt_by_sq_pc(
                 return;
             }
         }
-        H0 => {
+        P0 => {
             // ▼ひよこ　は２歩できない
             if dy < DAN_2 || uchu.ky.exists_fu_by_sn_suji(&phase, suji) {
                 return;
@@ -1048,7 +1048,7 @@ pub fn insert_dst_by_sq_pc(
         // +------------------------------+
         use super::super::entities::teigi::shogi_syugo::Piece::*;
         match *pc_from {
-            K0 | Z0 | N0 => {
+            R0 | B0 | S0 => {
                 // ▼きりん、▼ぞう、▼ねこ　は
                 // 移動元または移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
@@ -1065,7 +1065,7 @@ pub fn insert_dst_by_sq_pc(
                     result.insert(*to);
                 }
             }
-            U0 | L0 | H0 => {
+            N0 | L0 | P0 => {
                 // ▼うさぎ、▼しし、▼ひよこ　は
                 // 移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
@@ -1122,7 +1122,7 @@ pub fn insert_dst_by_sq_pc(
         // +----------------------------------------+
         use super::super::entities::teigi::shogi_syugo::Piece::*;
         match *pc_from {
-            U0 => {
+            N0 => {
                 // ▼うさぎ　は１、２段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
@@ -1138,7 +1138,7 @@ pub fn insert_dst_by_sq_pc(
                     result.insert(*to);
                 }
             }
-            L0 | H0 => {
+            L0 | P0 => {
                 // ▼しし、▼ひよこ　は１段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
@@ -1216,13 +1216,13 @@ pub fn insert_narazu_src_by_sn_ms(
         let pc = ph_pt_to_pc(&phase, &pt);
         use super::super::entities::teigi::shogi_syugo::Piece::*;
         match pc {
-            U0 => {
+            N0 => {
                 // ▼うさぎ　は１、２段目には進めない
                 if dy < DAN_3 {
                     continue;
                 }
             }
-            L0 | H0 => {
+            L0 | P0 => {
                 // ▼しし、▼ひよこ　は１段目には進めない
                 if dy < DAN_2 {
                     continue;

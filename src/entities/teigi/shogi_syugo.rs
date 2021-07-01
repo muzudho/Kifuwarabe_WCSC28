@@ -189,34 +189,34 @@ pub const PC_LEN: usize = 30;
 ///
 #[derive(Copy, Clone)]
 pub enum Piece {
-    /// ▼らいおん
+    /// ▲玉 King
     KING0,
-    /// ▼きりん
-    K0,
-    /// ▼ぞう
-    Z0,
-    /// ▼いぬ
-    I0,
-    /// ▼ねこ
+    /// ▲飛 Rook
+    R0,
+    /// ▲角 Bishop
+    B0,
+    /// ▲金 Gold
+    G0,
+    /// ▲銀 Sliver
+    S0,
+    /// ▲桂 Knight
     N0,
-    /// ▼うさぎ
-    U0,
-    /// ▼いのしし
+    /// ▲香 Lance
     L0,
-    /// ▼ひよこ
-    H0,
-    /// ▼ぱわーあっぷきりん
-    PK0,
-    /// ▼ぱわーあっぷぞう
-    PZ0,
-    /// ▼ぱわーあっぷねこ
-    PN0,
-    /// ▼ぱわーあっぷうさぎ
-    PU0,
-    /// ▼ぱわーあっぷいのしし
+    /// ▲歩 Pawn
+    P0,
+    /// ▲竜 Promoted Rook (Dragon)
+    PR0,
+    /// ▲馬 Promoted Bishop (Horse)
+    PB0,
+    /// ▲全 Promoted Silver
     PS0,
-    /// ▼ぱわーあっぷひよこ
-    PH0,
+    /// ▲圭 Promoted Knight
+    PN0,
+    /// ▲杏 Promoted Lance
+    PL0,
+    /// ▲と Promoted Pawn
+    PP0,
     /// △ライオン
     KING1,
     /// △キリン
@@ -242,7 +242,7 @@ pub enum Piece {
     /// △パワーアップウサギ
     PU1,
     /// △パワーアップイノシシ
-    PS1,
+    PL1,
     /// △パワーアップヒヨコ
     PH1,
     /// 空マス
@@ -256,19 +256,19 @@ impl fmt::Display for Piece {
         use super::super::teigi::shogi_syugo::Piece::*;
         match *self {
             KING0 => write!(f, "▼ら"),
-            K0 => write!(f, "▼き"),
-            Z0 => write!(f, "▼ぞ"),
-            I0 => write!(f, "▼い"),
-            N0 => write!(f, "▼ね"),
-            U0 => write!(f, "▼う"),
+            R0 => write!(f, "▼き"),
+            B0 => write!(f, "▼ぞ"),
+            G0 => write!(f, "▼い"),
+            S0 => write!(f, "▼ね"),
+            N0 => write!(f, "▼う"),
             L0 => write!(f, "▼し"),
-            H0 => write!(f, "▼ひ"),
-            PK0 => write!(f, "▼PK"),
-            PZ0 => write!(f, "▼PZ"),
-            PN0 => write!(f, "▼PN"),
-            PU0 => write!(f, "▼PU"),
-            PS0 => write!(f, "▼PS"),
-            PH0 => write!(f, "▼PH"),
+            P0 => write!(f, "▼ひ"),
+            PR0 => write!(f, "▼PK"),
+            PB0 => write!(f, "▼PZ"),
+            PS0 => write!(f, "▼PN"),
+            PN0 => write!(f, "▼PU"),
+            PL0 => write!(f, "▼PS"),
+            PP0 => write!(f, "▼PH"),
             KING1 => write!(f, "△ラ"),
             K1 => write!(f, "△キ"),
             Z1 => write!(f, "△ゾ"),
@@ -281,7 +281,7 @@ impl fmt::Display for Piece {
             PZ1 => write!(f, "△pz"),
             PN1 => write!(f, "△pn"),
             PU1 => write!(f, "△pu"),
-            PS1 => write!(f, "△ps"),
+            PL1 => write!(f, "△ps"),
             PH1 => write!(f, "△ph"),
             Empty => write!(f, "　　"),
             Owari => write!(f, "××"),
@@ -299,19 +299,19 @@ pub const PC_ARRAY_HALF_LEN: usize = 14;
 pub const PC_ARRAY_LEN: usize = 28;
 pub const PC_ARRAY: [Piece; PC_ARRAY_LEN] = [
     Piece::KING0, // らいおん
-    Piece::K0,    // きりん
-    Piece::Z0,    // ぞう
-    Piece::I0,    // いぬ
-    Piece::N0,    // ねこ
-    Piece::U0,    // うさぎ
+    Piece::R0,    // きりん
+    Piece::B0,    // ぞう
+    Piece::G0,    // いぬ
+    Piece::S0,    // ねこ
+    Piece::N0,    // うさぎ
     Piece::L0,    // いのしし
-    Piece::H0,    // ひよこ
-    Piece::PK0,   // ぱわーあっぷきりん
-    Piece::PZ0,   // ぱわーあっぷぞう
-    Piece::PN0,   // ぱわーあっぷねこ
-    Piece::PU0,   // ぱわーあっぷうさぎ
-    Piece::PS0,   // ぱわーあっぷいのしし
-    Piece::PH0,   // ぱわーあっぷひよこ
+    Piece::P0,    // ひよこ
+    Piece::PR0,   // ぱわーあっぷきりん
+    Piece::PB0,   // ぱわーあっぷぞう
+    Piece::PS0,   // ぱわーあっぷねこ
+    Piece::PN0,   // ぱわーあっぷうさぎ
+    Piece::PL0,   // ぱわーあっぷいのしし
+    Piece::PP0,   // ぱわーあっぷひよこ
     Piece::KING1, // らいおん
     Piece::K1,    // きりん
     Piece::Z1,    // ぞう
@@ -324,25 +324,25 @@ pub const PC_ARRAY: [Piece; PC_ARRAY_LEN] = [
     Piece::PZ1,   // ぱわーあっぷぞう
     Piece::PN1,   // ぱわーあっぷねこ
     Piece::PU1,   // ぱわーあっぷうさぎ
-    Piece::PS1,   // ぱわーあっぷいのしし
+    Piece::PL1,   // ぱわーあっぷいのしし
     Piece::PH1,   // ぱわーあっぷひよこ
 ];
 pub const PH_PC_ARRAY: [[Piece; PC_ARRAY_HALF_LEN]; SN_LN] = [
     [
         Piece::KING0, // らいおん
-        Piece::K0,    // きりん
-        Piece::Z0,    // ぞう
-        Piece::I0,    // いぬ
-        Piece::N0,    // ねこ
-        Piece::U0,    // うさぎ
+        Piece::R0,    // きりん
+        Piece::B0,    // ぞう
+        Piece::G0,    // いぬ
+        Piece::S0,    // ねこ
+        Piece::N0,    // うさぎ
         Piece::L0,    // いのしし
-        Piece::H0,    // ひよこ
-        Piece::PK0,   // ぱわーあっぷきりん
-        Piece::PZ0,   // ぱわーあっぷぞう
-        Piece::PN0,   // ぱわーあっぷねこ
-        Piece::PU0,   // ぱわーあっぷうさぎ
-        Piece::PS0,   // ぱわーあっぷいのしし
-        Piece::PH0,   // ぱわーあっぷひよこ
+        Piece::P0,    // ひよこ
+        Piece::PR0,   // ぱわーあっぷきりん
+        Piece::PB0,   // ぱわーあっぷぞう
+        Piece::PS0,   // ぱわーあっぷねこ
+        Piece::PN0,   // ぱわーあっぷうさぎ
+        Piece::PL0,   // ぱわーあっぷいのしし
+        Piece::PP0,   // ぱわーあっぷひよこ
     ],
     [
         Piece::KING1, // らいおん
@@ -357,7 +357,7 @@ pub const PH_PC_ARRAY: [[Piece; PC_ARRAY_HALF_LEN]; SN_LN] = [
         Piece::PZ1,   // ぱわーあっぷぞう
         Piece::PN1,   // ぱわーあっぷねこ
         Piece::PU1,   // ぱわーあっぷうさぎ
-        Piece::PS1,   // ぱわーあっぷいのしし
+        Piece::PL1,   // ぱわーあっぷいのしし
         Piece::PH1,   // ぱわーあっぷひよこ
     ],
     [
