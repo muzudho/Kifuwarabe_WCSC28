@@ -99,7 +99,7 @@ impl fmt::Display for Sasite {
                     S => {
                         "S"
                     }
-                    U => {
+                    N => {
                         "N"
                     }
                     L => {
@@ -187,7 +187,7 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
         "N" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(PieceType::U);
+            uchu.set_sasite_drop(PieceType::N);
         }
         "L" => {
             *starts += 2;
