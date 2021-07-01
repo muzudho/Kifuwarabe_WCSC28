@@ -446,14 +446,14 @@ pub enum PieceType {
     P,
     // 竜 Promoted Rook (Dragon)
     PR,
-    // ぱわーあっぷぞう
-    PZ,
+    // 馬 Promoted Bishop (Horse)
+    PB,
     // ぱわーあっぷねこ
     PN,
     // ぱわーあっぷうさぎ
     PU,
-    // ぱわーあっぷいのしし
-    PS,
+    // 杏 Promoted Lance
+    PL,
     // ぱわーあっぷひよこ
     PH,
     // 空マス
@@ -475,10 +475,10 @@ impl fmt::Display for PieceType {
             L => write!(f, "い"),
             P => write!(f, "ひ"),
             PR => write!(f, "PR"),
-            PZ => write!(f, "PZ"),
+            PB => write!(f, "PB"),
             PN => write!(f, "PN"),
             PU => write!(f, "PU"),
-            PS => write!(f, "PS"),
+            PL => write!(f, "PL"),
             PH => write!(f, "PH"),
             Kara => write!(f, "　"),
             Owari => write!(f, "×"),
@@ -505,10 +505,10 @@ pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::L,    // いのしし
     PieceType::P,    // ひよこ
     PieceType::PR,   // ぱわーあっぷきりん
-    PieceType::PZ,   // ぱわーあっぷぞう
+    PieceType::PB,   // ぱわーあっぷぞう
     PieceType::PN,   // ぱわーあっぷねこ
     PieceType::PU,   // ぱわーあっぷうさぎ
-    PieceType::PS,   // ぱわーあっぷいのしし
+    PieceType::PL,   // ぱわーあっぷいのしし
     PieceType::PH,   // ぱわーあっぷひよこ
 ];
 
@@ -531,10 +531,10 @@ pub const KMS_PRO_ARRAY_LN: usize = 6;
 /// 成 駒種類
 pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
     PieceType::PR, // ぱわーあっぷきりん
-    PieceType::PZ, // ぱわーあっぷぞう
+    PieceType::PB, // ぱわーあっぷぞう
     PieceType::PN, // ぱわーあっぷねこ
     PieceType::PU, // ぱわーあっぷうさぎ
-    PieceType::PS, // ぱわーあっぷいのしし
+    PieceType::PL, // ぱわーあっぷいのしし
     PieceType::PH, // ぱわーあっぷひよこ
 ];
 

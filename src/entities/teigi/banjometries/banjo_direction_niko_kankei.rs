@@ -110,7 +110,7 @@ pub fn get_dir8_to_slider_from_target(
                 Dir8::Owari
             }
         }
-        PZ => {
+        PB => {
             // 筋か、段か、
             // 左上がり筋か、左下がり筋かの　いずれかが同じ
             if match_argangle0_p_p(&p_slider, &p_target) {
