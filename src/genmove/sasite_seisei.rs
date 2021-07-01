@@ -8,6 +8,7 @@ use super::super::entities::teigi::conv::*;
 use super::super::entities::teigi::shogi_syugo::*;
 use super::super::entities::tusin::usi::*;
 use super::super::genmove::sasite_element::*;
+use crate::take1base::Piece;
 use std::collections::HashSet;
 
 ///

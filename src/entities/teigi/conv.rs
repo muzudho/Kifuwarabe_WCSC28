@@ -8,6 +8,8 @@
 use super::super::consoles::asserts::*;
 use super::super::teigi::geometries::geo_teigi::*;
 use super::super::teigi::shogi_syugo::*;
+use crate::take1base::Piece;
+use crate::take1base::*;
 
 ///
 /// false => 0
@@ -221,79 +223,6 @@ pub fn kaiten180_ms_by_ms_sn(sq: Square, phase: &Phase) -> Square {
 }
 
 ///
-/// 先後付き駒の数値化
-///
-pub fn pc_to_num(pc: &Piece) -> usize {
-    use super::super::teigi::shogi_syugo::Piece::*;
-    match *pc {
-        K1 => 0,
-        R1 => 1,
-        B1 => 2,
-        G1 => 3,
-        S1 => 4,
-        N1 => 5,
-        L1 => 6,
-        P1 => 7,
-        PR1 => 8,
-        PB1 => 9,
-        PS1 => 10,
-        PN1 => 11,
-        PL1 => 12,
-        PP1 => 13,
-        K2 => 14,
-        R2 => 15,
-        B2 => 16,
-        G2 => 17,
-        S2 => 18,
-        N2 => 19,
-        L2 => 20,
-        P2 => 21,
-        PR2 => 22,
-        PB2 => 23,
-        PS2 => 24,
-        PN2 => 25,
-        PL2 => 26,
-        PP2 => 27,
-        Empty => 28,
-        Owari => 29,
-    }
-}
-pub fn num_to_pc(pc_num: usize) -> Piece {
-    use super::super::teigi::shogi_syugo::Piece::*;
-    match pc_num {
-        0 => K1,
-        1 => R1,
-        2 => B1,
-        3 => G1,
-        4 => S1,
-        5 => N1,
-        6 => L1,
-        7 => P1,
-        8 => PR1,
-        9 => PB1,
-        10 => PS1,
-        11 => PN1,
-        12 => PL1,
-        13 => PP1,
-        14 => K2,
-        15 => R2,
-        16 => B2,
-        17 => G2,
-        18 => S2,
-        19 => N2,
-        20 => L2,
-        21 => P2,
-        22 => PR2,
-        23 => PB2,
-        24 => PS2,
-        25 => PN2,
-        26 => PL2,
-        27 => PP2,
-        28 => Empty,
-        _ => Owari,
-    }
-}
-///
 /// ハッシュ値を作る
 ///
 pub fn push_pc_to_hash(hash: u64, pc: &Piece) -> u64 {
@@ -312,7 +241,7 @@ pub fn pop_pc_from_hash(hash: u64) -> (u64, Piece) {
 /// 駒→成駒　（成れない駒は、そのまま）
 ///
 pub fn pc_to_pro_pc(pc: &Piece) -> Piece {
-    use super::super::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match *pc {
         K1 => K1,
         R1 => PR1,
@@ -350,7 +279,7 @@ pub fn pc_to_pro_pc(pc: &Piece) -> Piece {
 /// 成駒→駒
 ///
 pub fn pro_pc_to_pc(pc: &Piece) -> Piece {
-    use super::super::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match *pc {
         K1 => K1,
         R1 => R1,
@@ -394,11 +323,9 @@ pub fn pc_is_long_control(pc: &Piece) -> bool {
 /// 先後付き駒→駒種類
 ///
 pub fn pc_to_ph_pt(pc: &Piece) -> (Phase, PieceType) {
-    // use super::super::teigi::shogi_syugo::PieceType;
-    use super::super::teigi::shogi_syugo::PieceType::*;
-    // use super::super::teigi::shogi_syugo::Piece;
     use super::super::teigi::shogi_syugo::Phase::*;
-    use super::super::teigi::shogi_syugo::Piece::*;
+    use super::super::teigi::shogi_syugo::PieceType::*;
+    use crate::take1base::Piece::*;
     match *pc {
         K1 => (First, K),
         R1 => (First, R),
@@ -438,7 +365,7 @@ pub fn pc_to_ph_pt(pc: &Piece) -> (Phase, PieceType) {
 #[allow(dead_code)]
 pub fn pc_to_ph(pc: &Piece) -> Phase {
     use super::super::teigi::shogi_syugo::Phase::*;
-    use super::super::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match *pc {
         K1 => First,
         R1 => First,
@@ -476,10 +403,8 @@ pub fn pc_to_ph(pc: &Piece) -> Phase {
 /// 先後付き駒→駒種類
 ///
 pub fn pc_to_pt(pc: &Piece) -> PieceType {
-    // use super::super::teigi::shogi_syugo::PieceType;
     use super::super::teigi::shogi_syugo::PieceType::*;
-    // use super::super::teigi::shogi_syugo::Piece;
-    use super::super::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match *pc {
         K1 => K,
         R1 => R,
@@ -518,7 +443,7 @@ pub fn pc_to_pt(pc: &Piece) -> PieceType {
 /// 持ち駒にするので、先後は反転するぜ☆（＾～＾）
 ///
 pub fn pc_to_hand(pc_cap: Piece) -> Piece {
-    use super::super::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match pc_cap {
         K1 => Owari,
         R1 => R2,
@@ -735,8 +660,8 @@ pub fn pt_can_drop(pt: &PieceType) -> bool {
 }
 /// 先後＆駒種類→先後付き駒
 pub fn ph_pt_to_pc(phase: &Phase, pt: &PieceType) -> Piece {
-    use super::super::teigi::shogi_syugo::Piece::*;
     use super::super::teigi::shogi_syugo::PieceType::*;
+    use crate::take1base::Piece::*;
     match *phase {
         Phase::First => match *pt {
             K => K1,

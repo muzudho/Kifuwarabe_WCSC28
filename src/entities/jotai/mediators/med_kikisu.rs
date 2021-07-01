@@ -7,6 +7,7 @@ use super::super::super::consoles::asserts::*;
 use super::super::super::jotai::uchu::*;
 use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
+use crate::take1base::*;
 use std::collections::HashSet;
 
 /// 盤上の利き升調べ

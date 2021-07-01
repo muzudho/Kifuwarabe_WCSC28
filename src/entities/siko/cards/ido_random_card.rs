@@ -12,6 +12,7 @@ use super::super::super::siko::results::jisatusyu_result::*;
 use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 use super::super::super::tusin::usi::*;
+use crate::take1base::Piece;
 use std::collections::HashSet;
 
 ///

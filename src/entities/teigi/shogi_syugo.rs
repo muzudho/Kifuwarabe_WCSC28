@@ -2,6 +2,8 @@
 //!
 //! いろんな値、定義☆（＾～＾）
 //!
+use crate::take1base::Piece;
+use crate::take1base::*;
 use std::collections::HashSet;
 
 use super::super::jotai::uchu::*;
@@ -183,117 +185,6 @@ impl GoteJin {
 
 /// 持ち駒の駒のうち、最大の枚数は歩の 18。
 pub const HAND_MAX: usize = 18;
-pub const PC_LEN: usize = 30;
-///
-/// 先後付きの駒と空白
-///
-#[derive(Copy, Clone)]
-pub enum Piece {
-    /// ▲玉 King
-    K1,
-    /// ▲飛 Rook
-    R1,
-    /// ▲角 Bishop
-    B1,
-    /// ▲金 Gold
-    G1,
-    /// ▲銀 Sliver
-    S1,
-    /// ▲桂 Knight
-    N1,
-    /// ▲香 Lance
-    L1,
-    /// ▲歩 Pawn
-    P1,
-    /// ▲竜 Promoted Rook (Dragon)
-    PR1,
-    /// ▲馬 Promoted Bishop (Horse)
-    PB1,
-    /// ▲全 Promoted Silver
-    PS1,
-    /// ▲圭 Promoted Knight
-    PN1,
-    /// ▲杏 Promoted Lance
-    PL1,
-    /// ▲と Promoted Pawn
-    PP1,
-    /// ▽玉
-    K2,
-    /// ▽飛
-    R2,
-    /// ▽角
-    B2,
-    /// ▽金
-    G2,
-    /// ▽銀
-    S2,
-    /// ▽桂
-    N2,
-    /// ▽香
-    L2,
-    /// ▽歩
-    P2,
-    /// ▽竜
-    PR2,
-    /// ▽馬
-    PB2,
-    /// ▽全
-    PS2,
-    /// ▽圭
-    PN2,
-    /// ▽杏
-    PL2,
-    /// ▽と
-    PP2,
-    /// 空マス
-    Empty,
-    /// 要素数より1小さい数。該当なしや、エラー値用としても兼用する
-    Owari,
-}
-impl fmt::Display for Piece {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // 文字列リテラルでないとダメみたいなんで、他に似たようなコードがあるのに、また書くことに☆（＾～＾）
-        use super::super::teigi::shogi_syugo::Piece::*;
-        match *self {
-            K1 => write!(f, "▼ら"),
-            R1 => write!(f, "▼き"),
-            B1 => write!(f, "▼ぞ"),
-            G1 => write!(f, "▼い"),
-            S1 => write!(f, "▼ね"),
-            N1 => write!(f, "▼う"),
-            L1 => write!(f, "▼し"),
-            P1 => write!(f, "▼ひ"),
-            PR1 => write!(f, "▼PK"),
-            PB1 => write!(f, "▼PZ"),
-            PS1 => write!(f, "▼PN"),
-            PN1 => write!(f, "▼PU"),
-            PL1 => write!(f, "▼PS"),
-            PP1 => write!(f, "▼PH"),
-            K2 => write!(f, "△ラ"),
-            R2 => write!(f, "△キ"),
-            B2 => write!(f, "△ゾ"),
-            G2 => write!(f, "△イ"),
-            S2 => write!(f, "△ネ"),
-            N2 => write!(f, "△ウ"),
-            L2 => write!(f, "△シ"),
-            P2 => write!(f, "△ヒ"),
-            PR2 => write!(f, "△pk"),
-            PB2 => write!(f, "△pz"),
-            PS2 => write!(f, "△pn"),
-            PN2 => write!(f, "△pu"),
-            PL2 => write!(f, "△ps"),
-            PP2 => write!(f, "△ph"),
-            Empty => write!(f, "　　"),
-            Owari => write!(f, "××"),
-        }
-    }
-}
-///
-/// 駒の一致比較
-///
-pub fn match_pc(a: &Piece, b: &Piece) -> bool {
-    pc_to_num(a) == pc_to_num(b)
-}
 
 pub const PC_ARRAY_HALF_LEN: usize = 14;
 pub const PC_ARRAY_LEN: usize = 28;

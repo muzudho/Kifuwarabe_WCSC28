@@ -5,8 +5,6 @@
 //! 引数で渡しまくれだぜ☆（＾～＾）
 //!
 extern crate rand;
-use crate::entities::logging::{LOGFILE, LOG_ENABLED};
-use rand::Rng;
 
 use super::super::jotai::ky::*;
 use super::super::jotai::number_board::*;
@@ -15,6 +13,9 @@ use super::super::teigi;
 use super::super::teigi::conv::*;
 use super::super::teigi::shogi_syugo::*;
 use super::super::tusin::usi::*;
+use crate::entities::logging::{LOGFILE, LOG_ENABLED};
+use crate::take1base::*;
+use rand::Rng;
 use std::io::Write;
 
 #[allow(dead_code)]

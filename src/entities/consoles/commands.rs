@@ -3,6 +3,7 @@
 //!
 use super::super::jotai::uchu::*;
 use super::super::teigi::shogi_syugo::*;
+use crate::take1base::Piece;
 
 /// 利き数表示
 pub fn cmd_kikisu(uchu: &Uchu) {

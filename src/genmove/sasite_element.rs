@@ -6,6 +6,7 @@ use super::super::entities::consoles::asserts::*;
 use super::super::entities::jotai::uchu::*;
 use super::super::entities::teigi::conv::*;
 use super::super::entities::teigi::shogi_syugo::*;
+use crate::take1base::Piece;
 use std::collections::HashSet;
 
 ///
@@ -46,7 +47,7 @@ pub fn insert_nopromote_from_by_sq_pc(
     let pt_num = pt_to_num(&to_pt);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-    use super::super::entities::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match *to_pc {
         N1 => {
             // ▼うさぎ　は１、２段目には進めない
@@ -691,7 +692,7 @@ pub fn insert_drop_pt_by_sq_pc(
     //let (_x,y) = sq_to_file_rank(sq);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-    use super::super::entities::teigi::shogi_syugo::Piece::*;
+    use crate::take1base::Piece::*;
     match *to_pc {
         N1 => {
             // ▼うさぎ　は１、２段目には進めない
@@ -1046,7 +1047,7 @@ pub fn insert_dst_by_sq_pc(
         // +------------------------------+
         // | 成れる動き以外での成りの禁止 |
         // +------------------------------+
-        use super::super::entities::teigi::shogi_syugo::Piece::*;
+        use crate::take1base::Piece::*;
         match *pc_from {
             R1 | B1 | S1 => {
                 // ▼きりん、▼ぞう、▼ねこ　は
@@ -1120,7 +1121,7 @@ pub fn insert_dst_by_sq_pc(
         // +----------------------------------------+
         // | 行先の無いところに駒を進めることの禁止 |
         // +----------------------------------------+
-        use super::super::entities::teigi::shogi_syugo::Piece::*;
+        use crate::take1base::Piece::*;
         match *pc_from {
             N1 => {
                 // ▼うさぎ　は１、２段目には進めない
@@ -1214,7 +1215,7 @@ pub fn insert_narazu_src_by_sn_ms(
     for pt in PT_ARRAY.iter() {
         // 行先の無いところに駒を進めることの禁止☆（＾～＾）
         let pc = ph_pt_to_pc(&phase, &pt);
-        use super::super::entities::teigi::shogi_syugo::Piece::*;
+        use crate::take1base::Piece::*;
         match pc {
             N1 => {
                 // ▼うさぎ　は１、２段目には進めない

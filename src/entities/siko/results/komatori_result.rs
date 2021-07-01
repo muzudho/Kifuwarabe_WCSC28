@@ -1,6 +1,7 @@
 //!
 //! 結果：駒を取られる手
 //!
+use crate::take1base::Piece;
 use std::collections::HashSet;
 use std::fmt;
 

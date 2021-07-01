@@ -16,6 +16,7 @@ extern crate toml;
 pub mod config;
 pub mod entities;
 pub mod genmove;
+pub mod take1base;
 
 use crate::config::EngineFile;
 // use crate::config::ExeConfigFile;

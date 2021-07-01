@@ -7,6 +7,7 @@ use super::super::super::teigi::conv::*;
 use super::super::super::teigi::geometries::geo_direction_niko_kankei::*;
 use super::super::super::teigi::geometries::geo_teigi::*;
 use super::super::super::teigi::shogi_syugo::*;
+use crate::take1base::Piece;
 
 ///
 /// 狙われている駒から見た、長い利きの駒の居る方向（８方向）

@@ -4,6 +4,7 @@
 //!
 
 use super::super::teigi::shogi_syugo::*;
+use crate::take1base::Piece;
 
 /// 升 × 駒
 pub struct SqPc {

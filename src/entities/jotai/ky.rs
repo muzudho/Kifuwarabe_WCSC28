@@ -10,9 +10,11 @@
 
 use super::super::jotai::uchu::*;
 use super::super::teigi::conv::*;
-use super::super::teigi::shogi_syugo::Piece::*;
 use super::super::teigi::shogi_syugo::*;
 use super::super::tusin::usi::*;
+use crate::take1base::Piece;
+use crate::take1base::Piece::*;
+use crate::take1base::*;
 
 /// 局面
 pub struct Kyokumen {

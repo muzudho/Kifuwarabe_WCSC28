@@ -6,6 +6,7 @@ use super::super::jotai::uchu::*;
 use super::super::teigi::constants::*;
 use super::super::teigi::conv::*;
 use super::super::teigi::shogi_syugo::*;
+use crate::take1base::Piece;
 use std::fmt;
 
 ///
@@ -775,7 +776,7 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                         _ => {} // 駒の名前か、エラーなら次へ
                     }
 
-                    use super::super::teigi::shogi_syugo::Piece::*;
+                    use crate::take1base::Piece::*;
                     let pc: Piece;
                     match &line[starts..(starts + 1)] {
                         "R" => {
