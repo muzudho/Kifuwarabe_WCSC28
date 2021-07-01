@@ -71,7 +71,7 @@ pub fn get_dir8_to_slider_from_target(
                 Dir8::Owari
             }
         }
-        S => {
+        L => {
             // 先後
             match sn_slider {
                 First => Dir8::N,

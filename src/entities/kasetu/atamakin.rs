@@ -36,7 +36,7 @@ pub fn is_s(uchu: &Uchu) -> bool {
 
     use super::super::teigi::shogi_syugo::PieceType::*;
     match kms {
-        B | S => {
+        B | L => {
             return false;
         }
         _ => {}
