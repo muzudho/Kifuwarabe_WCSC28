@@ -54,7 +54,7 @@ pub fn insert_nopromote_from_by_sq_pc(
                 return;
             }
         }
-        S0 | H0 => {
+        L0 | H0 => {
             // ▼しし、▼ひよこ　は１段目には進めない
             if dy < DAN_2 {
                 return;
@@ -66,7 +66,7 @@ pub fn insert_nopromote_from_by_sq_pc(
                 return;
             }
         }
-        S1 | H1 => {
+        L1 | H1 => {
             // △しし、△ひよこ　は９段目には進めない
             if DAN_8 < dy {
                 return;
@@ -700,7 +700,7 @@ pub fn insert_drop_pt_by_sq_pc(
             }
         }
         // ▼しし、▼ひよこ　は１段目には進めない
-        S0 => {
+        L0 => {
             if dy < DAN_2 {
                 return;
             }
@@ -718,7 +718,7 @@ pub fn insert_drop_pt_by_sq_pc(
             }
         }
         // △しし、△ひよこ　は９段目には進めない
-        S1 => {
+        L1 => {
             if DAN_8 < dy {
                 return;
             }
@@ -789,7 +789,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_east in 1..9 {
                         if dx + i_east < SUJI_10 {
                             let from = file_rank_to_sq(dx + i_east, dy);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -802,7 +802,7 @@ pub fn insert_dst_by_sq_pc(
                     // 西東
                     if dx + 1 < SUJI_10 {
                         let from = file_rank_to_sq(dx + 1, dy);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -816,7 +816,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_ne in 1..9 {
                         if dx + i_ne < SUJI_10 && dy + i_ne < DAN_10 {
                             let from = file_rank_to_sq(dx + i_ne, dy + i_ne);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -829,7 +829,7 @@ pub fn insert_dst_by_sq_pc(
                     // 北東
                     if dx + 1 < SUJI_10 && dy + 1 < DAN_10 {
                         let from = file_rank_to_sq(dx + 1, dy + 1);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -840,7 +840,7 @@ pub fn insert_dst_by_sq_pc(
             NNE => {
                 if dx + 1 < SUJI_10 && dy + 2 < DAN_10 {
                     let from = file_rank_to_sq(dx + 1, dy + 2);
-                    let sn_ms = uchu.ky.get_sn_by_ms(from);
+                    let sn_ms = uchu.ky.get_ph_by_sq(from);
                     if !match_ph(&sn_ms, &phase) {
                         result.insert(from);
                     }
@@ -853,7 +853,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_south in 1..9 {
                         if dy + i_south < DAN_10 {
                             let from = file_rank_to_sq(dx, dy + i_south);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -866,7 +866,7 @@ pub fn insert_dst_by_sq_pc(
                     // 北
                     if dy + 1 < DAN_10 {
                         let from = file_rank_to_sq(dx, dy + 1);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -877,7 +877,7 @@ pub fn insert_dst_by_sq_pc(
             NNW => {
                 if SUJI_0 < dx - 1 && dy + 2 < DAN_10 {
                     let from = file_rank_to_sq(dx - 1, dy + 2);
-                    let sn_ms = uchu.ky.get_sn_by_ms(from);
+                    let sn_ms = uchu.ky.get_ph_by_sq(from);
                     if !match_ph(&sn_ms, &phase) {
                         result.insert(from);
                     }
@@ -890,7 +890,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_se in 1..9 {
                         if SUJI_0 < dx - i_se && dy + i_se < DAN_10 {
                             let from = file_rank_to_sq(dx - i_se, dy + i_se);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -903,7 +903,7 @@ pub fn insert_dst_by_sq_pc(
                     // 北西
                     if dx - 1 > SUJI_0 && DAN_10 > dy + 1 {
                         let from = file_rank_to_sq(dx - 1, dy + 1);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -917,7 +917,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_east in 1..9 {
                         if SUJI_0 < dx - i_east {
                             let from = file_rank_to_sq(dx - i_east, dy);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -930,7 +930,7 @@ pub fn insert_dst_by_sq_pc(
                     // 西
                     if SUJI_0 < dx - 1 {
                         let from = file_rank_to_sq(dx - 1, dy);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -944,7 +944,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_ne in 1..9 {
                         if SUJI_0 < dx - i_ne && DAN_0 < dy - i_ne {
                             let from = file_rank_to_sq(dx - i_ne, dy - i_ne);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -957,7 +957,7 @@ pub fn insert_dst_by_sq_pc(
                     // 南西
                     if SUJI_0 < dx - 1 && DAN_0 < dy - 1 {
                         let from = file_rank_to_sq(dx - 1, dy - 1);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -968,7 +968,7 @@ pub fn insert_dst_by_sq_pc(
             SSW => {
                 if SUJI_0 < dx - 1 && DAN_0 < dy - 2 {
                     let from = file_rank_to_sq(dx - 1, dy - 2);
-                    let sn_ms = uchu.ky.get_sn_by_ms(from);
+                    let sn_ms = uchu.ky.get_ph_by_sq(from);
                     if !match_ph(&sn_ms, &phase) {
                         result.insert(from);
                     }
@@ -981,7 +981,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_north in 1..9 {
                         if DAN_0 < dy - i_north {
                             let from = file_rank_to_sq(dx, dy - i_north);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -994,7 +994,7 @@ pub fn insert_dst_by_sq_pc(
                     // 南
                     if DAN_0 < dy - 1 {
                         let from = file_rank_to_sq(dx, dy - 1);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -1005,7 +1005,7 @@ pub fn insert_dst_by_sq_pc(
             SSE => {
                 if dx + 1 < SUJI_10 && DAN_0 < dy - 2 {
                     let from = file_rank_to_sq(dx + 1, dy - 2);
-                    let sn_ms = uchu.ky.get_sn_by_ms(from);
+                    let sn_ms = uchu.ky.get_ph_by_sq(from);
                     if !match_ph(&sn_ms, &phase) {
                         result.insert(from);
                     }
@@ -1018,7 +1018,7 @@ pub fn insert_dst_by_sq_pc(
                     for i_nw in 1..9 {
                         if dx + i_nw < SUJI_10 && DAN_0 < dy - i_nw {
                             let from = file_rank_to_sq(dx + i_nw, dy - i_nw);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             if !match_ph(&sn_ms, &phase) {
                                 result.insert(from);
                             }
@@ -1031,7 +1031,7 @@ pub fn insert_dst_by_sq_pc(
                     // 南東
                     if dx + 1 < SUJI_10 && DAN_0 < dy - 1 {
                         let from = file_rank_to_sq(dx + 1, dy - 1);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         if !match_ph(&sn_ms, &phase) {
                             result.insert(from);
                         }
@@ -1065,7 +1065,7 @@ pub fn insert_dst_by_sq_pc(
                     result.insert(*to);
                 }
             }
-            U0 | S0 | H0 => {
+            U0 | L0 | H0 => {
                 // ▼うさぎ、▼しし、▼ひよこ　は
                 // 移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
@@ -1098,7 +1098,7 @@ pub fn insert_dst_by_sq_pc(
                     result.insert(*to);
                 }
             }
-            U1 | S1 | H1 => {
+            U1 | L1 | H1 => {
                 // △うさぎ、△しし、△ひよこ　は
                 // 移動先が　７～９段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
@@ -1138,7 +1138,7 @@ pub fn insert_dst_by_sq_pc(
                     result.insert(*to);
                 }
             }
-            S0 | H0 => {
+            L0 | H0 => {
                 // ▼しし、▼ひよこ　は１段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
@@ -1170,7 +1170,7 @@ pub fn insert_dst_by_sq_pc(
                     result.insert(*to);
                 }
             }
-            S1 | H1 => {
+            L1 | H1 => {
                 // △しし、△ひよこ　は９段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
@@ -1222,7 +1222,7 @@ pub fn insert_narazu_src_by_sn_ms(
                     continue;
                 }
             }
-            S0 | H0 => {
+            L0 | H0 => {
                 // ▼しし、▼ひよこ　は１段目には進めない
                 if dy < DAN_2 {
                     continue;
@@ -1234,7 +1234,7 @@ pub fn insert_narazu_src_by_sn_ms(
                     continue;
                 }
             }
-            S1 | H1 => {
+            L1 | H1 => {
                 // △しし、△ひよこ　は９段目には進めない
                 if DAN_8 < dy {
                     continue;
@@ -1272,7 +1272,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_east in 1..9 {
                             if dx + i_east < SUJI_10 {
                                 let from = file_rank_to_sq(dx + i_east, dy);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1286,7 +1286,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 東
                         if dx + 1 < SUJI_10 {
                             let from = file_rank_to_sq(dx + 1, dy);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1301,7 +1301,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_ne in 1..9 {
                             if dx + i_ne < SUJI_10 && dy + i_ne < DAN_10 {
                                 let from = file_rank_to_sq(dx + i_ne, dy + i_ne);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1315,7 +1315,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 北東
                         if dx + 1 < SUJI_10 && dy + 1 < DAN_10 {
                             let from = file_rank_to_sq(dx + 1, dy + 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1327,7 +1327,7 @@ pub fn insert_narazu_src_by_sn_ms(
                 NNE => {
                     if dx + 1 < SUJI_10 && dy + 2 < DAN_10 {
                         let from = file_rank_to_sq(dx + 1, dy + 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1341,7 +1341,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_south in 1..9 {
                             if dy + i_south < DAN_10 {
                                 let from = file_rank_to_sq(dx, dy + i_south);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1355,7 +1355,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 北
                         if dy + 1 < DAN_10 {
                             let from = file_rank_to_sq(dx, dy + 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             // g_writeln(&format!("get_src_by_sn_ms 北 from={} sn_ms=>{} pt_sq={} match_ph={} match_pt={}",
                             //     from, sn_ms, pt_sq, match_ph( &sn_ms, &phase ), match_pt( &pt_sq, &pt )
@@ -1370,7 +1370,7 @@ pub fn insert_narazu_src_by_sn_ms(
                 NNW => {
                     if SUJI_0 < dx - 1 && dy + 2 < DAN_10 {
                         let from = file_rank_to_sq(dx - 1, dy + 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1384,7 +1384,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_se in 1..9 {
                             if SUJI_0 < dx - i_se && dy + i_se < DAN_10 {
                                 let from = file_rank_to_sq(dx - i_se, dy + i_se);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1398,7 +1398,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 北西
                         if dx - 1 > SUJI_0 && DAN_10 > dy + 1 {
                             let from = file_rank_to_sq(dx - 1, dy + 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1413,7 +1413,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_east in 1..9 {
                             if SUJI_0 < dx - i_east {
                                 let from = file_rank_to_sq(dx - i_east, dy);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1427,7 +1427,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 西
                         if SUJI_0 < dx - 1 {
                             let from = file_rank_to_sq(dx - 1, dy);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1442,7 +1442,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_ne in 1..9 {
                             if SUJI_0 < dx - i_ne && DAN_0 < dy - i_ne {
                                 let from = file_rank_to_sq(dx - i_ne, dy - i_ne);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1456,7 +1456,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 南西
                         if SUJI_0 < dx - 1 && DAN_0 < dy - 1 {
                             let from = file_rank_to_sq(dx - 1, dy - 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1468,7 +1468,7 @@ pub fn insert_narazu_src_by_sn_ms(
                 SSW => {
                     if SUJI_0 < dx - 1 && DAN_0 < dy - 2 {
                         let from = file_rank_to_sq(dx - 1, dy - 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1482,7 +1482,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_north in 1..9 {
                             if DAN_0 < dy - i_north {
                                 let from = file_rank_to_sq(dx, dy - i_north);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1496,7 +1496,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 南
                         if DAN_0 < dy - 1 {
                             let from = file_rank_to_sq(dx, dy - 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             // g_writeln(&format!("get_src_by_sn_ms 南 pt={} pt_num={} from={} sn_ms=>{} pt_sq={} match_ph={} match_pt={}",
                             //     pt, pt_num, from, sn_ms, pt_sq, match_ph( &sn_ms, &phase ), match_pt( &pt_sq, &pt )
@@ -1511,7 +1511,7 @@ pub fn insert_narazu_src_by_sn_ms(
                 SSE => {
                     if dx + 1 < SUJI_10 && DAN_0 < dy - 2 {
                         let from = file_rank_to_sq(dx + 1, dy - 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1525,7 +1525,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         for i_nw in 1..9 {
                             if dx + i_nw < SUJI_10 && DAN_0 < dy - i_nw {
                                 let from = file_rank_to_sq(dx + i_nw, dy - i_nw);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1539,7 +1539,7 @@ pub fn insert_narazu_src_by_sn_ms(
                         // 南東
                         if dx + 1 < SUJI_10 && DAN_0 < dy - 1 {
                             let from = file_rank_to_sq(dx + 1, dy - 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1617,7 +1617,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_east in 1..9 {
                             if dx + i_east < SUJI_10 {
                                 let from = file_rank_to_sq(dx + i_east, dy);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1631,7 +1631,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 東
                         if dx + 1 < SUJI_10 {
                             let from = file_rank_to_sq(dx + 1, dy);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1646,7 +1646,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_ne in 1..9 {
                             if dx + i_ne < SUJI_10 && dy + i_ne < DAN_10 {
                                 let from = file_rank_to_sq(dx + i_ne, dy + i_ne);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1660,7 +1660,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 北東
                         if dx + 1 < SUJI_10 && dy + 1 < DAN_10 {
                             let from = file_rank_to_sq(dx + 1, dy + 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1672,7 +1672,7 @@ pub fn insert_narumae_src_by_sn_ms(
                 NNE => {
                     if dx + 1 < SUJI_10 && dy + 2 < DAN_10 {
                         let from = file_rank_to_sq(dx + 1, dy + 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1686,7 +1686,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_south in 1..9 {
                             if dy + i_south < DAN_10 {
                                 let from = file_rank_to_sq(dx, dy + i_south);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1700,7 +1700,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 北
                         if dy + 1 < DAN_10 {
                             let from = file_rank_to_sq(dx, dy + 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             // g_writeln(&format!("get_src_by_sn_ms 北 from={} sn_ms=>{} pt_sq={} match_ph={} match_pt={}",
                             //     from, sn_ms, pt_sq, match_ph( &sn_ms, &phase ), match_pt( &pt_sq, &pt )
@@ -1715,7 +1715,7 @@ pub fn insert_narumae_src_by_sn_ms(
                 NNW => {
                     if SUJI_0 < dx - 1 && dy + 2 < DAN_10 {
                         let from = file_rank_to_sq(dx - 1, dy + 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1729,7 +1729,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_se in 1..9 {
                             if SUJI_0 < dx - i_se && dy + i_se < DAN_10 {
                                 let from = file_rank_to_sq(dx - i_se, dy + i_se);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1743,7 +1743,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 北西
                         if dx - 1 > SUJI_0 && DAN_10 > dy + 1 {
                             let from = file_rank_to_sq(dx - 1, dy + 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1758,7 +1758,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_east in 1..9 {
                             if SUJI_0 < dx - i_east {
                                 let from = file_rank_to_sq(dx - i_east, dy);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1772,7 +1772,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 西
                         if SUJI_0 < dx - 1 {
                             let from = file_rank_to_sq(dx - 1, dy);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1787,7 +1787,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_ne in 1..9 {
                             if SUJI_0 < dx - i_ne && DAN_0 < dy - i_ne {
                                 let from = file_rank_to_sq(dx - i_ne, dy - i_ne);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1801,7 +1801,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 南西
                         if SUJI_0 < dx - 1 && DAN_0 < dy - 1 {
                             let from = file_rank_to_sq(dx - 1, dy - 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);
@@ -1813,7 +1813,7 @@ pub fn insert_narumae_src_by_sn_ms(
                 SSW => {
                     if SUJI_0 < dx - 1 && DAN_0 < dy - 2 {
                         let from = file_rank_to_sq(dx - 1, dy - 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1827,7 +1827,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_north in 1..9 {
                             if DAN_0 < dy - i_north {
                                 let from = file_rank_to_sq(dx, dy - i_north);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1841,7 +1841,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 南
                         if DAN_0 < dy - 1 {
                             let from = file_rank_to_sq(dx, dy - 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             // g_writeln(&format!("get_src_by_sn_ms 南 pt={} pt_num={} from={} sn_ms=>{} pt_sq={} match_ph={} match_pt={}",
                             //     pt, pt_num, from, sn_ms, pt_sq, match_ph( &sn_ms, &phase ), match_pt( &pt_sq, &pt )
@@ -1856,7 +1856,7 @@ pub fn insert_narumae_src_by_sn_ms(
                 SSE => {
                     if dx + 1 < SUJI_10 && DAN_0 < dy - 2 {
                         let from = file_rank_to_sq(dx + 1, dy - 2);
-                        let sn_ms = uchu.ky.get_sn_by_ms(from);
+                        let sn_ms = uchu.ky.get_ph_by_sq(from);
                         let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                         if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                             result.insert(from);
@@ -1870,7 +1870,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         for i_nw in 1..9 {
                             if dx + i_nw < SUJI_10 && DAN_0 < dy - i_nw {
                                 let from = file_rank_to_sq(dx + i_nw, dy - i_nw);
-                                let sn_ms = uchu.ky.get_sn_by_ms(from);
+                                let sn_ms = uchu.ky.get_ph_by_sq(from);
                                 let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                                 if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                     result.insert(from);
@@ -1884,7 +1884,7 @@ pub fn insert_narumae_src_by_sn_ms(
                         // 南東
                         if dx + 1 < SUJI_10 && DAN_0 < dy - 1 {
                             let from = file_rank_to_sq(dx + 1, dy - 1);
-                            let sn_ms = uchu.ky.get_sn_by_ms(from);
+                            let sn_ms = uchu.ky.get_ph_by_sq(from);
                             let pt_sq = pc_to_pt(&uchu.ky.get_pc_by_sq(from));
                             if match_ph(&sn_ms, &phase) && match_pt(&pt_sq, &pt) {
                                 result.insert(from);

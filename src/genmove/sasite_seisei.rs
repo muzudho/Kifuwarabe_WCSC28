@@ -135,7 +135,7 @@ pub fn insert_move_by_sq_pc_on_board(
     let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
-    if match_ph(&uchu.ky.get_sn_by_ms(to), &phase) {
+    if match_ph(&uchu.ky.get_ph_by_sq(to), &phase) {
         return;
     }
 
@@ -194,7 +194,7 @@ pub fn insert_move_by_sq_pc_on_drop(
     let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
-    if match_ph(&uchu.ky.get_sn_by_ms(to), &phase) {
+    if match_ph(&uchu.ky.get_ph_by_sq(to), &phase) {
         return;
     }
 

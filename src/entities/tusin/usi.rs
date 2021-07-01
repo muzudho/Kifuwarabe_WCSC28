@@ -482,7 +482,7 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "K" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::R0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::KING0);
                 suji -= 1;
             }
             "R" => {
@@ -512,7 +512,7 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "L" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::S0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::L0);
                 suji -= 1;
             }
             "P" => {
@@ -522,7 +522,7 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "k" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::R1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::KING1);
                 suji -= 1;
             }
             "r" => {
@@ -552,7 +552,7 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "l" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::S1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::L1);
                 suji -= 1;
             }
             "p" => {
@@ -799,7 +799,7 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                             starts += 1;
                         }
                         "L" => {
-                            pc = S0;
+                            pc = L0;
                             starts += 1;
                         }
                         "P" => {
@@ -827,7 +827,7 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                             starts += 1;
                         }
                         "l" => {
-                            pc = S1;
+                            pc = L1;
                             starts += 1;
                         }
                         "p" => {

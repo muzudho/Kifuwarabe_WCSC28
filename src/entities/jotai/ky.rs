@@ -94,8 +94,8 @@ impl Kyokumen {
         self.ban[sq] = pc;
         use super::super::teigi::shogi_syugo::Phase::*;
         match pc {
-            Piece::R0 => self.ms_r[First as usize] = sq,
-            Piece::R1 => self.ms_r[Second as usize] = sq,
+            Piece::KING0 => self.ms_r[First as usize] = sq,
+            Piece::KING1 => self.ms_r[Second as usize] = sq,
             _ => {}
         }
     }
@@ -198,7 +198,7 @@ impl Kyokumen {
     }
 
     /// 指定の升にある駒の先後、または空升
-    pub fn get_sn_by_ms(&self, sq: Square) -> Phase {
+    pub fn get_ph_by_sq(&self, sq: Square) -> Phase {
         pc_to_ph(&self.get_pc_by_sq(sq))
     }
 
