@@ -51,7 +51,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
             for x in SUJI_1..SUJI_10 {
                 // 9..0 みたいに降順に書いても動かない？
                 for y in DAN_1..DAN_10 {
-                    let to = suji_dan_to_ms(x, y);
+                    let to = file_rank_to_sq(x, y);
 
                     mv_src_hashset.clear();
                     //drop_pt_hashset.clear();
@@ -69,7 +69,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                             src: *ms_src,
                             dst: to,
                             pro: *pro,
-                            drop: PieceType::Kara,
+                            drop: PieceType::Empty,
                         }
                         .to_hash();
                         &uchu.vision_tree_by_sn[sn_to_num(phase)]

@@ -19,7 +19,7 @@ pub fn rnd_bool() -> bool {
 /// (筋1～9,段1～9)の範囲で、ランダムに マス座標を返す
 ///
 pub fn rnd_sq() -> Square {
-    suji_dan_to_ms(
+    file_rank_to_sq(
         rand::thread_rng().gen_range(1, 10),
         rand::thread_rng().gen_range(1, 10),
     )

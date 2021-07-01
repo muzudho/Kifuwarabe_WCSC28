@@ -24,53 +24,53 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
     // +----------------+
     for rank_from in 1..10 {
         for file_from in 1..10 {
-            let from = suji_dan_to_ms(file_from, rank_from);
+            let from = file_rank_to_sq(file_from, rank_from);
             let pc_from = uchu.ky.get_pc_by_sq(from);
             let phase = pc_to_ph(&pc_from);
 
-            if match_sn(&phase, &uchu.get_teban(&Jiai::Ji)) {
+            if match_ph(&phase, &uchu.get_teban(&Jiai::Ji)) {
                 // 手番の駒
 
-                let mut dst_hashset: HashSet<Square> = HashSet::new();
+                let mut to_hashset: HashSet<Square> = HashSet::new();
                 insert_dst_by_sq_pc(
                     from,
                     &pc_from,
                     false, // 成らず
                     &uchu,
-                    &mut dst_hashset,
+                    &mut to_hashset,
                 );
 
                 // g_writeln("テスト ポテンシャルムーブ insert_dst_by_sq_pc(成らず).");
                 // use consoles::visuals::dumps::*;
-                // print_sq_hashset( &dst_hashset );
+                // print_sq_hashset( &to_hashset );
 
-                for to in &dst_hashset {
+                for to in &to_hashset {
                     some_moves_hashset.insert(
                         Sasite {
                             src: from,
                             dst: *to,
                             pro: false, // 成らず
-                            drop: PieceType::Kara,
+                            drop: PieceType::Empty,
                         }
                         .to_hash(),
                     );
                 }
 
-                dst_hashset.clear();
+                to_hashset.clear();
                 insert_dst_by_sq_pc(
                     from,
                     &pc_from,
                     true, // 成り
                     &uchu,
-                    &mut dst_hashset,
+                    &mut to_hashset,
                 );
-                for to in &dst_hashset {
+                for to in &to_hashset {
                     some_moves_hashset.insert(
                         Sasite {
                             src: from,
                             dst: *to,
                             pro: true, // 成り
-                            drop: PieceType::Kara,
+                            drop: PieceType::Empty,
                         }
                         .to_hash(),
                     );
@@ -82,12 +82,12 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
     // +----+
     // | 打 |
     // +----+
-    for dan_dst in 1..10 {
-        for suji_dst in 1..10 {
-            let to = suji_dan_to_ms(suji_dst, dan_dst);
+    for rank_to in 1..10 {
+        for file_to in 1..10 {
+            let to = file_rank_to_sq(file_to, rank_to);
             let to_pc = uchu.ky.get_pc_by_sq(to);
             match to_pc {
-                Piece::Kara => {
+                Piece::Empty => {
                     // 駒が無いところに打つ
 
                     let mut drop_pt_hashset = HashSet::new();
@@ -135,7 +135,7 @@ pub fn insert_move_by_sq_pc_on_board(
     let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
-    if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
+    if match_ph(&uchu.ky.get_sn_by_ms(to), &phase) {
         return;
     }
 
@@ -157,7 +157,7 @@ pub fn insert_move_by_sq_pc_on_board(
         ss_hash_builder.src = *from;
         // 成らず
         ss_hash_builder.pro = false;
-        ss_hash_builder.drop = PieceType::Kara;
+        ss_hash_builder.drop = PieceType::Empty;
         some_moves_hashset.insert(ss_hash_builder.to_hash());
     }
 
@@ -172,7 +172,7 @@ pub fn insert_move_by_sq_pc_on_board(
         ss_hash_builder.src = *from;
         // 成り
         ss_hash_builder.pro = true;
-        ss_hash_builder.drop = PieceType::Kara;
+        ss_hash_builder.drop = PieceType::Empty;
         some_moves_hashset.insert(ss_hash_builder.to_hash());
     }
 }
@@ -194,7 +194,7 @@ pub fn insert_move_by_sq_pc_on_drop(
     let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
-    if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
+    if match_ph(&uchu.ky.get_sn_by_ms(to), &phase) {
         return;
     }
 

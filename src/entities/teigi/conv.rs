@@ -156,10 +156,10 @@ pub fn ms_to_p(sq: Square) -> Point {
         y: (sq % 10) as i8,
     }
 }
-pub fn suji_dan_to_ms(suji: i8, dan: i8) -> Square {
+pub fn file_rank_to_sq(suji: i8, dan: i8) -> Square {
     debug_assert!(
         (SUJI_0 < suji && suji < SUJI_10) && (DAN_0 < dan && dan < DAN_10),
-        "(204)suji_dan_to_ms suji={},dan={}",
+        "(204)file_rank_to_sq suji={},dan={}",
         suji,
         dan
     );
@@ -254,7 +254,7 @@ pub fn pc_to_num(pc: &Piece) -> usize {
         PU1 => 25,
         PS1 => 26,
         PH1 => 27,
-        Kara => 28,
+        Empty => 28,
         Owari => 29,
     }
 }
@@ -289,7 +289,7 @@ pub fn num_to_pc(pc_num: usize) -> Piece {
         25 => PU1,
         26 => PS1,
         27 => PH1,
-        28 => Kara,
+        28 => Empty,
         _ => Owari,
     }
 }
@@ -342,7 +342,7 @@ pub fn pc_to_pro_pc(pc: &Piece) -> Piece {
         PU1 => PU1,
         PS1 => PS1,
         PH1 => PH1,
-        Kara => Kara,
+        Empty => Empty,
         Owari => Owari,
     }
 }
@@ -380,7 +380,7 @@ pub fn pro_pc_to_pc(pc: &Piece) -> Piece {
         PU1 => U1,
         PS1 => S1,
         PH1 => H1,
-        Kara => Kara,
+        Empty => Empty,
         Owari => Owari,
     }
 }
@@ -428,7 +428,7 @@ pub fn pc_to_ph_pt(pc: &Piece) -> (Phase, PieceType) {
         PU1 => (Second, PN),
         PS1 => (Second, PL),
         PH1 => (Second, PP),
-        Piece::Kara => (Phase::Owari, PieceType::Kara),
+        Piece::Empty => (Phase::Owari, PieceType::Empty),
         Piece::Owari => (Phase::Owari, PieceType::Owari),
     }
 }
@@ -468,7 +468,7 @@ pub fn pc_to_ph(pc: &Piece) -> Phase {
         PU1 => Second,
         PS1 => Second,
         PH1 => Second,
-        Kara => Phase::Owari,
+        Empty => Phase::Owari,
         Piece::Owari => Phase::Owari,
     }
 }
@@ -509,7 +509,7 @@ pub fn pc_to_pt(pc: &Piece) -> PieceType {
         PU1 => PN,
         PS1 => PL,
         PH1 => PP,
-        Piece::Kara => PieceType::Kara,
+        Piece::Empty => PieceType::Empty,
         Piece::Owari => PieceType::Owari,
     }
 }
@@ -548,7 +548,7 @@ pub fn pc_to_hand(pc_cap: Piece) -> Piece {
         PU1 => U0,
         PS1 => S0,
         PH1 => H0,
-        Kara => Owari,
+        Empty => Owari,
         Owari => Owari,
     }
 }
@@ -573,7 +573,7 @@ pub fn pt_to_num(pt: &PieceType) -> usize {
         PN => 11,
         PL => 12,
         PP => 13,
-        Kara => 14,
+        Empty => 14,
         Owari => 15,
     }
 }
@@ -597,7 +597,7 @@ pub fn num_to_pt(n: usize) -> PieceType {
         11 => PN,
         12 => PL,
         13 => PP,
-        14 => Kara,
+        14 => Empty,
         _ => Owari,
     }
 }
@@ -634,7 +634,7 @@ pub fn pt_is_pro(pt: &PieceType) -> bool {
         PN => true,
         PL => true,
         PP => true,
-        Kara => false,
+        Empty => false,
         Owari => false,
     }
 }
@@ -642,21 +642,21 @@ pub fn pt_is_pro(pt: &PieceType) -> bool {
 pub fn pro_pt_to_pt(pt: &PieceType) -> PieceType {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
-        K => Kara,
-        R => Kara,
-        B => Kara,
-        G => Kara,
-        S => Kara,
-        N => Kara,
-        L => Kara,
-        P => Kara,
+        K => Empty,
+        R => Empty,
+        B => Empty,
+        G => Empty,
+        S => Empty,
+        N => Empty,
+        L => Empty,
+        P => Empty,
         PR => R,
         PB => B,
         PS => S,
         PN => N,
         PL => L,
         PP => P,
-        Kara => Kara,
+        Empty => Empty,
         Owari => Owari,
     }
 }
@@ -681,7 +681,7 @@ pub fn pt_is_long_control(pt: &PieceType) -> bool {
         PN => false,
         PL => false,
         PP => false,
-        Kara => false,
+        Empty => false,
         Owari => false,
     }
 }
@@ -705,7 +705,7 @@ pub fn pt_can_pro(pt: &PieceType) -> bool {
         PN => false,
         PL => false,
         PP => false,
-        Kara => false,
+        Empty => false,
         Owari => false,
     }
 }
@@ -729,7 +729,7 @@ pub fn pt_can_drop(pt: &PieceType) -> bool {
         PN => false,
         PL => false,
         PP => false,
-        Kara => false,
+        Empty => false,
         Owari => false,
     }
 }

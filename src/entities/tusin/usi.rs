@@ -30,7 +30,7 @@ impl Sasite {
             src: 0,
             dst: 0,
             pro: false,
-            drop: PieceType::Kara,
+            drop: PieceType::Empty,
         }
     }
     #[allow(dead_code)]
@@ -38,7 +38,7 @@ impl Sasite {
         self.src = 0;
         self.dst = 0;
         self.pro = false;
-        self.drop = PieceType::Kara;
+        self.drop = PieceType::Empty;
     }
     pub fn to_hash(&self) -> u64 {
         let mut hash = 0;
@@ -289,8 +289,8 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
                 }
             }
 
-            uchu.set_sasite_src(suji_dan_to_ms(suji, dan));
-            uchu.set_sasite_drop(PieceType::Kara);
+            uchu.set_sasite_src(file_rank_to_sq(suji, dan));
+            uchu.set_sasite_drop(PieceType::Empty);
         }
     }
 
@@ -385,7 +385,7 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
         }
     }
 
-    uchu.set_sasite_dst(suji_dan_to_ms(suji, dan));
+    uchu.set_sasite_dst(file_rank_to_sq(suji, dan));
     // 5文字に「+」があれば成り。
     if 0 < (len - *starts) && &line[*starts..(*starts + 1)] == "+" {
         uchu.set_sasite_pro(true);
@@ -419,64 +419,64 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "1" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                 suji -= 1;
             }
             "2" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                 suji -= 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                 suji -= 1;
             }
             "3" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                 suji -= 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                 suji -= 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                 suji -= 1;
             }
             "4" => {
                 *starts += 1;
                 for _i_kara in 0..4 {
-                    uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                    uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                     suji -= 1;
                 }
             }
             "5" => {
                 *starts += 1;
                 for _i_kara in 0..5 {
-                    uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                    uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                     suji -= 1;
                 }
             }
             "6" => {
                 *starts += 1;
                 for _i_kara in 0..6 {
-                    uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                    uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                     suji -= 1;
                 }
             }
             "7" => {
                 *starts += 1;
                 for _i_kara in 0..7 {
-                    uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                    uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                     suji -= 1;
                 }
             }
             "8" => {
                 *starts += 1;
                 for _i_kara in 0..8 {
-                    uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                    uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                     suji -= 1;
                 }
             }
             "9" => {
                 *starts += 1;
                 for _i_kara in 0..9 {
-                    uchu.set_pos0_board_pc(suji, dan, Piece::Kara);
+                    uchu.set_pos0_board_pc(suji, dan, Piece::Empty);
                     suji -= 1;
                 }
             }

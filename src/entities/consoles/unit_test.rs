@@ -56,7 +56,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
             g_writeln(&format!("移動可能な駒がある升={}", ms_src));
             ss.dst = to;
             ss.pro = pro_dst;
-            ss.drop = PieceType::Kara;
+            ss.drop = PieceType::Empty;
             break;
         }
         g_writeln(&format!("指し手にすると={}", ss));

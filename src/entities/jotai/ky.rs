@@ -31,14 +31,15 @@ impl Kyokumen {
         Kyokumen {
             // 盤上
             ban: [
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-                Kara, Kara,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+                Empty, Empty, Empty, Empty,
             ],
             // 持ち駒数
             mg: [
@@ -52,16 +53,17 @@ impl Kyokumen {
         }
     }
     pub fn clear(&mut self) {
-        // use super::super::teigi::shogi_syugo::Piece::Kara;
+        // use super::super::teigi::shogi_syugo::Piece::Empty;
         self.ban = [
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
-            Kara, Kara,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty,
+            Empty, Empty, Empty, Empty,
         ];
         self.mg = [
             // ▲ら,▲き,▲ぞ,▲い,▲ね,▲う,▲し,▲ひ,▲ぱき,▲ぱぞ,▲ぱね,▲ぱう,▲ぱし,▲ぱひ,
@@ -74,10 +76,10 @@ impl Kyokumen {
     /// 歩が置いてあるか確認
     pub fn exists_fu_by_sn_suji(&self, phase: &Phase, suji: i8) -> bool {
         for dan in DAN_1..DAN_10 {
-            let sq = suji_dan_to_ms(suji, dan);
+            let sq = file_rank_to_sq(suji, dan);
             let pc = self.get_pc_by_sq(sq);
             let (ph_pc, pt) = pc_to_ph_pt(&pc);
-            if match_sn(&ph_pc, phase) && match_pt(&pt, &PieceType::P) {
+            if match_ph(&ph_pc, phase) && match_pt(&pt, &PieceType::P) {
                 return true;
             }
         }
@@ -128,12 +130,12 @@ impl Kyokumen {
             } else {
                 pc = self.get_pc_by_sq(ss.src);
             }
-            self.set_pc_by_sq(ss.src, Piece::Kara);
+            self.set_pc_by_sq(ss.src, Piece::Empty);
         }
 
         // 移動先升に駒があるかどうか
-        if let Piece::Kara = self.get_pc_by_sq(ss.dst) {
-            cap = Piece::Kara;
+        if let Piece::Empty = self.get_pc_by_sq(ss.dst) {
+            cap = Piece::Empty;
         } else {
             // 移動先升の駒を盤上から消し、自分の持ち駒に増やす
             cap = self.get_pc_by_sq(ss.dst);
@@ -173,7 +175,7 @@ impl Kyokumen {
         // 移動先の駒を、取った駒（あるいは空）に戻す
         self.set_pc_by_sq(ss.dst, *cap);
         match *cap {
-            Piece::Kara => {}
+            Piece::Empty => {}
             _ => {
                 // 自分の持ち駒を減らす
                 let mg = pc_to_hand(*cap);
@@ -187,7 +189,7 @@ impl Kyokumen {
 
     /// 指定の升に駒があれば真
     pub fn exists_pc(&self, sq: Square) -> bool {
-        !match_pc(&self.get_pc_by_sq(sq), &Piece::Kara)
+        !match_pc(&self.get_pc_by_sq(sq), &Piece::Empty)
     }
 
     /// 指定の升に指定の駒があれば真

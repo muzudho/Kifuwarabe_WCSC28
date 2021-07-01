@@ -9,7 +9,7 @@ use super::super::super::teigi::shogi_syugo::*;
 pub fn is_friend_pc_by_sq(sq: Square, uchu: &Uchu) -> bool {
     let pc = uchu.ky.get_pc_by_sq(sq);
     let (phase, _pt) = pc_to_ph_pt(&pc);
-    match_sn(&phase, &uchu.get_teban(&Jiai::Ji))
+    match_ph(&phase, &uchu.get_teban(&Jiai::Ji))
 }
 
 // TODO

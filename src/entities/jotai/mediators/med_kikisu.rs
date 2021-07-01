@@ -27,7 +27,7 @@ pub fn read_kikisu(uchu: &mut Uchu) {
         for x in SUJI_1..SUJI_10 {
             // 9..0 みたいに降順に書いても動かない？
             for y in DAN_1..DAN_10 {
-                let to = suji_dan_to_ms(x, y);
+                let to = file_rank_to_sq(x, y);
                 assert_banjo_ms(to, "think 利き調べ");
 
                 // 移動元の升

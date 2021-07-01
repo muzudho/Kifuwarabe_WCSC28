@@ -48,7 +48,7 @@ impl fmt::Display for Phase {
 ///
 /// 先後の一致比較
 ///
-pub fn match_sn(a: &Phase, b: &Phase) -> bool {
+pub fn match_ph(a: &Phase, b: &Phase) -> bool {
     sn_to_num(a) == sn_to_num(b)
 }
 
@@ -246,7 +246,7 @@ pub enum Piece {
     /// △パワーアップヒヨコ
     PH1,
     /// 空マス
-    Kara,
+    Empty,
     /// 要素数より1小さい数。該当なしや、エラー値用としても兼用する
     Owari,
 }
@@ -283,7 +283,7 @@ impl fmt::Display for Piece {
             PU1 => write!(f, "△pu"),
             PS1 => write!(f, "△ps"),
             PH1 => write!(f, "△ph"),
-            Kara => write!(f, "　　"),
+            Empty => write!(f, "　　"),
             Owari => write!(f, "××"),
         }
     }
@@ -405,7 +405,7 @@ impl PcSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
             let (sn1, _pt) = pc_to_ph_pt(pc);
-            if match_sn(&sn0, &sn1) {
+            if match_ph(&sn0, &sn1) {
                 num_syugo1.insert(pc_to_num(pc));
             }
         }
@@ -457,7 +457,7 @@ pub enum PieceType {
     // と Promoted Pawn
     PP,
     // 空マス
-    Kara,
+    Empty,
     // 要素数より1小さい数。エラー値用に使っても可
     Owari,
 }
@@ -480,7 +480,7 @@ impl fmt::Display for PieceType {
             PN => write!(f, "PN"),
             PL => write!(f, "PL"),
             PP => write!(f, "PP"),
-            Kara => write!(f, "　"),
+            Empty => write!(f, "　"),
             Owari => write!(f, "×"),
         }
     }
