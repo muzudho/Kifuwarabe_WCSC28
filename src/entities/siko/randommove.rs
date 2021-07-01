@@ -11,7 +11,7 @@ use super::super::teigi::shogi_syugo::*;
 /// ランダムに真偽を返す。
 ///
 #[allow(dead_code)]
-pub fn rnd_bool() -> (bool) {
+pub fn rnd_bool() -> bool {
     rand::thread_rng().gen_range(0, 2) == 0
 }
 

@@ -14,8 +14,8 @@ use std::collections::HashSet;
 /// 用途：自殺手防止他
 pub fn read_kikisu(uchu: &mut Uchu) {
     // ゼロ・リセット
-    for km in KM_ARRAY.iter() {
-        &uchu.kiki_su_by_km[km_to_num(km)].clear();
+    for pc in KM_ARRAY.iter() {
+        &uchu.kiki_su_by_km[km_to_num(pc)].clear();
     }
 
     for sn in SN_ARRAY.iter() {

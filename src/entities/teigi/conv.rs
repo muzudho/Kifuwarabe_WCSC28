@@ -223,9 +223,9 @@ pub fn kaiten180_ms_by_ms_sn(sq: Square, sn: &Sengo) -> Square {
 ///
 /// 先後付き駒の数値化
 ///
-pub fn km_to_num(km: &Piece) -> usize {
+pub fn km_to_num(pc: &Piece) -> usize {
     use super::super::teigi::shogi_syugo::Piece::*;
-    match *km {
+    match *pc {
         R0 => 0,
         K0 => 1,
         Z0 => 2,
@@ -296,9 +296,9 @@ pub fn num_to_km(km_num: usize) -> Piece {
 ///
 /// ハッシュ値を作る
 ///
-pub fn push_km_to_hash(hash: u64, km: &Piece) -> u64 {
+pub fn push_km_to_hash(hash: u64, pc: &Piece) -> u64 {
     // 使ってるのは30駒番号ぐらいなんで、32(=2^5) あれば十分
-    (hash << 5) + km_to_num(km) as u64
+    (hash << 5) + km_to_num(pc) as u64
 }
 ///
 /// ハッシュ値から作る
@@ -311,9 +311,9 @@ pub fn pop_km_from_hash(hash: u64) -> (u64, Piece) {
 ///
 /// 駒→成駒　（成れない駒は、そのまま）
 ///
-pub fn km_to_prokm(km: &Piece) -> Piece {
+pub fn km_to_prokm(pc: &Piece) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
-    match *km {
+    match *pc {
         R0 => R0,
         K0 => PK0,
         Z0 => PZ0,
@@ -349,9 +349,9 @@ pub fn km_to_prokm(km: &Piece) -> Piece {
 ///
 /// 成駒→駒
 ///
-pub fn prokm_to_km(km: &Piece) -> Piece {
+pub fn prokm_to_km(pc: &Piece) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
-    match *km {
+    match *pc {
         R0 => R0,
         K0 => K0,
         Z0 => Z0,
@@ -387,19 +387,19 @@ pub fn prokm_to_km(km: &Piece) -> Piece {
 ///
 /// 駒→長い利きの有無
 ///
-pub fn km_is_nagaikiki(km: &Piece) -> bool {
-    kms_is_nagaikiki(&km_to_kms(km))
+pub fn km_is_nagaikiki(pc: &Piece) -> bool {
+    kms_is_nagaikiki(&km_to_kms(pc))
 }
 ///
 /// 先後付き駒→駒種類
 ///
-pub fn km_to_sn_kms(km: &Piece) -> (Sengo, KmSyurui) {
+pub fn km_to_sn_kms(pc: &Piece) -> (Sengo, KmSyurui) {
     // use super::super::teigi::shogi_syugo::KmSyurui;
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     // use super::super::teigi::shogi_syugo::Piece;
     use super::super::teigi::shogi_syugo::Piece::*;
     use super::super::teigi::shogi_syugo::Sengo::*;
-    match *km {
+    match *pc {
         R0 => (Sen, R),
         K0 => (Sen, K),
         Z0 => (Sen, Z),
@@ -436,10 +436,10 @@ pub fn km_to_sn_kms(km: &Piece) -> (Sengo, KmSyurui) {
 /// 先後付き駒　を　先後　へ変換。
 ///
 #[allow(dead_code)]
-pub fn km_to_sn(km: &Piece) -> Sengo {
+pub fn km_to_sn(pc: &Piece) -> Sengo {
     use super::super::teigi::shogi_syugo::Piece::*;
     use super::super::teigi::shogi_syugo::Sengo::*;
-    match *km {
+    match *pc {
         R0 => Sen,
         K0 => Sen,
         Z0 => Sen,
@@ -475,12 +475,12 @@ pub fn km_to_sn(km: &Piece) -> Sengo {
 ///
 /// 先後付き駒→駒種類
 ///
-pub fn km_to_kms(km: &Piece) -> KmSyurui {
+pub fn km_to_kms(pc: &Piece) -> KmSyurui {
     // use super::super::teigi::shogi_syugo::KmSyurui;
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     // use super::super::teigi::shogi_syugo::Piece;
     use super::super::teigi::shogi_syugo::Piece::*;
-    match *km {
+    match *pc {
         R0 => R,
         K0 => K,
         Z0 => Z,

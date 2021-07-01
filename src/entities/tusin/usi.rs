@@ -776,62 +776,62 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                     }
 
                     use super::super::teigi::shogi_syugo::Piece::*;
-                    let km: Piece;
+                    let pc: Piece;
                     match &line[starts..(starts + 1)] {
                         "R" => {
-                            km = K0;
+                            pc = K0;
                             starts += 1;
                         }
                         "B" => {
-                            km = Z0;
+                            pc = Z0;
                             starts += 1;
                         }
                         "G" => {
-                            km = I0;
+                            pc = I0;
                             starts += 1;
                         }
                         "S" => {
-                            km = N0;
+                            pc = N0;
                             starts += 1;
                         }
                         "N" => {
-                            km = U0;
+                            pc = U0;
                             starts += 1;
                         }
                         "L" => {
-                            km = S0;
+                            pc = S0;
                             starts += 1;
                         }
                         "P" => {
-                            km = H0;
+                            pc = H0;
                             starts += 1;
                         }
                         "r" => {
-                            km = K1;
+                            pc = K1;
                             starts += 1;
                         }
                         "b" => {
-                            km = Z1;
+                            pc = Z1;
                             starts += 1;
                         }
                         "g" => {
-                            km = I1;
+                            pc = I1;
                             starts += 1;
                         }
                         "s" => {
-                            km = N1;
+                            pc = N1;
                             starts += 1;
                         }
                         "n" => {
-                            km = U1;
+                            pc = U1;
                             starts += 1;
                         }
                         "l" => {
-                            km = S1;
+                            pc = S1;
                             starts += 1;
                         }
                         "p" => {
-                            km = H1;
+                            pc = H1;
                             starts += 1;
                         }
                         _ => {
@@ -839,7 +839,7 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                         } // 持駒部 正常終了
                     }
 
-                    uchu.set_ky0_mg(km, maisu);
+                    uchu.set_ky0_mg(pc, maisu);
                 } //if
             } //loop
         } //else

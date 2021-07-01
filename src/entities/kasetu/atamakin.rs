@@ -21,18 +21,18 @@ pub fn is_s(uchu: &Uchu) -> bool {
     }
 
     let ms_south_r = p_to_ms(&p_south_r);
-    let km = uchu.ky.get_km_by_ms(ms_south_r);
-    let jiai_km = uchu.get_jiai_by_km(&km);
+    let pc = uchu.ky.get_km_by_ms(ms_south_r);
+    let jiai_km = uchu.get_jiai_by_km(&pc);
     if !match_jiai(&jiai_km, &Jiai::Ji) {
         return true;
     }
 
     g_writeln(&format!(
         "info string south of My raion {} = {}. jiai_km={}.",
-        ms_r, km, jiai_km
+        ms_r, pc, jiai_km
     ));
 
-    let kms = km_to_kms(&km);
+    let kms = km_to_kms(&pc);
 
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     match kms {

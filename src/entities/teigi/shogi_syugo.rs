@@ -389,8 +389,8 @@ impl KmSyugo {
     ///
     pub fn new_all() -> KmSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
-        for km in KM_ARRAY.iter() {
-            num_syugo1.insert(km_to_num(km));
+        for pc in KM_ARRAY.iter() {
+            num_syugo1.insert(km_to_num(pc));
         }
         let km_syugo = KmSyugo {
             num_syugo: num_syugo1,
@@ -403,10 +403,10 @@ impl KmSyugo {
     pub fn new_jiai(&self, jiai: &Jiai, uchu: &Uchu) -> KmSyugo {
         let sn0 = uchu.get_teban(&jiai);
         let mut num_syugo1: HashSet<usize> = HashSet::new();
-        for km in KM_ARRAY.iter() {
-            let (sn1, _kms) = km_to_sn_kms(km);
+        for pc in KM_ARRAY.iter() {
+            let (sn1, _kms) = km_to_sn_kms(pc);
             if match_sn(&sn0, &sn1) {
-                num_syugo1.insert(km_to_num(km));
+                num_syugo1.insert(km_to_num(pc));
             }
         }
         let km_syugo = KmSyugo {
@@ -414,8 +414,8 @@ impl KmSyugo {
         };
         km_syugo
     }
-    pub fn remove(&mut self, km: &Piece) {
-        self.num_syugo.remove(&km_to_num(km));
+    pub fn remove(&mut self, pc: &Piece) {
+        self.num_syugo.remove(&km_to_num(pc));
     }
 }
 

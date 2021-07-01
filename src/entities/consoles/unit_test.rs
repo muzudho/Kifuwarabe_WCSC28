@@ -26,21 +26,21 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 駒の移動元升
         g_writeln("駒の移動元升");
         let kms = randommove::rnd_kms();
-        let km = sn_kms_to_km(&uchu.get_teban(&Jiai::Ji), kms);
+        let pc = sn_kms_to_km(&uchu.get_teban(&Jiai::Ji), kms);
         let ms_dst = randommove::rnd_ms();
-        g_writeln(&format!("kms={} km={} ms_dst={}", kms, km, ms_dst));
+        g_writeln(&format!("kms={} pc={} ms_dst={}", kms, pc, ms_dst));
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
         let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-        insert_narazu_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-        insert_narumae_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-        insert_da_kms_by_ms_km(ms_dst, &km, &uchu, &mut da_kms_hashset);
+        insert_narazu_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+        insert_narumae_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+        insert_da_kms_by_ms_km(ms_dst, &pc, &uchu, &mut da_kms_hashset);
         hyoji_ms_hashset(&mv_src_hashset);
         hyoji_kms_hashset(&da_kms_hashset);
     } else if 3 < (len - *starts) && &line[*starts..*starts + 4] == "mvkm" {
         *starts += 4;
         // 移動後の駒
         let kms = randommove::rnd_kms();
-        let km = sn_kms_to_km(&uchu.get_teban(&Jiai::Ji), &kms);
+        let pc = sn_kms_to_km(&uchu.get_teban(&Jiai::Ji), &kms);
         // 移動先の升、および　不成駒／成駒
         let ms_dst = randommove::rnd_ms();
         let pro_dst = randommove::rnd_bool();
@@ -48,9 +48,9 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 移動可能な元升
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
         //let mut da_kms_hashset : HashSet<usize> = HashSet::new();
-        insert_narazu_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-        insert_narumae_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-        //insert_da_kms_by_ms_km      ( ms_dst, &km, &uchu, &mut da_kms_hashset );
+        insert_narazu_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+        insert_narumae_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+        //insert_da_kms_by_ms_km      ( ms_dst, &pc, &uchu, &mut da_kms_hashset );
         for ms_src in mv_src_hashset {
             ss.src = ms_src;
             g_writeln(&format!("移動可能な駒がある升={}", ms_src));
@@ -66,56 +66,56 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         {
             g_writeln("利きテスト1");
             let kms = KmSyurui::PH; // ぱわーあっぷひよこ
-            let km = sn_kms_to_km(&Sengo::Go, &kms); // △ph
+            let pc = sn_kms_to_km(&Sengo::Go, &kms); // △ph
             let ms_dst = 79;
-            g_writeln(&format!("kms={} km={} ms_dst={}", kms, km, ms_dst));
+            g_writeln(&format!("kms={} pc={} ms_dst={}", kms, pc, ms_dst));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
             let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(ms_dst, &km, &uchu, &mut da_kms_hashset);
+            insert_narazu_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_narumae_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_da_kms_by_ms_km(ms_dst, &pc, &uchu, &mut da_kms_hashset);
             hyoji_ms_hashset(&mv_src_hashset);
             hyoji_kms_hashset(&da_kms_hashset);
         }
         {
             g_writeln("利きテスト2");
             let kms = KmSyurui::PH; // ぱわーあっぷひよこ
-            let km = sn_kms_to_km(&Sengo::Go, &kms); // △ph
+            let pc = sn_kms_to_km(&Sengo::Go, &kms); // △ph
             let ms_dst = 68;
-            g_writeln(&format!("kms={} km={} ms_dst={}", kms, km, ms_dst));
+            g_writeln(&format!("kms={} pc={} ms_dst={}", kms, pc, ms_dst));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
             let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(ms_dst, &km, &uchu, &mut da_kms_hashset);
+            insert_narazu_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_narumae_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_da_kms_by_ms_km(ms_dst, &pc, &uchu, &mut da_kms_hashset);
             hyoji_ms_hashset(&mv_src_hashset);
             hyoji_kms_hashset(&da_kms_hashset);
         }
         {
             g_writeln("利きテスト3");
             let kms = KmSyurui::PH; // ぱわーあっぷひよこ
-            let km = sn_kms_to_km(&Sengo::Go, &kms); // △ph
+            let pc = sn_kms_to_km(&Sengo::Go, &kms); // △ph
             let ms_dst = 77;
-            g_writeln(&format!("kms={} km={} ms_dst={}", kms, km, ms_dst));
+            g_writeln(&format!("kms={} pc={} ms_dst={}", kms, pc, ms_dst));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
             let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(ms_dst, &km, &uchu, &mut da_kms_hashset);
+            insert_narazu_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_narumae_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_da_kms_by_ms_km(ms_dst, &pc, &uchu, &mut da_kms_hashset);
             hyoji_ms_hashset(&mv_src_hashset);
             hyoji_kms_hashset(&da_kms_hashset);
         }
         {
             g_writeln("利きテスト2");
             let kms = KmSyurui::R; // らいおん
-            let km = sn_kms_to_km(&Sengo::Sen, &kms); // ▼ら
+            let pc = sn_kms_to_km(&Sengo::Sen, &kms); // ▼ら
             let ms_dst = 58;
-            g_writeln(&format!("kms={} km={} ms_dst={}", kms, km, ms_dst));
+            g_writeln(&format!("kms={} pc={} ms_dst={}", kms, pc, ms_dst));
             let mut mv_src_hashset: HashSet<Square> = HashSet::new();
             let mut da_kms_hashset: HashSet<usize> = HashSet::new();
-            insert_narazu_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_narumae_src_by_ms_km(ms_dst, &km, &uchu, &mut mv_src_hashset);
-            insert_da_kms_by_ms_km(ms_dst, &km, &uchu, &mut da_kms_hashset);
+            insert_narazu_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_narumae_src_by_ms_km(ms_dst, &pc, &uchu, &mut mv_src_hashset);
+            insert_da_kms_by_ms_km(ms_dst, &pc, &uchu, &mut da_kms_hashset);
             hyoji_ms_hashset(&mv_src_hashset);
             hyoji_kms_hashset(&da_kms_hashset);
         }

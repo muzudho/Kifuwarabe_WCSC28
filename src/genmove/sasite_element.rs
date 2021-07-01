@@ -1213,9 +1213,9 @@ pub fn insert_narazu_src_by_sn_ms(
     // 駒種類
     for kms in KMS_ARRAY.iter() {
         // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-        let km = sn_kms_to_km(&sn, &kms);
+        let pc = sn_kms_to_km(&sn, &kms);
         use super::super::entities::teigi::shogi_syugo::Piece::*;
-        match km {
+        match pc {
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
                 if dy < DAN_3 {

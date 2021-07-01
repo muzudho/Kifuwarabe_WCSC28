@@ -48,7 +48,7 @@ pub fn g_writeln(s: &str) {
 /// ゾブリストハッシュを使って、局面の一致判定をするのに使う☆（＾～＾）
 pub struct KyHashSeed {
     // 盤上の駒
-    pub km: [[u64; KM_LN]; BAN_SIZE],
+    pub pc: [[u64; KM_LN]; BAN_SIZE],
     // 持ち駒
     pub mg: [[u64; MG_MAX]; KM_LN],
     // 先後
@@ -98,7 +98,7 @@ impl Uchu {
             ky: Kyokumen::new(),
             ky_hash_seed: KyHashSeed {
                 // 盤上の駒
-                km: [[0; KM_LN]; BAN_SIZE],
+                pc: [[0; KM_LN]; BAN_SIZE],
                 // 持ち駒
                 mg: [[0; MG_MAX]; KM_LN],
                 // 先後
@@ -685,7 +685,7 @@ impl Uchu {
         for i_ms in MASU_0..BAN_SIZE {
             for i_km in 0..KM_LN {
                 // FIXME 18446744073709551615 が含まれないだろ、どうなってるんだぜ☆（＾～＾）！？
-                self.ky_hash_seed.km[i_ms][i_km] =
+                self.ky_hash_seed.pc[i_ms][i_km] =
                     rand::thread_rng().gen_range(0, 18446744073709551615);
             }
         }
@@ -732,14 +732,14 @@ impl Uchu {
     }
 
     /// 初期局面の盤上に駒の位置を設定するもの
-    pub fn set_ky0_ban_km(&mut self, suji: i8, dan: i8, km: Piece) {
-        self.ky0.set_km_by_ms(suji_dan_to_ms(suji, dan), km);
+    pub fn set_ky0_ban_km(&mut self, suji: i8, dan: i8, pc: Piece) {
+        self.ky0.set_km_by_ms(suji_dan_to_ms(suji, dan), pc);
     }
-    pub fn set_ky0_mg(&mut self, km: Piece, maisu: i8) {
-        self.ky0.mg[km as usize] = maisu;
+    pub fn set_ky0_mg(&mut self, pc: Piece, maisu: i8) {
+        self.ky0.mg[pc as usize] = maisu;
     }
-    pub fn get_jiai_by_km(&self, km: &Piece) -> Jiai {
-        let (sn, _kms) = km_to_sn_kms(km);
+    pub fn get_jiai_by_km(&self, pc: &Piece) -> Jiai {
+        let (sn, _kms) = km_to_sn_kms(pc);
 
         if match_sn(&sn, &self.get_teban(&Jiai::Ji)) {
             Jiai::Ji
@@ -800,8 +800,8 @@ impl Uchu {
         self.ky_hash[self.teme] = hash
     }
     #[allow(dead_code)]
-    pub fn set_cap(&mut self, teme: usize, km: Piece) {
-        self.cap[teme] = km
+    pub fn set_cap(&mut self, teme: usize, pc: Piece) {
+        self.cap[teme] = pc
     }
     pub fn get_sasite(&self) -> Sasite {
         self.kifu[self.teme]
@@ -992,9 +992,9 @@ impl Uchu {
     }
 
     /// 表示
-    pub fn kaku_number_board(&self, sn: &Sengo, km: &Piece) -> String {
+    pub fn kaku_number_board(&self, sn: &Sengo, pc: &Piece) -> String {
         let nb = match *sn {
-            Sengo::Owari => &self.kiki_su_by_km[km_to_num(&km)],
+            Sengo::Owari => &self.kiki_su_by_km[km_to_num(&pc)],
             _ => &self.kiki_su_by_sn[sn_to_num(&sn)],
         };
 

@@ -75,8 +75,8 @@ impl Kyokumen {
     pub fn exists_fu_by_sn_suji(&self, sn: &Sengo, suji: i8) -> bool {
         for dan in DAN_1..DAN_10 {
             let sq = suji_dan_to_ms(suji, dan);
-            let km = self.get_km_by_ms(sq);
-            let (sn_km, kms) = km_to_sn_kms(&km);
+            let pc = self.get_km_by_ms(sq);
+            let (sn_km, kms) = km_to_sn_kms(&pc);
             if match_sn(&sn_km, sn) && match_kms(&kms, &KmSyurui::H) {
                 return true;
             }
@@ -88,10 +88,10 @@ impl Kyokumen {
         self.ban[sq]
     }
     /// 升で指定して駒を置く
-    pub fn set_km_by_ms(&mut self, sq: Square, km: Piece) {
-        self.ban[sq] = km;
+    pub fn set_km_by_ms(&mut self, sq: Square, pc: Piece) {
+        self.ban[sq] = pc;
         use super::super::teigi::shogi_syugo::Sengo::*;
-        match km {
+        match pc {
             Piece::R0 => self.ms_r[Sen as usize] = sq,
             Piece::R1 => self.ms_r[Go as usize] = sq,
             _ => {}
@@ -111,22 +111,22 @@ impl Kyokumen {
     /// return : 取った駒
     pub fn do_sasite(&mut self, sn: &Sengo, ss: &Sasite) -> Piece {
         // 動かす駒
-        let km;
+        let pc;
         // 取った駒
         let cap;
 
         // 打かどうか
         if ss.src == SS_SRC_DA {
-            km = sn_kms_to_km(&sn, &ss.drop);
+            pc = sn_kms_to_km(&sn, &ss.drop);
             // 自分の持ち駒を減らす
-            self.add_mg(km, -1);
+            self.add_mg(pc, -1);
         } else {
             // 打で無ければ、元の升の駒を消す。
             if ss.pro {
                 // 成りなら
-                km = km_to_prokm(&self.get_km_by_ms(ss.src));
+                pc = km_to_prokm(&self.get_km_by_ms(ss.src));
             } else {
-                km = self.get_km_by_ms(ss.src);
+                pc = self.get_km_by_ms(ss.src);
             }
             self.set_km_by_ms(ss.src, Piece::Kara);
         }
@@ -142,7 +142,7 @@ impl Kyokumen {
         }
 
         // 移動先升に駒を置く
-        self.set_km_by_ms(ss.dst, km);
+        self.set_km_by_ms(ss.dst, pc);
 
         cap
     }
@@ -151,22 +151,22 @@ impl Kyokumen {
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
     pub fn undo_sasite(&mut self, sn: &Sengo, ss: &Sasite, cap: &Piece) {
         // 移動先の駒
-        let km;
+        let pc;
 
         // 打かどうか
         if ss.src == SS_SRC_DA {
-            km = sn_kms_to_km(sn, &ss.drop);
+            pc = sn_kms_to_km(sn, &ss.drop);
             // 自分の持ち駒を増やす
-            //let mg = km_to_mg(km);
+            //let mg = km_to_mg(pc);
             //self.add_mg(mg,1);
-            self.add_mg(km, 1);
+            self.add_mg(pc, 1);
         } else {
             // 打で無ければ
             if ss.pro {
                 // 成ったなら、成る前へ
-                km = prokm_to_km(&self.get_km_by_ms(ss.dst));
+                pc = prokm_to_km(&self.get_km_by_ms(ss.dst));
             } else {
-                km = self.get_km_by_ms(ss.dst);
+                pc = self.get_km_by_ms(ss.dst);
             }
         }
 
@@ -182,7 +182,7 @@ impl Kyokumen {
         }
 
         // 移動元升に、動かした駒を置く
-        self.set_km_by_ms(ss.src, km);
+        self.set_km_by_ms(ss.src, pc);
     }
 
     /// 指定の升に駒があれば真
@@ -191,8 +191,8 @@ impl Kyokumen {
     }
 
     /// 指定の升に指定の駒があれば真
-    pub fn has_ms_km(&self, sq: Square, km: &Piece) -> bool {
-        match_km(&self.get_km_by_ms(sq), km)
+    pub fn has_ms_km(&self, sq: Square, pc: &Piece) -> bool {
+        match_km(&self.get_km_by_ms(sq), pc)
     }
 
     /// 指定の升にある駒の先後、または空升
@@ -220,21 +220,21 @@ impl Kyokumen {
 
         // 盤上の駒
         for i_ms in MASU_0..BAN_SIZE {
-            let km = self.get_km_by_ms(i_ms as Square);
-            let num_km = km_to_num(&km);
-            hash ^= uchu.ky_hash_seed.km[i_ms][num_km];
+            let pc = self.get_km_by_ms(i_ms as Square);
+            let num_km = km_to_num(&pc);
+            hash ^= uchu.ky_hash_seed.pc[i_ms][num_km];
         }
 
         // 持ち駒ハッシュ
         for i_km in 0..KM_ARRAY_LN {
-            let km = KM_ARRAY[i_km];
-            let num_km = km_to_num(&km);
+            let pc = KM_ARRAY[i_km];
+            let num_km = km_to_num(&pc);
 
-            let maisu = self.get_mg(&km);
+            let maisu = self.get_mg(&pc);
             debug_assert!(
                 -1 < maisu && maisu <= MG_MAX as i8,
                 "持ち駒 {} の枚数 {} <= {}",
-                km,
+                pc,
                 maisu,
                 MG_MAX
             );
