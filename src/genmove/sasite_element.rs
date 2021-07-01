@@ -11,7 +11,7 @@ use std::collections::HashSet;
 ///
 /// 成る前を含めない、移動元升生成
 ///
-/// 1. 移動先を指定          ms_dst
+/// 1. 移動先を指定          to
 /// 2. 移動先にある駒を指定  km_dst
 ///
 /// その願いが叶う移動元の一覧を返す。
@@ -22,12 +22,12 @@ use std::collections::HashSet;
 /// TODO 先手１段目の香車とか、必ず成らないといけないぜ☆（＾～＾）
 ///
 pub fn insert_narazu_src_by_ms_km(
-    ms_dst: Square,
+    to: Square,
     km_dst: &Koma,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(ms_dst, "ｉnsert_narazu_src_by_ms_km");
+    assert_banjo_ms(to, "ｉnsert_narazu_src_by_ms_km");
 
     /*
      * Square は 将棋盤座標
@@ -40,7 +40,7 @@ pub fn insert_narazu_src_by_ms_km(
      * x,y を使うと混乱するので、s,d を使う
      */
     // 移動先の筋、段、駒種類、駒種類インデックス
-    let (dx, dy) = ms_to_suji_dan(ms_dst);
+    let (dx, dy) = ms_to_suji_dan(to);
     let sn = km_to_sn(km_dst);
     let kms_dst = km_to_kms(&km_dst);
     let kms_num = kms_to_num(&kms_dst);
@@ -327,18 +327,18 @@ pub fn insert_narazu_src_by_ms_km(
 ///
 /// 成る前の移動元升生成
 ///
-/// 1. 移動先の升        ms_dst
+/// 1. 移動先の升        to
 /// 2. 移動先にある駒    km_dst
 ///
 /// 成り　の動きでその結果になるような、元の升を返す☆（＾～＾）
 ///
 pub fn insert_narumae_src_by_ms_km(
-    ms_dst: Square,
+    to: Square,
     km_dst: &Koma,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(ms_dst, "Ｉnsert_narumae_src_by_ms_km");
+    assert_banjo_ms(to, "Ｉnsert_narumae_src_by_ms_km");
 
     // +--------------------+
     // | 移動後は成り駒か？ |
@@ -366,7 +366,7 @@ pub fn insert_narumae_src_by_ms_km(
      * x,y を使うと混乱するので、s,d を使う
      */
     // 移動先の筋、段、駒種類、駒種類インデックス
-    let (dx, dy) = ms_to_suji_dan(ms_dst);
+    let (dx, dy) = ms_to_suji_dan(to);
 
     // 例えば移動先の駒種類が「ぱひ」なら、「ぱひ」が動いた可能性の他に、
     // 「ひ」が動いたのかもしれない。
@@ -635,18 +635,18 @@ pub fn insert_narumae_src_by_ms_km(
 ///
 /// 打の駒種類生成
 ///
-/// 1. 移動先の升    ms_dst
+/// 1. 移動先の升    to
 /// 2. 移動先の駒    km_dst  ※先後が要るので、kmsではなくkm。
 ///
 /// そこに打てる駒種類を返す。
 ///
 pub fn insert_da_kms_by_ms_km(
-    ms_dst: Square,
+    to: Square,
     km_dst: &Koma,
     uchu: &Uchu,
     result_kms: &mut HashSet<usize>,
 ) {
-    assert_banjo_ms(ms_dst, "Ｉnsert_da_kms_by_ms_km");
+    assert_banjo_ms(to, "Ｉnsert_da_kms_by_ms_km");
 
     let kms_dst = km_to_kms(&km_dst);
     if !kms_can_da(&kms_dst) {
@@ -656,7 +656,7 @@ pub fn insert_da_kms_by_ms_km(
     // +------------------------+
     // | 打ちたいところは空升か |
     // +------------------------+
-    let km_banjo = uchu.ky.get_km_by_ms(ms_dst);
+    let km_banjo = uchu.ky.get_km_by_ms(to);
     match km_banjo {
         Koma::Kara => {}
         _ => {
@@ -673,7 +673,7 @@ pub fn insert_da_kms_by_ms_km(
     }
 
     // 回転していない将棋盤から見た筋番号
-    let (suji, dy) = ms_to_suji_dan(ms_dst);
+    let (suji, dy) = ms_to_suji_dan(to);
     /*
      * Square は 将棋盤座標
      *
@@ -685,7 +685,7 @@ pub fn insert_da_kms_by_ms_km(
      * 11 21 31 ...
      */
     let sn = km_to_sn(km_dst);
-    let sq = kaiten180_ms_by_ms_sn(ms_dst, &sn);
+    let sq = kaiten180_ms_by_ms_sn(to, &sn);
 
     assert_banjo_ms(sq, "Ｉnsert_da_kms_by_ms_km＜その２＞");
     //let (_x,y) = ms_to_suji_dan(sq);
@@ -1052,66 +1052,66 @@ pub fn insert_dst_by_ms_km(
                 // ▼きりん、▼ぞう、▼ねこ　は
                 // 移動元または移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
+                for to in result.iter() {
                     let (_sx2, sy2) = ms_to_suji_dan(ms_src);
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if sy2 < DAN_4 && dy2 < DAN_4 {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             U0 | S0 | H0 => {
                 // ▼うさぎ、▼しし、▼ひよこ　は
                 // 移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                for to in result.iter() {
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if dy2 < DAN_4 {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             K1 | Z1 | N1 => {
                 // △きりん、△ぞう、△ねこ　は
                 // 移動元または移動先が　７～９段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
+                for to in result.iter() {
                     let (_sx2, sy2) = ms_to_suji_dan(ms_src);
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if DAN_6 < sy2 && DAN_6 < dy2 {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             U1 | S1 | H1 => {
                 // △うさぎ、△しし、△ひよこ　は
                 // 移動先が　７～９段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                for to in result.iter() {
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if DAN_6 < dy2 {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             _ => {}
@@ -1125,65 +1125,65 @@ pub fn insert_dst_by_ms_km(
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                for to in result.iter() {
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if dy2 < DAN_3 {
                     } else {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             S0 | H0 => {
                 // ▼しし、▼ひよこ　は１段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                for to in result.iter() {
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if dy2 < DAN_2 {
                     } else {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             U1 => {
                 // △うさぎ　は８、９段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                for to in result.iter() {
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if DAN_7 < dy2 {
                     } else {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             S1 | H1 => {
                 // △しし、△ひよこ　は９段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
-                for ms_dst in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*ms_dst);
+                for to in result.iter() {
+                    let (_dx2, dy2) = ms_to_suji_dan(*to);
                     if DAN_8 < dy2 {
                     } else {
-                        result2.insert(*ms_dst);
+                        result2.insert(*to);
                     }
                 }
                 // 入れ直し
                 result.clear();
-                for ms_dst in result2.iter() {
-                    result.insert(*ms_dst);
+                for to in result2.iter() {
+                    result.insert(*to);
                 }
             }
             _ => {}
@@ -1194,21 +1194,21 @@ pub fn insert_dst_by_ms_km(
 /// 移動元升生成
 ///
 /// 1. 手番の先後    sn
-/// 2. 移動先升      ms_dst
+/// 2. 移動先升      to
 ///
 /// その升に到達できる駒が居る升を取得☆（＾～＾）
 /// TODO 成りの動きも考えたい。升だけではなく、成りの有無☆（＾～＾）
 ///
 pub fn insert_narazu_src_by_sn_ms(
     sn: &Sengo,
-    ms_dst: Square,
+    to: Square,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(ms_dst, "Ｉnsert_narazu_src_by_sn_ms");
+    assert_banjo_ms(to, "Ｉnsert_narazu_src_by_sn_ms");
 
     // 移動先の筋、段
-    let (dx, dy) = ms_to_suji_dan(ms_dst);
+    let (dx, dy) = ms_to_suji_dan(to);
 
     // 駒種類
     for kms in KMS_ARRAY.iter() {
@@ -1557,14 +1557,14 @@ pub fn insert_narazu_src_by_sn_ms(
 ///
 pub fn insert_narumae_src_by_sn_ms(
     sn: &Sengo,
-    ms_dst: Square,
+    to: Square,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(ms_dst, "Ｉnsert_narumae_src_by_sn_ms");
+    assert_banjo_ms(to, "Ｉnsert_narumae_src_by_sn_ms");
 
     // 移動先の筋、段
-    let (dx, dy) = ms_to_suji_dan(ms_dst);
+    let (dx, dy) = ms_to_suji_dan(to);
 
     // 駒種類
     for kms in KMS_ARRAY.iter() {
