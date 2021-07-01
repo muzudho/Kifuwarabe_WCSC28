@@ -448,8 +448,8 @@ pub enum PieceType {
     PR,
     // 馬 Promoted Bishop (Horse)
     PB,
-    // ぱわーあっぷねこ
-    PN,
+    // 全 Promoted Silver
+    PS,
     // ぱわーあっぷうさぎ
     PU,
     // 杏 Promoted Lance
@@ -476,7 +476,7 @@ impl fmt::Display for PieceType {
             P => write!(f, "ひ"),
             PR => write!(f, "PR"),
             PB => write!(f, "PB"),
-            PN => write!(f, "PN"),
+            PS => write!(f, "PS"),
             PU => write!(f, "PU"),
             PL => write!(f, "PL"),
             PH => write!(f, "PH"),
@@ -506,7 +506,7 @@ pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::P,    // ひよこ
     PieceType::PR,   // ぱわーあっぷきりん
     PieceType::PB,   // ぱわーあっぷぞう
-    PieceType::PN,   // ぱわーあっぷねこ
+    PieceType::PS,   // ぱわーあっぷねこ
     PieceType::PU,   // ぱわーあっぷうさぎ
     PieceType::PL,   // ぱわーあっぷいのしし
     PieceType::PH,   // ぱわーあっぷひよこ
@@ -532,7 +532,7 @@ pub const KMS_PRO_ARRAY_LN: usize = 6;
 pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
     PieceType::PR, // ぱわーあっぷきりん
     PieceType::PB, // ぱわーあっぷぞう
-    PieceType::PN, // ぱわーあっぷねこ
+    PieceType::PS, // ぱわーあっぷねこ
     PieceType::PU, // ぱわーあっぷうさぎ
     PieceType::PL, // ぱわーあっぷいのしし
     PieceType::PH, // ぱわーあっぷひよこ
