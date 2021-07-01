@@ -40,7 +40,7 @@ pub fn insert_narazu_src_by_ms_km(
      * x,y を使うと混乱するので、s,d を使う
      */
     // 移動先の筋、段、駒種類、駒種類インデックス
-    let (dx, dy) = ms_to_suji_dan(to);
+    let (dx, dy) = sq_to_file_rank(to);
     let phase = km_to_sn(to_pc);
     let kms_dst = km_to_kms(&to_pc);
     let kms_num = kms_to_num(&kms_dst);
@@ -366,14 +366,14 @@ pub fn insert_narumae_src_by_ms_km(
      * x,y を使うと混乱するので、s,d を使う
      */
     // 移動先の筋、段、駒種類、駒種類インデックス
-    let (dx, dy) = ms_to_suji_dan(to);
+    let (dx, dy) = sq_to_file_rank(to);
 
     // 例えば移動先の駒種類が「ぱひ」なら、「ぱひ」が動いた可能性の他に、
     // 「ひ」が動いたのかもしれない。
     // 「ぱひ」は、敵陣の１～３段目にいて、動きが北だった場合、元が「ひ」の可能性がある。
     let kms_src_narumae = prokms_to_kms(&kms_dst);
 
-    use super::super::entities::teigi::shogi_syugo::KmSyurui::*;
+    use super::super::entities::teigi::shogi_syugo::PieceType::*;
     match kms_src_narumae {
         Kara => {
             return;
@@ -673,7 +673,7 @@ pub fn insert_da_kms_by_ms_km(
     }
 
     // 回転していない将棋盤から見た筋番号
-    let (suji, dy) = ms_to_suji_dan(to);
+    let (suji, dy) = sq_to_file_rank(to);
     /*
      * Square は 将棋盤座標
      *
@@ -688,7 +688,7 @@ pub fn insert_da_kms_by_ms_km(
     let sq = kaiten180_ms_by_ms_sn(to, &phase);
 
     assert_banjo_ms(sq, "Ｉnsert_da_kms_by_ms_km＜その２＞");
-    //let (_x,y) = ms_to_suji_dan(sq);
+    //let (_x,y) = sq_to_file_rank(sq);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
     use super::super::entities::teigi::shogi_syugo::Piece::*;
@@ -756,7 +756,7 @@ pub fn insert_dst_by_ms_km(
     assert_banjo_ms(from, "Ｉnsert_dst_by_ms_km");
 
     // 移動先の筋、段、駒種類、駒種類インデックス
-    let (dx, dy) = ms_to_suji_dan(from);
+    let (dx, dy) = sq_to_file_rank(from);
     let phase = km_to_sn(&pc_from);
     let kms_src = km_to_kms(&pc_from);
 
@@ -1053,8 +1053,8 @@ pub fn insert_dst_by_ms_km(
                 // 移動元または移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_sx2, sy2) = ms_to_suji_dan(from);
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_sx2, sy2) = sq_to_file_rank(from);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if sy2 < DAN_4 && dy2 < DAN_4 {
                         result2.insert(*to);
                     }
@@ -1070,7 +1070,7 @@ pub fn insert_dst_by_ms_km(
                 // 移動先が　１～３段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if dy2 < DAN_4 {
                         result2.insert(*to);
                     }
@@ -1086,8 +1086,8 @@ pub fn insert_dst_by_ms_km(
                 // 移動元または移動先が　７～９段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_sx2, sy2) = ms_to_suji_dan(from);
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_sx2, sy2) = sq_to_file_rank(from);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if DAN_6 < sy2 && DAN_6 < dy2 {
                         result2.insert(*to);
                     }
@@ -1103,7 +1103,7 @@ pub fn insert_dst_by_ms_km(
                 // 移動先が　７～９段目なら成れる
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if DAN_6 < dy2 {
                         result2.insert(*to);
                     }
@@ -1126,7 +1126,7 @@ pub fn insert_dst_by_ms_km(
                 // ▼うさぎ　は１、２段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if dy2 < DAN_3 {
                     } else {
                         result2.insert(*to);
@@ -1142,7 +1142,7 @@ pub fn insert_dst_by_ms_km(
                 // ▼しし、▼ひよこ　は１段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if dy2 < DAN_2 {
                     } else {
                         result2.insert(*to);
@@ -1158,7 +1158,7 @@ pub fn insert_dst_by_ms_km(
                 // △うさぎ　は８、９段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if DAN_7 < dy2 {
                     } else {
                         result2.insert(*to);
@@ -1174,7 +1174,7 @@ pub fn insert_dst_by_ms_km(
                 // △しし、△ひよこ　は９段目には進めない
                 let mut result2: HashSet<Square> = HashSet::new();
                 for to in result.iter() {
-                    let (_dx2, dy2) = ms_to_suji_dan(*to);
+                    let (_dx2, dy2) = sq_to_file_rank(*to);
                     if DAN_8 < dy2 {
                     } else {
                         result2.insert(*to);
@@ -1208,7 +1208,7 @@ pub fn insert_narazu_src_by_sn_ms(
     assert_banjo_ms(to, "Ｉnsert_narazu_src_by_sn_ms");
 
     // 移動先の筋、段
-    let (dx, dy) = ms_to_suji_dan(to);
+    let (dx, dy) = sq_to_file_rank(to);
 
     // 駒種類
     for kms in KMS_ARRAY.iter() {
@@ -1564,7 +1564,7 @@ pub fn insert_narumae_src_by_sn_ms(
     assert_banjo_ms(to, "Ｉnsert_narumae_src_by_sn_ms");
 
     // 移動先の筋、段
-    let (dx, dy) = ms_to_suji_dan(to);
+    let (dx, dy) = sq_to_file_rank(to);
 
     // 駒種類
     for kms in KMS_ARRAY.iter() {
@@ -1912,11 +1912,11 @@ pub fn get_ms_vec_as_aigoma(
     phase_atk:&Phase,
     sq_atk:Square,
     sq_tgt:Square,
-    kms_atk:&KmSyurui
+    kms_atk:&PieceType
     )->Vec<Square> {
     let vec = Vec::new();
 
-    use teigi::shogi_syugo::KmSyurui::*;
+    use teigi::shogi_syugo::PieceType::*;
     match *kms_atk {
         K => {
             // 北方向

@@ -77,7 +77,7 @@ impl Kyokumen {
             let sq = suji_dan_to_ms(suji, dan);
             let pc = self.get_km_by_ms(sq);
             let (sn_km, kms) = km_to_sn_kms(&pc);
-            if match_sn(&sn_km, phase) && match_kms(&kms, &KmSyurui::H) {
+            if match_sn(&sn_km, phase) && match_kms(&kms, &PieceType::H) {
                 return true;
             }
         }

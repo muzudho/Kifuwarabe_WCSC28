@@ -28,6 +28,6 @@ pub fn rnd_ms() -> Square {
 ///
 /// ランダムに 駒の種類を返す
 ///
-pub fn rnd_kms() -> &'static KmSyurui {
+pub fn rnd_kms() -> &'static PieceType {
     &KMS_ARRAY[rand::thread_rng().gen_range(0, KMS_ARRAY_LN)]
 }

@@ -69,7 +69,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                             src: *ms_src,
                             dst: to,
                             pro: *pro,
-                            drop: KmSyurui::Kara,
+                            drop: PieceType::Kara,
                         }
                         .to_hash();
                         &uchu.vision_tree_by_sn[sn_to_num(phase)]

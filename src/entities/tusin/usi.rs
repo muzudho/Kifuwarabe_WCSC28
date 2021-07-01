@@ -22,7 +22,7 @@ pub struct Sasite {
     // 移動後に成るなら真
     pub pro: bool,
     // 打の場合、打った駒種類。 TODO 持駒の種類に絞りこみたい
-    pub drop: KmSyurui,
+    pub drop: PieceType,
 }
 impl Sasite {
     pub fn new() -> Sasite {
@@ -30,7 +30,7 @@ impl Sasite {
             src: 0,
             dst: 0,
             pro: false,
-            drop: KmSyurui::Kara,
+            drop: PieceType::Kara,
         }
     }
     #[allow(dead_code)]
@@ -38,7 +38,7 @@ impl Sasite {
         self.src = 0;
         self.dst = 0;
         self.pro = false;
-        self.drop = KmSyurui::Kara;
+        self.drop = PieceType::Kara;
     }
     pub fn to_hash(&self) -> u64 {
         let mut hash = 0;
@@ -79,10 +79,10 @@ impl fmt::Display for Sasite {
 
         // 投了を弾いたあと、診断☆（＾～＾）
         assert_banjo_ms(self.dst, "Ｓasite Ｄisplay");
-        let (dx, dy) = ms_to_suji_dan(self.dst);
+        let (dx, dy) = sq_to_file_rank(self.dst);
 
         if self.src == SS_SRC_DA {
-            use super::super::teigi::shogi_syugo::KmSyurui::*;
+            use super::super::teigi::shogi_syugo::PieceType::*;
             write!(
                 f,
                 "{}*{}{}{}",
@@ -122,7 +122,7 @@ impl fmt::Display for Sasite {
                 (0, 0)
             } else {
                 assert_banjo_ms(self.src, "Ｓasite Ｄisplay＜その２＞");
-                ms_to_suji_dan(self.src)
+                sq_to_file_rank(self.src)
             };
             write!(
                 f,
@@ -167,37 +167,37 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
         "R" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::K);
+            uchu.set_sasite_drop(PieceType::K);
         }
         "B" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::Z);
+            uchu.set_sasite_drop(PieceType::Z);
         }
         "G" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::I);
+            uchu.set_sasite_drop(PieceType::I);
         }
         "S" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::N);
+            uchu.set_sasite_drop(PieceType::N);
         }
         "N" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::U);
+            uchu.set_sasite_drop(PieceType::U);
         }
         "L" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::S);
+            uchu.set_sasite_drop(PieceType::S);
         }
         "P" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(KmSyurui::H);
+            uchu.set_sasite_drop(PieceType::H);
         }
         _ => {
             // 残りは「筋の数字」、「段のアルファベット」のはず。
@@ -290,7 +290,7 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
             }
 
             uchu.set_sasite_src(suji_dan_to_ms(suji, dan));
-            uchu.set_sasite_drop(KmSyurui::Kara);
+            uchu.set_sasite_drop(PieceType::Kara);
         }
     }
 

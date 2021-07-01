@@ -34,7 +34,7 @@ pub fn is_s(uchu: &Uchu) -> bool {
 
     let kms = km_to_kms(&pc);
 
-    use super::super::teigi::shogi_syugo::KmSyurui::*;
+    use super::super::teigi::shogi_syugo::PieceType::*;
     match kms {
         Z | S => {
             return false;
@@ -89,7 +89,7 @@ pub fn is_atamakin(
 
     // らいおん以外の相手の駒種類
     let mut kms_set_ai_c_r = KmsSyugo::new_all();
-    kms_set_ai_c_r.remove(&KmSyurui::R);
+    kms_set_ai_c_r.remove(&PieceType::R);
 
     // kの下段左中右＝移動不可升　※現局面２手先の動き？
     // A が移動することで、利きは変わるか？　玉の下３つは変わらない

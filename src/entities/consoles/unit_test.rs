@@ -56,7 +56,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
             g_writeln(&format!("移動可能な駒がある升={}", ms_src));
             ss.dst = to;
             ss.pro = pro_dst;
-            ss.drop = KmSyurui::Kara;
+            ss.drop = PieceType::Kara;
             break;
         }
         g_writeln(&format!("指し手にすると={}", ss));
@@ -65,7 +65,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 駒の移動元升
         {
             g_writeln("利きテスト1");
-            let kms = KmSyurui::PH; // ぱわーあっぷひよこ
+            let kms = PieceType::PH; // ぱわーあっぷひよこ
             let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 79;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
@@ -79,7 +79,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         }
         {
             g_writeln("利きテスト2");
-            let kms = KmSyurui::PH; // ぱわーあっぷひよこ
+            let kms = PieceType::PH; // ぱわーあっぷひよこ
             let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 68;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
@@ -93,7 +93,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         }
         {
             g_writeln("利きテスト3");
-            let kms = KmSyurui::PH; // ぱわーあっぷひよこ
+            let kms = PieceType::PH; // ぱわーあっぷひよこ
             let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 77;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
@@ -107,7 +107,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         }
         {
             g_writeln("利きテスト2");
-            let kms = KmSyurui::R; // らいおん
+            let kms = PieceType::R; // らいおん
             let pc = sn_kms_to_km(&Phase::First, &kms); // ▼ら
             let to = 58;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));

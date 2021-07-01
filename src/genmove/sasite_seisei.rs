@@ -50,7 +50,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                             src: from,
                             dst: *to,
                             pro: false, // 成らず
-                            drop: KmSyurui::Kara,
+                            drop: PieceType::Kara,
                         }
                         .to_hash(),
                     );
@@ -70,7 +70,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                             src: from,
                             dst: *to,
                             pro: true, // 成り
-                            drop: KmSyurui::Kara,
+                            drop: PieceType::Kara,
                         }
                         .to_hash(),
                     );
@@ -157,7 +157,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
         ss_hash_builder.src = *from;
         // 成らず
         ss_hash_builder.pro = false;
-        ss_hash_builder.drop = KmSyurui::Kara;
+        ss_hash_builder.drop = PieceType::Kara;
         some_moves_hashset.insert(ss_hash_builder.to_hash());
     }
 
@@ -172,7 +172,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
         ss_hash_builder.src = *from;
         // 成り
         ss_hash_builder.pro = true;
-        ss_hash_builder.drop = KmSyurui::Kara;
+        ss_hash_builder.drop = PieceType::Kara;
         some_moves_hashset.insert(ss_hash_builder.to_hash());
     }
 }

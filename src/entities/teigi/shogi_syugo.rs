@@ -427,7 +427,7 @@ pub const KMS_LN: usize = 16;
 pub const KM_UGOKI_LN: usize = 9;
 /// 先後なしの駒と空白
 #[derive(Copy, Clone)]
-pub enum KmSyurui {
+pub enum PieceType {
     // らいおん
     R,
     // きりん
@@ -461,10 +461,10 @@ pub enum KmSyurui {
     // 要素数より1小さい数。エラー値用に使っても可
     Owari,
 }
-impl fmt::Display for KmSyurui {
+impl fmt::Display for PieceType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // 文字列リテラルでないとダメみたいなんで、他に似たようなコードがあるのに、また書くことに☆（＾～＾）
-        use super::super::teigi::shogi_syugo::KmSyurui::*;
+        use super::super::teigi::shogi_syugo::PieceType::*;
         match *self {
             R => write!(f, "ら"),
             K => write!(f, "き"),
@@ -488,67 +488,67 @@ impl fmt::Display for KmSyurui {
 ///
 /// 駒種類の一致比較
 ///
-pub fn match_kms(a: &KmSyurui, b: &KmSyurui) -> bool {
+pub fn match_kms(a: &PieceType, b: &PieceType) -> bool {
     kms_to_num(a) == kms_to_num(b)
 }
 
 /// 駒種類数
 pub const KMS_ARRAY_LN: usize = 14;
 /// 駒種類
-pub const KMS_ARRAY: [KmSyurui; KMS_ARRAY_LN] = [
-    KmSyurui::R,  // らいおん
-    KmSyurui::K,  // きりん
-    KmSyurui::Z,  // ぞう
-    KmSyurui::I,  // いぬ
-    KmSyurui::N,  // ねこ
-    KmSyurui::U,  // うさぎ
-    KmSyurui::S,  // いのしし
-    KmSyurui::H,  // ひよこ
-    KmSyurui::PK, // ぱわーあっぷきりん
-    KmSyurui::PZ, // ぱわーあっぷぞう
-    KmSyurui::PN, // ぱわーあっぷねこ
-    KmSyurui::PU, // ぱわーあっぷうさぎ
-    KmSyurui::PS, // ぱわーあっぷいのしし
-    KmSyurui::PH, // ぱわーあっぷひよこ
+pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
+    PieceType::R,  // らいおん
+    PieceType::K,  // きりん
+    PieceType::Z,  // ぞう
+    PieceType::I,  // いぬ
+    PieceType::N,  // ねこ
+    PieceType::U,  // うさぎ
+    PieceType::S,  // いのしし
+    PieceType::H,  // ひよこ
+    PieceType::PK, // ぱわーあっぷきりん
+    PieceType::PZ, // ぱわーあっぷぞう
+    PieceType::PN, // ぱわーあっぷねこ
+    PieceType::PU, // ぱわーあっぷうさぎ
+    PieceType::PS, // ぱわーあっぷいのしし
+    PieceType::PH, // ぱわーあっぷひよこ
 ];
 
 /// 非成 駒種類数
 pub const KMS_NPRO_ARRAY_LN: usize = 8;
 /// 非成 駒種類
-pub const KMS_NPRO_ARRAY: [KmSyurui; KMS_NPRO_ARRAY_LN] = [
-    KmSyurui::R, // らいおん
-    KmSyurui::K, // きりん
-    KmSyurui::Z, // ぞう
-    KmSyurui::I, // いぬ
-    KmSyurui::N, // ねこ
-    KmSyurui::U, // うさぎ
-    KmSyurui::S, // いのしし
-    KmSyurui::H, // ひよこ
+pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
+    PieceType::R, // らいおん
+    PieceType::K, // きりん
+    PieceType::Z, // ぞう
+    PieceType::I, // いぬ
+    PieceType::N, // ねこ
+    PieceType::U, // うさぎ
+    PieceType::S, // いのしし
+    PieceType::H, // ひよこ
 ];
 
 /// 成 駒種類数
 pub const KMS_PRO_ARRAY_LN: usize = 6;
 /// 成 駒種類
-pub const KMS_PRO_ARRAY: [KmSyurui; KMS_PRO_ARRAY_LN] = [
-    KmSyurui::PK, // ぱわーあっぷきりん
-    KmSyurui::PZ, // ぱわーあっぷぞう
-    KmSyurui::PN, // ぱわーあっぷねこ
-    KmSyurui::PU, // ぱわーあっぷうさぎ
-    KmSyurui::PS, // ぱわーあっぷいのしし
-    KmSyurui::PH, // ぱわーあっぷひよこ
+pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
+    PieceType::PK, // ぱわーあっぷきりん
+    PieceType::PZ, // ぱわーあっぷぞう
+    PieceType::PN, // ぱわーあっぷねこ
+    PieceType::PU, // ぱわーあっぷうさぎ
+    PieceType::PS, // ぱわーあっぷいのしし
+    PieceType::PH, // ぱわーあっぷひよこ
 ];
 
 /// 持駒種類数
 pub const MGS_ARRAY_LN: usize = 7;
 /// 持駒種類
-pub const MGS_ARRAY: [KmSyurui; MGS_ARRAY_LN] = [
-    KmSyurui::K,
-    KmSyurui::Z,
-    KmSyurui::I,
-    KmSyurui::N,
-    KmSyurui::U,
-    KmSyurui::S,
-    KmSyurui::H,
+pub const MGS_ARRAY: [PieceType; MGS_ARRAY_LN] = [
+    PieceType::K,
+    PieceType::Z,
+    PieceType::I,
+    PieceType::N,
+    PieceType::U,
+    PieceType::S,
+    PieceType::H,
 ];
 
 ///
@@ -571,7 +571,7 @@ impl KmsSyugo {
         };
         kms_syugo
     }
-    pub fn remove(&mut self, kms: &KmSyurui) {
+    pub fn remove(&mut self, kms: &PieceType) {
         self.num_syugo.remove(&kms_to_num(kms));
     }
 }
