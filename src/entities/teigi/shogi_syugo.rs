@@ -444,8 +444,8 @@ pub enum PieceType {
     L,
     // 歩 Pawn
     P,
-    // ぱわーあっぷきりん
-    PK,
+    // 竜 Promoted Rook (Dragon)
+    PR,
     // ぱわーあっぷぞう
     PZ,
     // ぱわーあっぷねこ
@@ -474,7 +474,7 @@ impl fmt::Display for PieceType {
             N => write!(f, "う"),
             L => write!(f, "い"),
             P => write!(f, "ひ"),
-            PK => write!(f, "PK"),
+            PR => write!(f, "PR"),
             PZ => write!(f, "PZ"),
             PN => write!(f, "PN"),
             PU => write!(f, "PU"),
@@ -504,7 +504,7 @@ pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::N,    // うさぎ
     PieceType::L,    // いのしし
     PieceType::P,    // ひよこ
-    PieceType::PK,   // ぱわーあっぷきりん
+    PieceType::PR,   // ぱわーあっぷきりん
     PieceType::PZ,   // ぱわーあっぷぞう
     PieceType::PN,   // ぱわーあっぷねこ
     PieceType::PU,   // ぱわーあっぷうさぎ
@@ -530,7 +530,7 @@ pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
 pub const KMS_PRO_ARRAY_LN: usize = 6;
 /// 成 駒種類
 pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
-    PieceType::PK, // ぱわーあっぷきりん
+    PieceType::PR, // ぱわーあっぷきりん
     PieceType::PZ, // ぱわーあっぷぞう
     PieceType::PN, // ぱわーあっぷねこ
     PieceType::PU, // ぱわーあっぷうさぎ
