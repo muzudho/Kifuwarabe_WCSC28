@@ -65,7 +65,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                         // 成り
                         let pro = &uchu.ky.is_natta(*ms_src, to);
 
-                        let hash_ss = Sasite {
+                        let hash_ss = MoveEx {
                             src: *ms_src,
                             dst: to,
                             pro: *pro,
@@ -81,7 +81,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                     // 打
                     for pt_drop in drop_pt_hashset.iter() {
                         let pc_drop = ph_pt_to_pc( &phase, &pt_drop );
-                        let hash_ss = Sasite{
+                        let hash_ss = MoveEx{
                             src:MOVE_FROM_DROP,
                             dst:to,
                             pro:false,

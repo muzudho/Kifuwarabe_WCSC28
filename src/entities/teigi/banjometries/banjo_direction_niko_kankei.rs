@@ -27,8 +27,8 @@ pub fn get_dir8_to_slider_from_target(
         ms_target
     );
 
-    assert_banjo_ms(ms_slider, "(205a1)get_dir8_to_slider_from_target");
-    assert_banjo_ms(ms_target, "(205a2)get_dir8_to_slider_from_target");
+    assert_onboard_sq(ms_slider, "(205a1)get_dir8_to_slider_from_target");
+    assert_onboard_sq(ms_target, "(205a2)get_dir8_to_slider_from_target");
     let p_slider = ms_to_p(ms_slider);
     let p_target = ms_to_p(ms_target);
 

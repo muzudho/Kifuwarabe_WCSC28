@@ -113,69 +113,69 @@ impl Kyokumen {
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
     ///
     /// return : 取った駒
-    pub fn do_sasite(&mut self, phase: &Phase, ss: &Sasite) -> Piece {
+    pub fn do_moveex(&mut self, phase: &Phase, moveex: &MoveEx) -> Piece {
         // 動かす駒
         let pc;
         // 取った駒
         let cap;
 
         // 打かどうか
-        if ss.src == MOVE_FROM_DROP {
-            pc = ph_pt_to_pc(&phase, &ss.drop);
+        if moveex.src == MOVE_FROM_DROP {
+            pc = ph_pt_to_pc(&phase, &moveex.drop);
             // 自分の持ち駒を減らす
             self.add_mg(pc, -1);
         } else {
             // 打で無ければ、元の升の駒を消す。
-            if ss.pro {
+            if moveex.pro {
                 // 成りなら
-                pc = pc_to_pro_pc(&self.get_pc_by_sq(ss.src));
+                pc = pc_to_pro_pc(&self.get_pc_by_sq(moveex.src));
             } else {
-                pc = self.get_pc_by_sq(ss.src);
+                pc = self.get_pc_by_sq(moveex.src);
             }
-            self.set_pc_by_sq(ss.src, Piece::Empty);
+            self.set_pc_by_sq(moveex.src, Piece::Empty);
         }
 
         // 移動先升に駒があるかどうか
-        if let Piece::Empty = self.get_pc_by_sq(ss.dst) {
+        if let Piece::Empty = self.get_pc_by_sq(moveex.dst) {
             cap = Piece::Empty;
         } else {
             // 移動先升の駒を盤上から消し、自分の持ち駒に増やす
-            cap = self.get_pc_by_sq(ss.dst);
+            cap = self.get_pc_by_sq(moveex.dst);
             let mg = pc_to_hand(cap);
             self.add_mg(mg, 1);
         }
 
         // 移動先升に駒を置く
-        self.set_pc_by_sq(ss.dst, pc);
+        self.set_pc_by_sq(moveex.dst, pc);
 
         cap
     }
 
     /// 指し手の　進む戻る　を逆さにして、盤上の駒配置を動かすぜ☆（＾～＾）
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
-    pub fn undo_sasite(&mut self, phase: &Phase, ss: &Sasite, cap: &Piece) {
+    pub fn undo_sasite(&mut self, phase: &Phase, moveex: &MoveEx, cap: &Piece) {
         // 移動先の駒
         let pc;
 
         // 打かどうか
-        if ss.src == MOVE_FROM_DROP {
-            pc = ph_pt_to_pc(phase, &ss.drop);
+        if moveex.src == MOVE_FROM_DROP {
+            pc = ph_pt_to_pc(phase, &moveex.drop);
             // 自分の持ち駒を増やす
             //let mg = pc_to_hand(pc);
             //self.add_mg(mg,1);
             self.add_mg(pc, 1);
         } else {
             // 打で無ければ
-            if ss.pro {
+            if moveex.pro {
                 // 成ったなら、成る前へ
-                pc = pro_pc_to_pc(&self.get_pc_by_sq(ss.dst));
+                pc = pro_pc_to_pc(&self.get_pc_by_sq(moveex.dst));
             } else {
-                pc = self.get_pc_by_sq(ss.dst);
+                pc = self.get_pc_by_sq(moveex.dst);
             }
         }
 
         // 移動先の駒を、取った駒（あるいは空）に戻す
-        self.set_pc_by_sq(ss.dst, *cap);
+        self.set_pc_by_sq(moveex.dst, *cap);
         match *cap {
             Piece::Empty => {}
             _ => {
@@ -186,7 +186,7 @@ impl Kyokumen {
         }
 
         // 移動元升に、動かした駒を置く
-        self.set_pc_by_sq(ss.src, pc);
+        self.set_pc_by_sq(moveex.src, pc);
     }
 
     /// 指定の升に駒があれば真

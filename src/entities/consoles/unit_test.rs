@@ -44,7 +44,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 移動先の升、および　不成駒／成駒
         let to = randommove::rnd_sq();
         let pro_dst = randommove::rnd_bool();
-        let mut ss = Sasite::new();
+        let mut moveex = MoveEx::new();
         // 移動可能な元升
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
         //let mut drop_pt_hashset : HashSet<usize> = HashSet::new();
@@ -52,14 +52,14 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         insert_beforepromote_from_by_sq_pc(to, &pc, &uchu, &mut mv_src_hashset);
         //insert_drop_pt_by_sq_pc      ( to, &pc, &uchu, &mut drop_pt_hashset );
         for ms_src in mv_src_hashset {
-            ss.src = ms_src;
+            moveex.src = ms_src;
             g_writeln(&format!("移動可能な駒がある升={}", ms_src));
-            ss.dst = to;
-            ss.pro = pro_dst;
-            ss.drop = PieceType::Empty;
+            moveex.dst = to;
+            moveex.pro = pro_dst;
+            moveex.drop = PieceType::Empty;
             break;
         }
-        g_writeln(&format!("指し手にすると={}", ss));
+        g_writeln(&format!("指し手にすると={}", moveex));
     } else if 0 < (len - *starts) && &line[*starts..*starts + 1] == "1" {
         *starts += 1;
         // 駒の移動元升

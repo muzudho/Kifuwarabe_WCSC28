@@ -29,7 +29,7 @@ pub fn read_kikisu(uchu: &mut Uchu) {
             // 9..0 みたいに降順に書いても動かない？
             for y in RANK_1..RANK_10 {
                 let to = file_rank_to_sq(x, y);
-                assert_banjo_ms(to, "think 利き調べ");
+                assert_onboard_sq(to, "think 利き調べ");
 
                 // 移動元の升
                 let mut mv_src_hashset: HashSet<Square> = HashSet::new();

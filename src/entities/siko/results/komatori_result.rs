@@ -92,29 +92,29 @@ impl KomatoriResult {
     ///     (2-2) アタッカーがスライダーではない場合
     ///         (2-2-1) 狙われている駒を、動かせば解決
     ///
-    /// ss : 現局面での、駒の動き手の１つ
-    pub fn get_result(&self, ss: &Sasite) -> KomatoriResultResult {
+    /// moveex : 現局面での、駒の動き手の１つ
+    pub fn get_result(&self, moveex: &MoveEx) -> KomatoriResultResult {
         // (1)
-        if self.ms_attacker == ss.dst {
+        if self.ms_attacker == moveex.dst {
             return KomatoriResultResult::NoneAttacker;
         }
 
         // (2-1)
         if pc_is_long_control(&self.pc_attacker) {
-            assert_banjo_ms(ss.dst, "(205b2)Ｇet_result");
-            assert_banjo_ms(self.ms_attacker, "(205b3)Ｇet_result");
-            assert_banjo_ms(self.ms_target, "(205b4)Ｇet_result");
+            assert_onboard_sq(moveex.dst, "(205b2)Ｇet_result");
+            assert_onboard_sq(self.ms_attacker, "(205b3)Ｇet_result");
+            assert_onboard_sq(self.ms_target, "(205b4)Ｇet_result");
 
-            let p_dst = ms_to_p(ss.dst);
+            let p_dst = ms_to_p(moveex.dst);
             let p_atk = ms_to_p(self.ms_attacker);
             let p_tgt = ms_to_p(self.ms_target);
 
             // 合い駒判定
             if
             // これから動かす駒は、狙われている駒ではないとする
-            ss.src != self.ms_target
+            moveex.src != self.ms_target
                 // あるいは打か
-                || ss.src == MOVE_FROM_DROP
+                || moveex.src == MOVE_FROM_DROP
             {
                 // 利きの線分上に、駒を置いたか？
                 if intersect_point_on_line_segment(&p_dst, &p_atk, &p_tgt) {
@@ -124,8 +124,8 @@ impl KomatoriResult {
             } else {
                 // 狙われている駒を動かす場合
 
-                assert_banjo_ms(ss.src, "(205b1)Ｇet_result");
-                let p_src = ms_to_p(ss.src);
+                assert_onboard_sq(moveex.src, "(205b1)Ｇet_result");
+                let p_src = ms_to_p(moveex.src);
 
                 // スライダー駒との角度
                 let argangle4a = get_argangle4_p_p(&p_atk, &p_tgt);
@@ -135,18 +135,18 @@ impl KomatoriResult {
                 // スライダーのいる筋の上で動いても、逃げたことにはならないぜ☆（＾～＾）
                 match match_argangle4(&argangle4a, &argangle4b) {
                     MatchingResult::Unmatched => {
-                        g_writeln(&format!("info ss={} evaluated in slider.", ss));
+                        g_writeln(&format!("info moveex={} evaluated in slider.", moveex));
                         // スライダーから逃げても、ひよこの利きに飛び込むことはあるが……☆
                         return KomatoriResultResult::NoneMoved;
                     }
                     _ => {
-                        g_writeln(&format!("info ss={} in slider attack.", ss));
+                        g_writeln(&format!("info moveex={} in slider attack.", moveex));
                     }
                 }
             }
         } else {
             // (3-2) 狙われている駒を、とりあえず動かす
-            if self.ms_target == ss.src {
+            if self.ms_target == moveex.src {
                 return KomatoriResultResult::NoneMoved;
             }
         }
@@ -167,7 +167,7 @@ impl KomatoriResult {
 /// return u64 : KomatoriResult のハッシュ
 ///
 pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> HashSet<u64> {
-    assert_banjo_ms(
+    assert_onboard_sq(
         ms_target,
         &format!(
             "(119)Ｌookup_banjo_catch phase={} ms_target={}",
@@ -181,7 +181,7 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
         return hash;
     }
 
-    let mut ss_hashset = HashSet::new();
+    let mut move_hashset = HashSet::new();
 
     for to_pt in PT_ARRAY.iter() {
         // 移動した後の相手の駒
@@ -190,26 +190,26 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
         // 指定マスに移動できるか
         // 打は除く
 
-        ss_hashset.clear();
-        insert_move_by_sq_pc_on_board(&uchu, ms_target, &to_pc, &mut ss_hashset);
+        move_hashset.clear();
+        insert_move_by_sq_pc_on_board(&uchu, ms_target, &to_pc, &mut move_hashset);
 
         // g_writeln( &format!("テスト lookup_banjo_catch insert_move_by_sq_pc_on_board to_pt={}.",to_pt) );
         // use consoles::visuals::dumps::*;
-        // hyoji_ss_hashset( &ss_hashset );
+        // print_move_hashset( &move_hashset );
 
-        let ss = choice_1ss_by_hashset(&ss_hashset);
-        if ss.exists() {
-            assert_banjo_ms(
-                ss.src,
+        let moveex = choice_1moveex_by_hashset(&move_hashset);
+        if moveex.exists() {
+            assert_onboard_sq(
+                moveex.src,
                 &format!(
-                    "(123)Ｌookup_banjo_catch ss.src /  ms_target={} to_pc={} ss={}",
-                    ms_target, to_pc, ss
+                    "(123)Ｌookup_banjo_catch moveex.src /  ms_target={} to_pc={} moveex={}",
+                    ms_target, to_pc, moveex
                 ),
             );
 
             let oute_result = KomatoriResult {
                 pc_attacker: to_pc,
-                ms_attacker: ss.src, // FIXME 打だと 0 になるのでは
+                ms_attacker: moveex.src, // FIXME 打だと 0 になるのでは
                 ms_target: ms_target,
             };
 

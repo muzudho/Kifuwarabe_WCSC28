@@ -47,7 +47,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
 
                 for to in &to_hashset {
                     some_moves_hashset.insert(
-                        Sasite {
+                        MoveEx {
                             src: from,
                             dst: *to,
                             pro: false, // 成らず
@@ -67,7 +67,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                 );
                 for to in &to_hashset {
                     some_moves_hashset.insert(
-                        Sasite {
+                        MoveEx {
                             src: from,
                             dst: *to,
                             pro: true, // 成り
@@ -102,7 +102,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                     for num_pt_drop in drop_pt_hashset {
                         let pt = num_to_pt(num_pt_drop);
                         some_moves_hashset.insert(
-                            Sasite {
+                            MoveEx {
                                 src: MOVE_FROM_DROP, // 駒大
                                 dst: to,             // どの升へ行きたいか
                                 pro: false,          // 打に成りは無し
@@ -130,7 +130,7 @@ pub fn insert_move_by_sq_pc_on_board(
     to_pc: &Piece,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
-    assert_banjo_ms(to, "insert_move_by_sq_pc_on_board");
+    assert_onboard_sq(to, "insert_move_by_sq_pc_on_board");
 
     // 手番の先後、駒種類
     let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
@@ -141,7 +141,7 @@ pub fn insert_move_by_sq_pc_on_board(
     }
 
     // ハッシュを作るのに使う
-    let mut ss_hash_builder = Sasite::new();
+    let mut ss_hash_builder = MoveEx::new();
 
     ss_hash_builder.dst = to;
 
@@ -153,7 +153,7 @@ pub fn insert_move_by_sq_pc_on_board(
     // +----------------+
     insert_nopromote_from_by_sq_pc(to, &to_pc, &uchu, &mut mv_from_hashset);
     for from in &mv_from_hashset {
-        assert_banjo_ms(*from, "insert_move_by_sq_pc_on_board(成らず)");
+        assert_onboard_sq(*from, "insert_move_by_sq_pc_on_board(成らず)");
 
         ss_hash_builder.src = *from;
         // 成らず
@@ -168,7 +168,7 @@ pub fn insert_move_by_sq_pc_on_board(
     mv_from_hashset.clear();
     insert_beforepromote_from_by_sq_pc(to, &to_pc, &uchu, &mut mv_from_hashset);
     for from in &mv_from_hashset {
-        assert_banjo_ms(*from, "insert_move_by_sq_pc_on_board(成り)");
+        assert_onboard_sq(*from, "insert_move_by_sq_pc_on_board(成り)");
 
         ss_hash_builder.src = *from;
         // 成り
@@ -189,7 +189,7 @@ pub fn insert_move_by_sq_pc_on_drop(
     to_pc: &Piece,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
-    assert_banjo_ms(to, "insert_move_by_sq_pc_on_drop");
+    assert_onboard_sq(to, "insert_move_by_sq_pc_on_drop");
 
     // 手番の先後、駒種類
     let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
@@ -200,7 +200,7 @@ pub fn insert_move_by_sq_pc_on_drop(
     }
 
     // ハッシュを作るのに使う
-    let mut ss_hash_builder = Sasite::new();
+    let mut ss_hash_builder = MoveEx::new();
 
     ss_hash_builder.dst = to;
 
@@ -217,7 +217,7 @@ pub fn insert_move_by_sq_pc_on_drop(
     for num_pt_drop in drop_pt_hashset.iter() {
         let pt_drop = num_to_pt(*num_pt_drop);
 
-        let hash_ss = Sasite {
+        let hash_ss = MoveEx {
             src: MOVE_FROM_DROP,
             dst: to,
             pro: false,

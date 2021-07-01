@@ -15,7 +15,7 @@ use std::fmt;
 /// しかし、なんで英語が並んでるんだぜ☆（＾～＾）
 ///
 #[derive(Copy, Clone)]
-pub struct Sasite {
+pub struct MoveEx {
     // 移動元升。打った場合は 0。
     pub src: Square,
     // 移動先升。これが 0 なら投了とするぜ☆（＾～＾）
@@ -25,9 +25,9 @@ pub struct Sasite {
     // 打の場合、打った駒種類。 TODO 持駒の種類に絞りこみたい
     pub drop: PieceType,
 }
-impl Sasite {
-    pub fn new() -> Sasite {
-        Sasite {
+impl MoveEx {
+    pub fn new() -> MoveEx {
+        MoveEx {
             src: 0,
             dst: 0,
             pro: false,
@@ -49,13 +49,13 @@ impl Sasite {
         hash = push_ms_to_hash(hash, self.dst);
         push_ms_to_hash(hash, self.src)
     }
-    pub fn from_hash(hash: u64) -> Sasite {
+    pub fn from_hash(hash: u64) -> MoveEx {
         // 逆順で押し込んであるんで、正順に引き出す☆（＾～＾）
         let (hash, src) = pop_ms_from_hash(hash);
         let (hash, dst) = pop_ms_from_hash(hash);
         let (hash, pro) = pop_bool_from_hash(hash);
         let (_hash, drop) = pop_pt_from_hash(hash);
-        Sasite {
+        MoveEx {
             src: src,
             dst: dst,
             pro: pro,
@@ -70,7 +70,7 @@ impl Sasite {
         self.dst != SQ_0
     }
 }
-impl fmt::Display for Sasite {
+impl fmt::Display for MoveEx {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // 手が何もない、ぐらいの意味だが、
         // その手を指す場合、投了表示
@@ -79,7 +79,7 @@ impl fmt::Display for Sasite {
         }
 
         // 投了を弾いたあと、診断☆（＾～＾）
-        assert_banjo_ms(self.dst, "Ｓasite Ｄisplay");
+        assert_onboard_sq(self.dst, "Ｓasite Ｄisplay");
         let (dx, dy) = sq_to_file_rank(self.dst);
 
         if self.src == MOVE_FROM_DROP {
@@ -122,7 +122,7 @@ impl fmt::Display for Sasite {
                 // エラー・データも表示したい
                 (0, 0)
             } else {
-                assert_banjo_ms(self.src, "Ｓasite Ｄisplay＜その２＞");
+                assert_onboard_sq(self.src, "Ｓasite Ｄisplay＜その２＞");
                 sq_to_file_rank(self.src)
             };
             write!(
@@ -137,11 +137,11 @@ impl fmt::Display for Sasite {
         }
     }
 }
-impl fmt::Debug for Sasite {
+impl fmt::Debug for MoveEx {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Sasite({}{}{}{})",
+            "MoveEx({}{}{}{})",
             self.src, self.dst, self.pro, self.drop
         )
     }
@@ -870,8 +870,8 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
         uchu.teme -= 1;
         // 入っている指し手の通り指すぜ☆（＾～＾）
         let teme = uchu.teme;
-        let ss = uchu.kifu[teme];
-        uchu.do_ss(&ss);
+        let moveex = uchu.kifu[teme];
+        uchu.do_moveex(&moveex);
 
         // 現局面表示
         //let s1 = &uchu.kaku_ky( &PosNums::Current );

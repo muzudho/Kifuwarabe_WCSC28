@@ -148,11 +148,11 @@ pub fn hanten_jiai(jiai: &Person) -> Person {
 /// ...
 ///
 pub fn sq_to_file_rank(sq: Square) -> (i8, i8) {
-    assert_banjo_ms(sq, "(203)Ｍs_to_suji_dan");
+    assert_onboard_sq(sq, "(203)Ｍs_to_suji_dan");
     ((sq / 10) as i8, (sq % 10) as i8)
 }
 pub fn ms_to_p(sq: Square) -> Point {
-    assert_banjo_ms(sq, "(203b)ms_to_p");
+    assert_onboard_sq(sq, "(203b)ms_to_p");
     Point {
         x: (sq / 10) as i8,
         y: (sq % 10) as i8,

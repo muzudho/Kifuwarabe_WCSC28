@@ -4,7 +4,7 @@
 use super::super::teigi::shogi_syugo::*;
 
 /// 打はテストできない
-pub fn assert_banjo_ms(sq: Square, hint: &str) {
+pub fn assert_onboard_sq(sq: Square, hint: &str) {
     debug_assert!(
         (10 < sq && sq < 20)
             || (20 < sq && sq < 30)

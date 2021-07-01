@@ -28,7 +28,7 @@ pub fn insert_nopromote_from_by_sq_pc(
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(to, "insert_nopromote_from_by_sq_pc");
+    assert_onboard_sq(to, "insert_nopromote_from_by_sq_pc");
 
     /*
      * Square は 将棋盤座標
@@ -339,7 +339,7 @@ pub fn insert_beforepromote_from_by_sq_pc(
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(to, "insert_beforepromote_from_by_sq_pc");
+    assert_onboard_sq(to, "insert_beforepromote_from_by_sq_pc");
 
     // +--------------------+
     // | 移動後は成り駒か？ |
@@ -647,7 +647,7 @@ pub fn insert_drop_pt_by_sq_pc(
     uchu: &Uchu,
     result_pt: &mut HashSet<usize>,
 ) {
-    assert_banjo_ms(to, "insert_drop_pt_by_sq_pc");
+    assert_onboard_sq(to, "insert_drop_pt_by_sq_pc");
 
     let to_pt = pc_to_pt(&to_pc);
     if !pt_can_drop(&to_pt) {
@@ -688,7 +688,7 @@ pub fn insert_drop_pt_by_sq_pc(
     let phase = pc_to_ph(to_pc);
     let sq = kaiten180_ms_by_ms_sn(to, &phase);
 
-    assert_banjo_ms(sq, "insert_drop_pt_by_sq_pc＜その２＞");
+    assert_onboard_sq(sq, "insert_drop_pt_by_sq_pc＜その２＞");
     //let (_x,y) = sq_to_file_rank(sq);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
@@ -754,7 +754,7 @@ pub fn insert_dst_by_sq_pc(
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(from, "insert_dst_by_sq_pc");
+    assert_onboard_sq(from, "insert_dst_by_sq_pc");
 
     // 移動先の筋、段、駒種類、駒種類インデックス
     let (dx, dy) = sq_to_file_rank(from);
@@ -1206,7 +1206,7 @@ pub fn insert_narazu_src_by_sn_ms(
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(to, "Ｉnsert_narazu_src_by_sn_ms");
+    assert_onboard_sq(to, "Ｉnsert_narazu_src_by_sn_ms");
 
     // 移動先の筋、段
     let (dx, dy) = sq_to_file_rank(to);
@@ -1562,7 +1562,7 @@ pub fn insert_narumae_src_by_sn_ms(
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
-    assert_banjo_ms(to, "Ｉnsert_narumae_src_by_sn_ms");
+    assert_onboard_sq(to, "Ｉnsert_narumae_src_by_sn_ms");
 
     // 移動先の筋、段
     let (dx, dy) = sq_to_file_rank(to);

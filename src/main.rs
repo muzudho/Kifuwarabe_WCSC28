@@ -112,12 +112,12 @@ fn main() {
             // 乱駒種類
             let pt = entities::siko::randommove::rnd_pt();
             g_writeln(&format!("乱駒種類={}", &pt));
-        } else if 5 < len && &line[starts..6] == "sasite" {
+        } else if 6 < len && &line[starts..7] == "genmove" {
             // FIXME 合法手とは限らない
-            let mut ss_potential_hashset = HashSet::new();
-            insert_potential_move(&uchu, &mut ss_potential_hashset);
+            let mut potential_move_hashset = HashSet::new();
+            insert_potential_move(&uchu, &mut potential_move_hashset);
             g_writeln("----指し手生成 ここから----");
-            hyoji_ss_hashset(&ss_potential_hashset);
+            print_move_hashset(&potential_move_hashset);
             g_writeln("----指し手生成 ここまで----");
         } else if 4 < len && &line[starts..5] == "rndsq" {
             // 乱升
@@ -169,7 +169,7 @@ fn main() {
             test(&line, &mut starts, len, &mut uchu);
         //g_writeln( &uchu.pop_command() );
         } else if 3 < len && &line[starts..4] == "undo" {
-            if !uchu.undo_ss() {
+            if !uchu.undo_moveex() {
                 g_writeln(&format!("teme={} を、これより戻せません", uchu.teme));
             }
         } else if 2 < len && &line[starts..3] == "do " {
@@ -180,8 +180,8 @@ fn main() {
                 uchu.teme -= 1;
                 // 入っている指し手の通り指すぜ☆（＾～＾）
                 let teme = uchu.teme;
-                let ss = uchu.kifu[teme];
-                uchu.do_ss(&ss);
+                let moveex = uchu.kifu[teme];
+                uchu.do_moveex(&moveex);
             }
         } else if 2 < len && &line[starts..3] == "ky0" {
             // 初期局面表示

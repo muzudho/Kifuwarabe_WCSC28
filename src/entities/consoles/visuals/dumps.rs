@@ -42,13 +42,13 @@ pub fn print_pt_hashset(num_pt_hashset: &HashSet<usize>) {
 }
 
 /// 指し手
-pub fn hyoji_ss_hashset(ss_hashset: &HashSet<u64>) {
+pub fn print_move_hashset(ss_hashset: &HashSet<u64>) {
     g_writeln(&format!("ss_hashset.len()={}", ss_hashset.len()));
     // 辞書順ソート
     let mut vec_ss_str = Vec::new();
     for ss_hash in ss_hashset {
-        let ss = Sasite::from_hash(*ss_hash);
-        let ss_str = format!("{}", ss);
+        let moveex = MoveEx::from_hash(*ss_hash);
+        let ss_str = format!("{}", moveex);
         vec_ss_str.push(ss_str);
     }
     //vec_ss_str.sort();
