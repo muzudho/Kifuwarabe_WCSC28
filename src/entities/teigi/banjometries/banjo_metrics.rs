@@ -6,9 +6,9 @@ use super::super::super::jotai::uchu::*;
 use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 
-pub fn is_ji_km_by_ms(sq: Square, uchu: &Uchu) -> bool {
+pub fn is_friend_pc_by_sq(sq: Square, uchu: &Uchu) -> bool {
     let pc = uchu.ky.get_pc_by_sq(sq);
-    let (phase, _kms) = pc_to_ph_pt(&pc);
+    let (phase, _pt) = pc_to_ph_pt(&pc);
     match_sn(&phase, &uchu.get_teban(&Jiai::Ji))
 }
 

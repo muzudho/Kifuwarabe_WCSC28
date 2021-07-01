@@ -6,13 +6,13 @@
 use super::super::teigi::shogi_syugo::*;
 
 /// 升 × 駒
-pub struct MsKm {
+pub struct SqPc {
     sq: Square,
     pc: Piece,
 }
 
 /// 升 × 駒種類
-pub struct MsKms {
+pub struct SqPt {
     sq: Square,
     pt: PieceType,
 }

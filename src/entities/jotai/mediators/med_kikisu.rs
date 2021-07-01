@@ -15,7 +15,7 @@ use std::collections::HashSet;
 pub fn read_kikisu(uchu: &mut Uchu) {
     // ゼロ・リセット
     for pc in PC_ARRAY.iter() {
-        &uchu.kiki_su_by_km[pc_to_num(pc)].clear();
+        &uchu.kiki_su_by_pc[pc_to_num(pc)].clear();
     }
 
     for phase in SN_ARRAY.iter() {
@@ -39,7 +39,7 @@ pub fn read_kikisu(uchu: &mut Uchu) {
                 let phase = pc_to_ph(&to_pc);
 
                 // 駒別
-                uchu.kiki_su_by_km[pc_to_num(&to_pc)].add_su_by_ms(to, kikisu as i8);
+                uchu.kiki_su_by_pc[pc_to_num(&to_pc)].add_su_by_ms(to, kikisu as i8);
 
                 // 先後別
                 uchu.kiki_su_by_sn[sn_to_num(&phase)].add_su_by_ms(to, kikisu as i8);

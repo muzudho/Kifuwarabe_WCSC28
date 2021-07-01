@@ -82,7 +82,7 @@ pub struct Uchu {
     // 利きの数（先後別）
     pub kiki_su_by_sn: [NumberBoard; SN_LN],
     // 利きの数（先後付き駒別）
-    pub kiki_su_by_km: [NumberBoard; PC_LEN],
+    pub kiki_su_by_pc: [NumberBoard; PC_LEN],
     // ビジョン・ツリー
     pub vision_tree_by_sn: [VisionTree; SN_LN],
 }
@@ -642,7 +642,7 @@ impl Uchu {
             // 利き数（先後別）
             kiki_su_by_sn: [NumberBoard::new(), NumberBoard::new(), NumberBoard::new()],
             // 利き数（駒別なので３０個ある）
-            kiki_su_by_km: [
+            kiki_su_by_pc: [
                 NumberBoard::new(),
                 NumberBoard::new(),
                 NumberBoard::new(),
@@ -683,16 +683,16 @@ impl Uchu {
 
         // 盤上の駒
         for i_ms in MASU_0..BAN_SIZE {
-            for i_km in 0..PC_LEN {
+            for i_pc in 0..PC_LEN {
                 // FIXME 18446744073709551615 が含まれないだろ、どうなってるんだぜ☆（＾～＾）！？
-                self.ky_hash_seed.pc[i_ms][i_km] =
+                self.ky_hash_seed.pc[i_ms][i_pc] =
                     rand::thread_rng().gen_range(0, 18446744073709551615);
             }
         }
         // 持ち駒
-        for i_km in 0..PC_LEN {
+        for i_pc in 0..PC_LEN {
             for i_mg in 0..MG_MAX {
-                self.ky_hash_seed.mg[i_km][i_mg] =
+                self.ky_hash_seed.mg[i_pc][i_mg] =
                     rand::thread_rng().gen_range(0, 18446744073709551615);
             }
         }
@@ -732,14 +732,14 @@ impl Uchu {
     }
 
     /// 初期局面の盤上に駒の位置を設定するもの
-    pub fn set_ky0_ban_km(&mut self, suji: i8, dan: i8, pc: Piece) {
+    pub fn set_pos0_board_pc(&mut self, suji: i8, dan: i8, pc: Piece) {
         self.ky0.set_pc_by_sq(suji_dan_to_ms(suji, dan), pc);
     }
     pub fn set_ky0_mg(&mut self, pc: Piece, maisu: i8) {
         self.ky0.mg[pc as usize] = maisu;
     }
-    pub fn get_jiai_by_km(&self, pc: &Piece) -> Jiai {
-        let (phase, _kms) = pc_to_ph_pt(pc);
+    pub fn get_jiai_by_pc(&self, pc: &Piece) -> Jiai {
+        let (phase, _pt) = pc_to_ph_pt(pc);
 
         if match_sn(&phase, &self.get_teban(&Jiai::Ji)) {
             Jiai::Ji
@@ -994,7 +994,7 @@ impl Uchu {
     /// 表示
     pub fn kaku_number_board(&self, phase: &Phase, pc: &Piece) -> String {
         let nb = match *phase {
-            Phase::Owari => &self.kiki_su_by_km[pc_to_num(&pc)],
+            Phase::Owari => &self.kiki_su_by_pc[pc_to_num(&pc)],
             _ => &self.kiki_su_by_sn[sn_to_num(&phase)],
         };
 
@@ -1107,17 +1107,17 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
 
     /// 駒の動きを出力
     pub fn print_pcugoki(&self) {
-        for pt in KMS_ARRAY.iter() {
+        for pt in PT_ARRAY.iter() {
             g_write(&format!("{} ", pt));
             self.print_pcugoki_dir(&pt);
             g_writeln(""); //改行
         }
     }
     pub fn print_pcugoki_dir(&self, pt: &PieceType) {
-        for kmdir in KM_UGOKI.back[kms_to_num(pt)].iter() {
-            match *kmdir {
-                KmDir::Owari => break,
-                _ => g_write(&format!("{},", kmdir)),
+        for pc_dir in PC_UGOKI.back[pt_to_num(pt)].iter() {
+            match *pc_dir {
+                PcDir::Owari => break,
+                _ => g_write(&format!("{},", pc_dir)),
             }
         }
     }

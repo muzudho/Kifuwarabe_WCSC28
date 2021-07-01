@@ -19,18 +19,18 @@ use std::collections::HashSet;
 ///
 /// to_pc : 移動した先の駒
 ///
-pub fn get_ido_ss_by_km_random(uchu: &Uchu, to_pc: &Piece) -> Sasite {
+pub fn get_ido_move_by_pc_random(uchu: &Uchu, to_pc: &Piece) -> Sasite {
     let mut ss_hashset = HashSet::new();
 
     // 数回リトライ
     for _i_retry in 0..1000000 {
         // 移動したい先の升
         let to = randommove::rnd_sq();
-        assert_banjo_ms(to, "get_ido_ss_by_km_random");
+        assert_banjo_ms(to, "get_ido_move_by_pc_random");
 
         ss_hashset.clear();
-        insert_ss_by_ms_km_on_banjo(&uchu, to, &to_pc, &mut ss_hashset);
-        insert_ss_by_ms_km_on_da(&uchu, to, &to_pc, &mut ss_hashset);
+        insert_move_by_sq_pc_on_board(&uchu, to, &to_pc, &mut ss_hashset);
+        insert_move_by_sq_pc_on_drop(&uchu, to, &to_pc, &mut ss_hashset);
         let ss = choice_1ss_by_hashset(&ss_hashset);
 
         if ss.exists() {
@@ -57,8 +57,8 @@ pub fn get_ss_by_random(uchu: &Uchu) -> Sasite {
         let to_pc = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), randommove::rnd_pt());
 
         ss_hashset.clear();
-        insert_ss_by_ms_km_on_banjo(&uchu, to, &to_pc, &mut ss_hashset);
-        insert_ss_by_ms_km_on_da(&uchu, to, &to_pc, &mut ss_hashset);
+        insert_move_by_sq_pc_on_board(&uchu, to, &to_pc, &mut ss_hashset);
+        insert_move_by_sq_pc_on_drop(&uchu, to, &to_pc, &mut ss_hashset);
         let ss = choice_1ss_by_hashset(&ss_hashset);
 
         // 移動後は、玉が利きに飛び込まないか？

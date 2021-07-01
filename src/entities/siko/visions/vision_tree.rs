@@ -46,7 +46,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
         //let mut drop_pt_hashset : HashSet<usize> = HashSet::new();
 
-        for to_pt in KMS_ARRAY.iter() {
+        for to_pt in PT_ARRAY.iter() {
             let to_pc = ph_pt_to_pc(&phase, &to_pt);
             for x in SUJI_1..SUJI_10 {
                 // 9..0 みたいに降順に書いても動かない？

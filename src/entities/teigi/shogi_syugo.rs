@@ -296,8 +296,8 @@ pub fn match_pc(a: &Piece, b: &Piece) -> bool {
 }
 
 pub const KM_ARRAY_HALF_LN: usize = 14;
-pub const KM_ARRAY_LN: usize = 28;
-pub const PC_ARRAY: [Piece; KM_ARRAY_LN] = [
+pub const PC_ARRAY_LEN: usize = 28;
+pub const PC_ARRAY: [Piece; PC_ARRAY_LEN] = [
     Piece::R0,  // らいおん
     Piece::K0,  // きりん
     Piece::Z0,  // ぞう
@@ -404,7 +404,7 @@ impl KmSyugo {
         let sn0 = uchu.get_teban(&jiai);
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
-            let (sn1, _kms) = pc_to_ph_pt(pc);
+            let (sn1, _pt) = pc_to_ph_pt(pc);
             if match_sn(&sn0, &sn1) {
                 num_syugo1.insert(pc_to_num(pc));
             }
@@ -489,13 +489,13 @@ impl fmt::Display for PieceType {
 /// 駒種類の一致比較
 ///
 pub fn match_pt(a: &PieceType, b: &PieceType) -> bool {
-    kms_to_num(a) == kms_to_num(b)
+    pt_to_num(a) == pt_to_num(b)
 }
 
 /// 駒種類数
-pub const KMS_ARRAY_LN: usize = 14;
+pub const PT_ARRAY_LEN: usize = 14;
 /// 駒種類
-pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
+pub const PT_ARRAY: [PieceType; PT_ARRAY_LEN] = [
     PieceType::K,  // らいおん
     PieceType::R,  // きりん
     PieceType::B,  // ぞう
@@ -554,25 +554,25 @@ pub const MGS_ARRAY: [PieceType; MGS_ARRAY_LN] = [
 ///
 /// 駒種類集合
 ///
-pub struct KmsSyugo {
+pub struct PtSyugo {
     num_syugo: HashSet<usize>,
 }
-impl KmsSyugo {
+impl PtSyugo {
     ///
     /// 全ての元を含む
     ///
-    pub fn new_all() -> KmsSyugo {
+    pub fn new_all() -> PtSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
-        for pt in KMS_ARRAY.iter() {
-            num_syugo1.insert(kms_to_num(pt));
+        for pt in PT_ARRAY.iter() {
+            num_syugo1.insert(pt_to_num(pt));
         }
-        let kms_syugo = KmsSyugo {
+        let kms_syugo = PtSyugo {
             num_syugo: num_syugo1,
         };
         kms_syugo
     }
     pub fn remove(&mut self, pt: &PieceType) {
-        self.num_syugo.remove(&kms_to_num(pt));
+        self.num_syugo.remove(&pt_to_num(pt));
     }
 }
 
@@ -606,7 +606,7 @@ pub enum Dir8 {
 /// 後手から見た盤を想像すること。筋、段を第一象限と同じ向きに合わせる。
 /// 駒が戻る方向10方向。東から反時計回り。boolは長い利きなら真
 #[derive(Clone)]
-pub enum KmDir {
+pub enum PcDir {
     // 東
     E(bool),
     // 北東
@@ -634,10 +634,10 @@ pub enum KmDir {
     // 要素数より1小さい数。エラー値用に使っても可
     Owari,
 }
-impl fmt::Display for KmDir {
+impl fmt::Display for PcDir {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // 文字列リテラルでないとダメみたいなんで、他に似たようなコードがあるのに、また書くことに☆（＾～＾）
-        use super::super::teigi::shogi_syugo::KmDir::*;
+        use super::super::teigi::shogi_syugo::PcDir::*;
         match *self {
             E(b) => {
                 if b {
@@ -707,7 +707,7 @@ impl fmt::Display for KmDir {
 #[allow(dead_code)]
 pub struct KmUgoki {
     // 駒種類ごとに、駒の動きを保持。動ける方向は、駒ごとに可変長配列
-    pub back: [[KmDir; KM_UGOKI_LN]; KMS_LN],
+    pub back: [[PcDir; KM_UGOKI_LN]; KMS_LN],
 }
 ///
 /// 駒が戻る動き。投了図から現局面へ逆向きに指す思想。
@@ -717,200 +717,200 @@ pub struct KmUgoki {
 /// （２）後手から見て、普通に駒の動きが　登録されている。
 ///       先手から見たとき、back （後ろ向きの動き）となる。
 ///
-pub const KM_UGOKI: KmUgoki = KmUgoki {
+pub const PC_UGOKI: KmUgoki = KmUgoki {
     back: [
         // 東,北東,北,北西,西,南西,南南西,南,南南東,南東,終わり
         /*ら  */
         [
-            KmDir::E(false),
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::W(false),
-            KmDir::SW(false),
-            KmDir::S(false),
-            KmDir::SE(false),
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::W(false),
+            PcDir::SW(false),
+            PcDir::S(false),
+            PcDir::SE(false),
+            PcDir::Owari,
         ],
         /*き  */
         [
-            KmDir::E(true),
-            KmDir::N(true),
-            KmDir::W(true),
-            KmDir::S(true),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::E(true),
+            PcDir::N(true),
+            PcDir::W(true),
+            PcDir::S(true),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ぞ  */
         [
-            KmDir::NE(true),
-            KmDir::NW(true),
-            KmDir::SW(true),
-            KmDir::SE(true),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::NE(true),
+            PcDir::NW(true),
+            PcDir::SW(true),
+            PcDir::SE(true),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*い  */
         [
-            KmDir::E(false),
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::W(false),
-            KmDir::S(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::W(false),
+            PcDir::S(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ね  */
         [
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::SW(false),
-            KmDir::SE(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::SW(false),
+            PcDir::SE(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*う  */
         [
-            KmDir::NNE,
-            KmDir::NNW,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::NNE,
+            PcDir::NNW,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*し  */
         [
-            KmDir::N(true),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::N(true),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ひ  */
         [
-            KmDir::N(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::N(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ぱき*/
         [
-            KmDir::E(true),
-            KmDir::NE(false),
-            KmDir::N(true),
-            KmDir::NW(false),
-            KmDir::W(true),
-            KmDir::SW(false),
-            KmDir::S(true),
-            KmDir::SE(false),
-            KmDir::Owari,
+            PcDir::E(true),
+            PcDir::NE(false),
+            PcDir::N(true),
+            PcDir::NW(false),
+            PcDir::W(true),
+            PcDir::SW(false),
+            PcDir::S(true),
+            PcDir::SE(false),
+            PcDir::Owari,
         ],
         /*ぱぞ*/
         [
-            KmDir::E(false),
-            KmDir::NE(true),
-            KmDir::N(false),
-            KmDir::NW(true),
-            KmDir::W(false),
-            KmDir::SW(true),
-            KmDir::S(false),
-            KmDir::SE(true),
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(true),
+            PcDir::N(false),
+            PcDir::NW(true),
+            PcDir::W(false),
+            PcDir::SW(true),
+            PcDir::S(false),
+            PcDir::SE(true),
+            PcDir::Owari,
         ],
         /*ぱね*/
         [
-            KmDir::E(false),
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::W(false),
-            KmDir::S(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::W(false),
+            PcDir::S(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ぱう*/
         [
-            KmDir::E(false),
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::W(false),
-            KmDir::S(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::W(false),
+            PcDir::S(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ぱし*/
         [
-            KmDir::E(false),
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::W(false),
-            KmDir::S(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::W(false),
+            PcDir::S(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*ぱひ*/
         [
-            KmDir::E(false),
-            KmDir::NE(false),
-            KmDir::N(false),
-            KmDir::NW(false),
-            KmDir::W(false),
-            KmDir::S(false),
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::E(false),
+            PcDir::NE(false),
+            PcDir::N(false),
+            PcDir::NW(false),
+            PcDir::W(false),
+            PcDir::S(false),
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*空升*/
         [
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
         /*終り*/
         [
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
-            KmDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
+            PcDir::Owari,
         ],
     ],
 };

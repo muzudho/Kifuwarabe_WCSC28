@@ -556,7 +556,7 @@ pub fn pc_to_hand(km_cap: Piece) -> Piece {
 ///
 /// 駒種類の数値化
 ///
-pub fn kms_to_num(pt: &PieceType) -> usize {
+pub fn pt_to_num(pt: &PieceType) -> usize {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
         K => 0,
@@ -606,7 +606,7 @@ pub fn num_to_pt(n: usize) -> PieceType {
 ///
 pub fn push_kms_to_hash(hash: u64, pt: &PieceType) -> u64 {
     // 使ってるのは16駒種類番号ぐらいなんで、16(=2^4) あれば十分
-    (hash << 4) + kms_to_num(pt) as u64
+    (hash << 4) + pt_to_num(pt) as u64
 }
 ///
 /// ハッシュ値から作る
@@ -779,9 +779,9 @@ pub fn ph_pt_to_pc(phase: &Phase, pt: &PieceType) -> Piece {
 ///
 /// 上下反転
 ///
-pub fn hanten_kmdir_joge(kmdir: &KmDir) -> KmDir {
-    use super::super::teigi::shogi_syugo::KmDir::*;
-    match *kmdir {
+pub fn hanten_kmdir_joge(pc_dir: &PcDir) -> PcDir {
+    use super::super::teigi::shogi_syugo::PcDir::*;
+    match *pc_dir {
         // 東
         E(b) => E(b),
         // 北東
@@ -811,9 +811,9 @@ pub fn hanten_kmdir_joge(kmdir: &KmDir) -> KmDir {
     }
 }
 /*
-pub fn kmdir_id(kmdir:&KmDir) -> usize{
-    use teigi::shogi_syugo::KmDir::*;
-    match *kmdir {
+pub fn kmdir_id(pc_dir:&PcDir) -> usize{
+    use teigi::shogi_syugo::PcDir::*;
+    match *pc_dir {
         E  (b)=>if b { 0}else{ 1},
         NE (b)=>if b { 2}else{ 3},
         N  (b)=>if b { 4}else{ 5},

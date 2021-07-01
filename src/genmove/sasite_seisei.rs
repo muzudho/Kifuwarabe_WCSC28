@@ -123,7 +123,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
 ///
 /// 盤上の駒の移動の最初の１つ。打を除く
 ///
-pub fn insert_ss_by_ms_km_on_banjo(
+pub fn insert_move_by_sq_pc_on_board(
     uchu: &Uchu,
     to: Square,
     to_pc: &Piece,
@@ -182,7 +182,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
 /// 1. 移動先升指定  to
 /// 2. 移動先駒指定  to_pc
 ///
-pub fn insert_ss_by_ms_km_on_da(
+pub fn insert_move_by_sq_pc_on_drop(
     uchu: &Uchu,
     to: Square,
     to_pc: &Piece,

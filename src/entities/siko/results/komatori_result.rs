@@ -36,7 +36,7 @@ pub enum KomatoriResultResult {
 ///
 pub struct KomatoriResult {
     // 要因：王手をしてきている駒（１つ）
-    km_attacker: Piece,
+    pc_attacker: Piece,
     // 要因：アタッカーが居る升
     ms_attacker: Square,
     // 要因：狙われている駒が居る升
@@ -48,8 +48,8 @@ impl fmt::Display for KomatoriResult {
             f,
             "KmTori:{}{}{}{}",
             self.ms_attacker,
-            self.km_attacker,
-            if km_is_nagaikiki(&self.km_attacker) {
+            self.pc_attacker,
+            if km_is_nagaikiki(&self.pc_attacker) {
                 "-->"
             } else {
                 "->"
@@ -68,7 +68,7 @@ impl KomatoriResult {
         // 正順で取り出すことを考えて、逆順で押し込む☆（＾～＾）
         hash = push_ms_to_hash(hash, self.ms_target);
         hash = push_ms_to_hash(hash, self.ms_attacker);
-        push_km_to_hash(hash, &self.km_attacker)
+        push_km_to_hash(hash, &self.pc_attacker)
     }
     pub fn from_hash(hash: u64) -> KomatoriResult {
         // 逆順で押し込んであるんで、正順に引き出す☆（＾～＾）
@@ -76,7 +76,7 @@ impl KomatoriResult {
         let (hash, ms_atk) = pop_ms_from_hash(hash);
         let (_hash, ms_tgt) = pop_ms_from_hash(hash);
         KomatoriResult {
-            km_attacker: km_atk,
+            pc_attacker: km_atk,
             ms_attacker: ms_atk,
             ms_target: ms_tgt,
         }
@@ -99,7 +99,7 @@ impl KomatoriResult {
         }
 
         // (2-1)
-        if km_is_nagaikiki(&self.km_attacker) {
+        if km_is_nagaikiki(&self.pc_attacker) {
             assert_banjo_ms(ss.dst, "(205b2)Ｇet_result");
             assert_banjo_ms(self.ms_attacker, "(205b3)Ｇet_result");
             assert_banjo_ms(self.ms_target, "(205b4)Ｇet_result");
@@ -182,7 +182,7 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
 
     let mut ss_hashset = HashSet::new();
 
-    for to_pt in KMS_ARRAY.iter() {
+    for to_pt in PT_ARRAY.iter() {
         // 移動した後の相手の駒
         let to_pc = ph_pt_to_pc(&phase, to_pt);
         //let to_pc = ph_pt_to_pc( &phase, rnd_pt() );
@@ -190,9 +190,9 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
         // 打は除く
 
         ss_hashset.clear();
-        insert_ss_by_ms_km_on_banjo(&uchu, ms_target, &to_pc, &mut ss_hashset);
+        insert_move_by_sq_pc_on_board(&uchu, ms_target, &to_pc, &mut ss_hashset);
 
-        // g_writeln( &format!("テスト lookup_banjo_catch insert_ss_by_ms_km_on_banjo to_pt={}.",to_pt) );
+        // g_writeln( &format!("テスト lookup_banjo_catch insert_move_by_sq_pc_on_board to_pt={}.",to_pt) );
         // use consoles::visuals::dumps::*;
         // hyoji_ss_hashset( &ss_hashset );
 
@@ -207,7 +207,7 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
             );
 
             let oute_result = KomatoriResult {
-                km_attacker: to_pc,
+                pc_attacker: to_pc,
                 ms_attacker: ss.src, // FIXME 打だと 0 になるのでは
                 ms_target: ms_target,
             };

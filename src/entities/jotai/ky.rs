@@ -226,8 +226,8 @@ impl Kyokumen {
         }
 
         // 持ち駒ハッシュ
-        for i_km in 0..KM_ARRAY_LN {
-            let pc = PC_ARRAY[i_km];
+        for i_pc in 0..PC_ARRAY_LEN {
+            let pc = PC_ARRAY[i_pc];
             let num_pc = pc_to_num(&pc);
 
             let maisu = self.get_mg(&pc);

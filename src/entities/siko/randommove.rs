@@ -29,5 +29,5 @@ pub fn rnd_sq() -> Square {
 /// ランダムに 駒の種類を返す
 ///
 pub fn rnd_pt() -> &'static PieceType {
-    &KMS_ARRAY[rand::thread_rng().gen_range(0, KMS_ARRAY_LN)]
+    &PT_ARRAY[rand::thread_rng().gen_range(0, PT_ARRAY_LEN)]
 }

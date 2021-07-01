@@ -43,7 +43,7 @@ pub fn insert_nopromote_from_by_sq_pc(
     let (dx, dy) = sq_to_file_rank(to);
     let phase = pc_to_ph(to_pc);
     let to_pt = pc_to_pt(&to_pc);
-    let kms_num = kms_to_num(&to_pt);
+    let kms_num = pt_to_num(&to_pt);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
     use super::super::entities::teigi::shogi_syugo::Piece::*;
@@ -78,16 +78,16 @@ pub fn insert_nopromote_from_by_sq_pc(
     for i_dir in 0..KM_UGOKI_LN {
         // 指定の駒種類の、全ての逆向きに動ける方向
         let _kmdir;
-        let p_kmdir: &KmDir;
+        let p_kmdir: &PcDir;
         if match_sn(&Phase::First, &phase) {
-            p_kmdir = &KM_UGOKI.back[kms_num][i_dir]
+            p_kmdir = &PC_UGOKI.back[kms_num][i_dir]
         } else {
-            _kmdir = hanten_kmdir_joge(&KM_UGOKI.back[kms_num][i_dir]);
+            _kmdir = hanten_kmdir_joge(&PC_UGOKI.back[kms_num][i_dir]);
             p_kmdir = &_kmdir;
         };
 
         // 移動先を開始地点にして、駒の位置を終了地点にする
-        use super::super::entities::teigi::shogi_syugo::KmDir::*;
+        use super::super::entities::teigi::shogi_syugo::PcDir::*;
         match *p_kmdir {
             // 東
             E(b) => {
@@ -381,21 +381,21 @@ pub fn insert_beforepromote_from_by_sq_pc(
         _ => {} // 成れる駒は、成る前の駒の動きも調べる
     }
 
-    let kms_narumae_num = kms_to_num(&kms_src_narumae);
+    let kms_narumae_num = pt_to_num(&kms_src_narumae);
 
     for i_dir in 0..KM_UGOKI_LN {
         // 指定の駒種類の、全ての逆向きに動ける方向
         let _kmdir;
-        let p_kmdir: &KmDir;
+        let p_kmdir: &PcDir;
         if match_sn(&Phase::First, &phase) {
-            p_kmdir = &KM_UGOKI.back[kms_narumae_num][i_dir]
+            p_kmdir = &PC_UGOKI.back[kms_narumae_num][i_dir]
         } else {
-            _kmdir = hanten_kmdir_joge(&KM_UGOKI.back[kms_narumae_num][i_dir]);
+            _kmdir = hanten_kmdir_joge(&PC_UGOKI.back[kms_narumae_num][i_dir]);
             p_kmdir = &_kmdir;
         };
 
         // 移動先を開始地点にして、駒の位置を終了地点にする
-        use super::super::entities::teigi::shogi_syugo::KmDir::*;
+        use super::super::entities::teigi::shogi_syugo::PcDir::*;
         match *p_kmdir {
             // 東
             E(b) => {
@@ -731,7 +731,7 @@ pub fn insert_drop_pt_by_sq_pc(
         }
         _ => {}
     }
-    result_kms.insert(kms_to_num(&to_pt));
+    result_kms.insert(pt_to_num(&to_pt));
 }
 ///
 /// 移動先升生成
@@ -766,21 +766,21 @@ pub fn insert_dst_by_ms_km(
     if to_nari && !kms_can_pro(&from_pt) {
         return; // 成れる駒でないなら、成りの動きはしない
     }
-    let kms_num = kms_to_num(&from_pt);
+    let kms_num = pt_to_num(&from_pt);
 
     for i_dir in 0..KM_UGOKI_LN {
         // 指定の駒種類の、全ての逆向きに動ける方向
         let _kmdir;
-        let p_kmdir: &KmDir;
+        let p_kmdir: &PcDir;
         if match_sn(&Phase::First, &phase) {
-            _kmdir = hanten_kmdir_joge(&KM_UGOKI.back[kms_num][i_dir]);
+            _kmdir = hanten_kmdir_joge(&PC_UGOKI.back[kms_num][i_dir]);
             p_kmdir = &_kmdir;
         } else {
-            p_kmdir = &KM_UGOKI.back[kms_num][i_dir]
+            p_kmdir = &PC_UGOKI.back[kms_num][i_dir]
         };
 
         // 駒の位置を開始地点に、離れていくように調べていく
-        use super::super::entities::teigi::shogi_syugo::KmDir::*;
+        use super::super::entities::teigi::shogi_syugo::PcDir::*;
         match *p_kmdir {
             // 東
             E(b) => {
@@ -1211,7 +1211,7 @@ pub fn insert_narazu_src_by_sn_ms(
     let (dx, dy) = sq_to_file_rank(to);
 
     // 駒種類
-    for pt in KMS_ARRAY.iter() {
+    for pt in PT_ARRAY.iter() {
         // 行先の無いところに駒を進めることの禁止☆（＾～＾）
         let pc = ph_pt_to_pc(&phase, &pt);
         use super::super::entities::teigi::shogi_syugo::Piece::*;
@@ -1243,18 +1243,18 @@ pub fn insert_narazu_src_by_sn_ms(
             _ => {}
         }
 
-        let kms_num = kms_to_num(&pt);
+        let kms_num = pt_to_num(&pt);
         for i_dir in 0..KM_UGOKI_LN {
             // 指定の駒種類の、全ての逆向きに動ける方向
             let _kmdir;
-            let p_kmdir: &KmDir;
+            let p_kmdir: &PcDir;
             if match_sn(&Phase::First, &phase) {
-                p_kmdir = &KM_UGOKI.back[kms_num][i_dir];
+                p_kmdir = &PC_UGOKI.back[kms_num][i_dir];
             // g_writeln(&format!("get_src_by_sn_ms 先手なら pt={} kms_num={} p_kmdir={}",
             //     pt, kms_num, p_kmdir
             // ));
             } else {
-                _kmdir = hanten_kmdir_joge(&KM_UGOKI.back[kms_num][i_dir]);
+                _kmdir = hanten_kmdir_joge(&PC_UGOKI.back[kms_num][i_dir]);
                 p_kmdir = &_kmdir;
                 // g_writeln(&format!("get_src_by_sn_ms 後手なら pt={} kms_num={} p_kmdir={}",
                 //     pt, kms_num, p_kmdir
@@ -1263,7 +1263,7 @@ pub fn insert_narazu_src_by_sn_ms(
 
             // 指定升を開始地点に、離れていくように調べていく
             // 指定先後の駒があれば追加
-            use super::super::entities::teigi::shogi_syugo::KmDir::*;
+            use super::super::entities::teigi::shogi_syugo::PcDir::*;
             match *p_kmdir {
                 // 東
                 E(b) => {
@@ -1567,7 +1567,7 @@ pub fn insert_narumae_src_by_sn_ms(
     let (dx, dy) = sq_to_file_rank(to);
 
     // 駒種類
-    for pt in KMS_ARRAY.iter() {
+    for pt in PT_ARRAY.iter() {
         let pc_from = ph_pt_to_pc(&phase, &pt);
 
         // +--------------------+
@@ -1588,18 +1588,18 @@ pub fn insert_narumae_src_by_sn_ms(
 
         // 成り駒に、行先の無いところは無いぜ☆
 
-        let kms_num = kms_to_num(&pt);
+        let kms_num = pt_to_num(&pt);
         for i_dir in 0..KM_UGOKI_LN {
             // 指定の駒種類の、全ての逆向きに動ける方向
             let _kmdir;
-            let p_kmdir: &KmDir;
+            let p_kmdir: &PcDir;
             if match_sn(&Phase::First, &phase) {
-                p_kmdir = &KM_UGOKI.back[kms_num][i_dir];
+                p_kmdir = &PC_UGOKI.back[kms_num][i_dir];
             // g_writeln(&format!("get_src_by_sn_ms 先手なら pt={} kms_num={} p_kmdir={}",
             //     pt, kms_num, p_kmdir
             // ));
             } else {
-                _kmdir = hanten_kmdir_joge(&KM_UGOKI.back[kms_num][i_dir]);
+                _kmdir = hanten_kmdir_joge(&PC_UGOKI.back[kms_num][i_dir]);
                 p_kmdir = &_kmdir;
                 // g_writeln(&format!("get_src_by_sn_ms 後手なら pt={} kms_num={} p_kmdir={}",
                 //     pt, kms_num, p_kmdir
@@ -1608,7 +1608,7 @@ pub fn insert_narumae_src_by_sn_ms(
 
             // 指定升を開始地点に、離れていくように調べていく
             // 指定先後の駒があれば追加
-            use super::super::entities::teigi::shogi_syugo::KmDir::*;
+            use super::super::entities::teigi::shogi_syugo::PcDir::*;
             match *p_kmdir {
                 // 東
                 E(b) => {
