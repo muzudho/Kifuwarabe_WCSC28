@@ -393,7 +393,7 @@ pub fn km_is_nagaikiki(pc: &Piece) -> bool {
 ///
 /// 先後付き駒→駒種類
 ///
-pub fn km_to_sn_kms(pc: &Piece) -> (Phase, PieceType) {
+pub fn pc_to_ph_pt(pc: &Piece) -> (Phase, PieceType) {
     // use super::super::teigi::shogi_syugo::PieceType;
     use super::super::teigi::shogi_syugo::PieceType::*;
     // use super::super::teigi::shogi_syugo::Piece;
@@ -580,7 +580,7 @@ pub fn kms_to_num(pt: &PieceType) -> usize {
 ///
 /// 数値の駒種類化
 ///
-pub fn num_to_kms(n: usize) -> PieceType {
+pub fn num_to_pt(n: usize) -> PieceType {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match n {
         0 => K,
@@ -613,7 +613,7 @@ pub fn push_kms_to_hash(hash: u64, pt: &PieceType) -> u64 {
 ///
 pub fn pop_kms_from_hash(hash: u64) -> (u64, PieceType) {
     // 使ってるのは16駒種類番号ぐらいなんで、16(=2^4) あれば十分
-    let kms_num = num_to_kms((hash & 0b1111) as usize);
+    let kms_num = num_to_pt((hash & 0b1111) as usize);
     (hash >> 4, kms_num)
 }
 // 駒種類→｛　成駒,（不成駒、それ以外）　｝

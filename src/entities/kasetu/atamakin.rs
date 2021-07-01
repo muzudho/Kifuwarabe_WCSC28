@@ -21,7 +21,7 @@ pub fn is_s(uchu: &Uchu) -> bool {
     }
 
     let ms_south_r = p_to_ms(&p_south_r);
-    let pc = uchu.ky.get_km_by_ms(ms_south_r);
+    let pc = uchu.ky.get_pc_by_sq(ms_south_r);
     let jiai_km = uchu.get_jiai_by_km(&pc);
     if !match_jiai(&jiai_km, &Jiai::Ji) {
         return true;

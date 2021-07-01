@@ -31,7 +31,7 @@ pub fn get_dir8_to_slider_from_target(
     let p_slider = ms_to_p(ms_slider);
     let p_target = ms_to_p(ms_target);
 
-    let (sn_slider, pt) = km_to_sn_kms(&km_slider);
+    let (sn_slider, pt) = pc_to_ph_pt(&km_slider);
     use super::super::super::teigi::shogi_syugo::Phase::*;
     use super::super::super::teigi::shogi_syugo::PieceType::*;
     match pt {

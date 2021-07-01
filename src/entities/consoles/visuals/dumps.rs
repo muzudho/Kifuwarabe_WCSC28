@@ -36,8 +36,8 @@ pub fn hyoji_ms_vec(ms_vec: &Vec<Square>) {
 /// 駒種類
 pub fn print_pt_hashset(num_pt_hashset: &HashSet<usize>) {
     g_writeln(&format!("num_pt_hashset.len()={}", num_pt_hashset.len()));
-    for num_kms in num_pt_hashset {
-        g_writeln(&format!("pt({})", num_to_kms(*num_kms)));
+    for num_pt in num_pt_hashset {
+        g_writeln(&format!("pt({})", num_to_pt(*num_pt)));
     }
 }
 

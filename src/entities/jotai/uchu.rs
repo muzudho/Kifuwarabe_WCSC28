@@ -48,9 +48,9 @@ pub fn g_writeln(s: &str) {
 /// ゾブリストハッシュを使って、局面の一致判定をするのに使う☆（＾～＾）
 pub struct KyHashSeed {
     // 盤上の駒
-    pub pc: [[u64; KM_LN]; BAN_SIZE],
+    pub pc: [[u64; PC_LEN]; BAN_SIZE],
     // 持ち駒
-    pub mg: [[u64; MG_MAX]; KM_LN],
+    pub mg: [[u64; MG_MAX]; PC_LEN],
     // 先後
     pub phase: [u64; SN_LN],
 }
@@ -82,7 +82,7 @@ pub struct Uchu {
     // 利きの数（先後別）
     pub kiki_su_by_sn: [NumberBoard; SN_LN],
     // 利きの数（先後付き駒別）
-    pub kiki_su_by_km: [NumberBoard; KM_LN],
+    pub kiki_su_by_km: [NumberBoard; PC_LEN],
     // ビジョン・ツリー
     pub vision_tree_by_sn: [VisionTree; SN_LN],
 }
@@ -98,9 +98,9 @@ impl Uchu {
             ky: Kyokumen::new(),
             ky_hash_seed: KyHashSeed {
                 // 盤上の駒
-                pc: [[0; KM_LN]; BAN_SIZE],
+                pc: [[0; PC_LEN]; BAN_SIZE],
                 // 持ち駒
-                mg: [[0; MG_MAX]; KM_LN],
+                mg: [[0; MG_MAX]; PC_LEN],
                 // 先後
                 phase: [0; SN_LN],
             },
@@ -683,14 +683,14 @@ impl Uchu {
 
         // 盤上の駒
         for i_ms in MASU_0..BAN_SIZE {
-            for i_km in 0..KM_LN {
+            for i_km in 0..PC_LEN {
                 // FIXME 18446744073709551615 が含まれないだろ、どうなってるんだぜ☆（＾～＾）！？
                 self.ky_hash_seed.pc[i_ms][i_km] =
                     rand::thread_rng().gen_range(0, 18446744073709551615);
             }
         }
         // 持ち駒
-        for i_km in 0..KM_LN {
+        for i_km in 0..PC_LEN {
             for i_mg in 0..MG_MAX {
                 self.ky_hash_seed.mg[i_km][i_mg] =
                     rand::thread_rng().gen_range(0, 18446744073709551615);
@@ -712,10 +712,10 @@ impl Uchu {
     pub fn copy_ky0_to_ky1(&mut self) {
         // 盤上
         for i_ms in 0..BAN_SIZE {
-            self.ky.set_km_by_ms(i_ms, self.ky0.get_km_by_ms(i_ms));
+            self.ky.set_pc_by_sq(i_ms, self.ky0.get_pc_by_sq(i_ms));
         }
         // 持ち駒
-        for i_mg in 0..KM_LN {
+        for i_mg in 0..PC_LEN {
             self.ky.mg[i_mg] = self.ky0.mg[i_mg];
         }
     }
@@ -733,13 +733,13 @@ impl Uchu {
 
     /// 初期局面の盤上に駒の位置を設定するもの
     pub fn set_ky0_ban_km(&mut self, suji: i8, dan: i8, pc: Piece) {
-        self.ky0.set_km_by_ms(suji_dan_to_ms(suji, dan), pc);
+        self.ky0.set_pc_by_sq(suji_dan_to_ms(suji, dan), pc);
     }
     pub fn set_ky0_mg(&mut self, pc: Piece, maisu: i8) {
         self.ky0.mg[pc as usize] = maisu;
     }
     pub fn get_jiai_by_km(&self, pc: &Piece) -> Jiai {
-        let (phase, _kms) = km_to_sn_kms(pc);
+        let (phase, _kms) = pc_to_ph_pt(pc);
 
         if match_sn(&phase, &self.get_teban(&Jiai::Ji)) {
             Jiai::Ji
@@ -888,87 +888,87 @@ impl Uchu {
            +----+----+----+----+----+----+----+----+----+
               1    2    3    4    5    6    7    8    9\
 ",
-            ky.get_km_by_ms(19),
-            ky.get_km_by_ms(29),
-            ky.get_km_by_ms(39),
-            ky.get_km_by_ms(49),
-            ky.get_km_by_ms(59),
-            ky.get_km_by_ms(69),
-            ky.get_km_by_ms(79),
-            ky.get_km_by_ms(89),
-            ky.get_km_by_ms(99),
-            ky.get_km_by_ms(18),
-            ky.get_km_by_ms(28),
-            ky.get_km_by_ms(38),
-            ky.get_km_by_ms(48),
-            ky.get_km_by_ms(58),
-            ky.get_km_by_ms(68),
-            ky.get_km_by_ms(78),
-            ky.get_km_by_ms(88),
-            ky.get_km_by_ms(98),
-            ky.get_km_by_ms(17),
-            ky.get_km_by_ms(27),
-            ky.get_km_by_ms(37),
-            ky.get_km_by_ms(47),
-            ky.get_km_by_ms(57),
-            ky.get_km_by_ms(67),
-            ky.get_km_by_ms(77),
-            ky.get_km_by_ms(87),
-            ky.get_km_by_ms(97),
-            ky.get_km_by_ms(16),
-            ky.get_km_by_ms(26),
-            ky.get_km_by_ms(36),
-            ky.get_km_by_ms(46),
-            ky.get_km_by_ms(56),
-            ky.get_km_by_ms(66),
-            ky.get_km_by_ms(76),
-            ky.get_km_by_ms(86),
-            ky.get_km_by_ms(96),
-            ky.get_km_by_ms(15),
-            ky.get_km_by_ms(25),
-            ky.get_km_by_ms(35),
-            ky.get_km_by_ms(45),
-            ky.get_km_by_ms(55),
-            ky.get_km_by_ms(65),
-            ky.get_km_by_ms(75),
-            ky.get_km_by_ms(85),
-            ky.get_km_by_ms(95),
-            ky.get_km_by_ms(14),
-            ky.get_km_by_ms(24),
-            ky.get_km_by_ms(34),
-            ky.get_km_by_ms(44),
-            ky.get_km_by_ms(54),
-            ky.get_km_by_ms(64),
-            ky.get_km_by_ms(74),
-            ky.get_km_by_ms(84),
-            ky.get_km_by_ms(94),
-            ky.get_km_by_ms(13),
-            ky.get_km_by_ms(23),
-            ky.get_km_by_ms(33),
-            ky.get_km_by_ms(43),
-            ky.get_km_by_ms(53),
-            ky.get_km_by_ms(63),
-            ky.get_km_by_ms(73),
-            ky.get_km_by_ms(83),
-            ky.get_km_by_ms(93),
-            ky.get_km_by_ms(12),
-            ky.get_km_by_ms(22),
-            ky.get_km_by_ms(32),
-            ky.get_km_by_ms(42),
-            ky.get_km_by_ms(52),
-            ky.get_km_by_ms(62),
-            ky.get_km_by_ms(72),
-            ky.get_km_by_ms(82),
-            ky.get_km_by_ms(92),
-            ky.get_km_by_ms(11),
-            ky.get_km_by_ms(21),
-            ky.get_km_by_ms(31),
-            ky.get_km_by_ms(41),
-            ky.get_km_by_ms(51),
-            ky.get_km_by_ms(61),
-            ky.get_km_by_ms(71),
-            ky.get_km_by_ms(81),
-            ky.get_km_by_ms(91),
+            ky.get_pc_by_sq(19),
+            ky.get_pc_by_sq(29),
+            ky.get_pc_by_sq(39),
+            ky.get_pc_by_sq(49),
+            ky.get_pc_by_sq(59),
+            ky.get_pc_by_sq(69),
+            ky.get_pc_by_sq(79),
+            ky.get_pc_by_sq(89),
+            ky.get_pc_by_sq(99),
+            ky.get_pc_by_sq(18),
+            ky.get_pc_by_sq(28),
+            ky.get_pc_by_sq(38),
+            ky.get_pc_by_sq(48),
+            ky.get_pc_by_sq(58),
+            ky.get_pc_by_sq(68),
+            ky.get_pc_by_sq(78),
+            ky.get_pc_by_sq(88),
+            ky.get_pc_by_sq(98),
+            ky.get_pc_by_sq(17),
+            ky.get_pc_by_sq(27),
+            ky.get_pc_by_sq(37),
+            ky.get_pc_by_sq(47),
+            ky.get_pc_by_sq(57),
+            ky.get_pc_by_sq(67),
+            ky.get_pc_by_sq(77),
+            ky.get_pc_by_sq(87),
+            ky.get_pc_by_sq(97),
+            ky.get_pc_by_sq(16),
+            ky.get_pc_by_sq(26),
+            ky.get_pc_by_sq(36),
+            ky.get_pc_by_sq(46),
+            ky.get_pc_by_sq(56),
+            ky.get_pc_by_sq(66),
+            ky.get_pc_by_sq(76),
+            ky.get_pc_by_sq(86),
+            ky.get_pc_by_sq(96),
+            ky.get_pc_by_sq(15),
+            ky.get_pc_by_sq(25),
+            ky.get_pc_by_sq(35),
+            ky.get_pc_by_sq(45),
+            ky.get_pc_by_sq(55),
+            ky.get_pc_by_sq(65),
+            ky.get_pc_by_sq(75),
+            ky.get_pc_by_sq(85),
+            ky.get_pc_by_sq(95),
+            ky.get_pc_by_sq(14),
+            ky.get_pc_by_sq(24),
+            ky.get_pc_by_sq(34),
+            ky.get_pc_by_sq(44),
+            ky.get_pc_by_sq(54),
+            ky.get_pc_by_sq(64),
+            ky.get_pc_by_sq(74),
+            ky.get_pc_by_sq(84),
+            ky.get_pc_by_sq(94),
+            ky.get_pc_by_sq(13),
+            ky.get_pc_by_sq(23),
+            ky.get_pc_by_sq(33),
+            ky.get_pc_by_sq(43),
+            ky.get_pc_by_sq(53),
+            ky.get_pc_by_sq(63),
+            ky.get_pc_by_sq(73),
+            ky.get_pc_by_sq(83),
+            ky.get_pc_by_sq(93),
+            ky.get_pc_by_sq(12),
+            ky.get_pc_by_sq(22),
+            ky.get_pc_by_sq(32),
+            ky.get_pc_by_sq(42),
+            ky.get_pc_by_sq(52),
+            ky.get_pc_by_sq(62),
+            ky.get_pc_by_sq(72),
+            ky.get_pc_by_sq(82),
+            ky.get_pc_by_sq(92),
+            ky.get_pc_by_sq(11),
+            ky.get_pc_by_sq(21),
+            ky.get_pc_by_sq(31),
+            ky.get_pc_by_sq(41),
+            ky.get_pc_by_sq(51),
+            ky.get_pc_by_sq(61),
+            ky.get_pc_by_sq(71),
+            ky.get_pc_by_sq(81),
+            ky.get_pc_by_sq(91),
             //                   ▲き,　                   ▲ぞ,                     ▲い,                     ▲ね,                     ▲う,                     ▲し,                     ▲ひ,
             ky.mg[Piece::K0 as usize],
             ky.mg[Piece::Z0 as usize],

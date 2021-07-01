@@ -11,8 +11,8 @@ use super::super::super::tusin::usi::*;
 /// TODO 利きを再計算したい
 pub fn is_jisatusyu(uchu: &Uchu, ss: &Sasite) -> bool {
     // 移動元升、動かした駒の先後、駒種類、
-    let km_src = uchu.ky.get_km_by_ms(ss.src);
-    let (sn_teban, _kms) = km_to_sn_kms(&km_src);
+    let km_src = uchu.ky.get_pc_by_sq(ss.src);
+    let (sn_teban, _kms) = pc_to_ph_pt(&km_src);
     // 相手番の先後
     let sn_aite = hanten_sn(&sn_teban);
 

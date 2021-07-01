@@ -7,8 +7,8 @@ use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 
 pub fn is_ji_km_by_ms(sq: Square, uchu: &Uchu) -> bool {
-    let pc = uchu.ky.get_km_by_ms(sq);
-    let (phase, _kms) = km_to_sn_kms(&pc);
+    let pc = uchu.ky.get_pc_by_sq(sq);
+    let (phase, _kms) = pc_to_ph_pt(&pc);
     match_sn(&phase, &uchu.get_teban(&Jiai::Ji))
 }
 

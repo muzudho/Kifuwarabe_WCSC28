@@ -21,7 +21,7 @@ pub struct Kyokumen {
     ban: [Piece; BAN_SIZE],
     /// 持ち駒数。持ち駒に使える、成らずの駒の部分だけ使用。
     /// 増減させたいので、u8 ではなく i8。
-    pub mg: [i8; KM_LN],
+    pub mg: [i8; PC_LEN],
     /// らいおんの位置
     /// [先後]
     pub ms_r: [Square; SN_LN],
@@ -75,20 +75,20 @@ impl Kyokumen {
     pub fn exists_fu_by_sn_suji(&self, phase: &Phase, suji: i8) -> bool {
         for dan in DAN_1..DAN_10 {
             let sq = suji_dan_to_ms(suji, dan);
-            let pc = self.get_km_by_ms(sq);
-            let (sn_km, pt) = km_to_sn_kms(&pc);
-            if match_sn(&sn_km, phase) && match_kms(&pt, &PieceType::P) {
+            let pc = self.get_pc_by_sq(sq);
+            let (ph_pc, pt) = pc_to_ph_pt(&pc);
+            if match_sn(&ph_pc, phase) && match_pt(&pt, &PieceType::P) {
                 return true;
             }
         }
         false
     }
     /// 升で指定して駒を取る
-    pub fn get_km_by_ms(&self, sq: Square) -> Piece {
+    pub fn get_pc_by_sq(&self, sq: Square) -> Piece {
         self.ban[sq]
     }
     /// 升で指定して駒を置く
-    pub fn set_km_by_ms(&mut self, sq: Square, pc: Piece) {
+    pub fn set_pc_by_sq(&mut self, sq: Square, pc: Piece) {
         self.ban[sq] = pc;
         use super::super::teigi::shogi_syugo::Phase::*;
         match pc {
@@ -124,25 +124,25 @@ impl Kyokumen {
             // 打で無ければ、元の升の駒を消す。
             if ss.pro {
                 // 成りなら
-                pc = km_to_prokm(&self.get_km_by_ms(ss.src));
+                pc = km_to_prokm(&self.get_pc_by_sq(ss.src));
             } else {
-                pc = self.get_km_by_ms(ss.src);
+                pc = self.get_pc_by_sq(ss.src);
             }
-            self.set_km_by_ms(ss.src, Piece::Kara);
+            self.set_pc_by_sq(ss.src, Piece::Kara);
         }
 
         // 移動先升に駒があるかどうか
-        if let Piece::Kara = self.get_km_by_ms(ss.dst) {
+        if let Piece::Kara = self.get_pc_by_sq(ss.dst) {
             cap = Piece::Kara;
         } else {
             // 移動先升の駒を盤上から消し、自分の持ち駒に増やす
-            cap = self.get_km_by_ms(ss.dst);
+            cap = self.get_pc_by_sq(ss.dst);
             let mg = km_to_mg(cap);
             self.add_mg(mg, 1);
         }
 
         // 移動先升に駒を置く
-        self.set_km_by_ms(ss.dst, pc);
+        self.set_pc_by_sq(ss.dst, pc);
 
         cap
     }
@@ -164,14 +164,14 @@ impl Kyokumen {
             // 打で無ければ
             if ss.pro {
                 // 成ったなら、成る前へ
-                pc = prokm_to_km(&self.get_km_by_ms(ss.dst));
+                pc = prokm_to_km(&self.get_pc_by_sq(ss.dst));
             } else {
-                pc = self.get_km_by_ms(ss.dst);
+                pc = self.get_pc_by_sq(ss.dst);
             }
         }
 
         // 移動先の駒を、取った駒（あるいは空）に戻す
-        self.set_km_by_ms(ss.dst, *cap);
+        self.set_pc_by_sq(ss.dst, *cap);
         match *cap {
             Piece::Kara => {}
             _ => {
@@ -182,29 +182,29 @@ impl Kyokumen {
         }
 
         // 移動元升に、動かした駒を置く
-        self.set_km_by_ms(ss.src, pc);
+        self.set_pc_by_sq(ss.src, pc);
     }
 
     /// 指定の升に駒があれば真
     pub fn exists_km(&self, sq: Square) -> bool {
-        !match_km(&self.get_km_by_ms(sq), &Piece::Kara)
+        !match_km(&self.get_pc_by_sq(sq), &Piece::Kara)
     }
 
     /// 指定の升に指定の駒があれば真
     pub fn has_ms_km(&self, sq: Square, pc: &Piece) -> bool {
-        match_km(&self.get_km_by_ms(sq), pc)
+        match_km(&self.get_pc_by_sq(sq), pc)
     }
 
     /// 指定の升にある駒の先後、または空升
     pub fn get_sn_by_ms(&self, sq: Square) -> Phase {
-        km_to_sn(&self.get_km_by_ms(sq))
+        km_to_sn(&self.get_pc_by_sq(sq))
     }
 
     /// 移動先と移動元を比較し、違う駒があれば、成ったと判定するぜ☆（＾～＾）
     pub fn is_natta(&self, ms_src: Square, to: Square) -> bool {
-        let km_src = &self.get_km_by_ms(ms_src);
+        let km_src = &self.get_pc_by_sq(ms_src);
         let kms_src = km_to_kms(&km_src);
-        let to_pc = &self.get_km_by_ms(to);
+        let to_pc = &self.get_pc_by_sq(to);
         let kms_dst = km_to_kms(&to_pc);
         // 移動先の駒が成り駒で、 移動元の駒が不成駒なら、成る
         let pro_dst = kms_is_pro(&kms_dst);
@@ -220,7 +220,7 @@ impl Kyokumen {
 
         // 盤上の駒
         for i_ms in MASU_0..BAN_SIZE {
-            let pc = self.get_km_by_ms(i_ms as Square);
+            let pc = self.get_pc_by_sq(i_ms as Square);
             let num_km = km_to_num(&pc);
             hash ^= uchu.ky_hash_seed.pc[i_ms][num_km];
         }

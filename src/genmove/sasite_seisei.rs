@@ -25,7 +25,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
     for rank_from in 1..10 {
         for file_from in 1..10 {
             let from = suji_dan_to_ms(file_from, rank_from);
-            let pc_from = uchu.ky.get_km_by_ms(from);
+            let pc_from = uchu.ky.get_pc_by_sq(from);
             let phase = km_to_sn(&pc_from);
 
             if match_sn(&phase, &uchu.get_teban(&Jiai::Ji)) {
@@ -85,7 +85,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
     for dan_dst in 1..10 {
         for suji_dst in 1..10 {
             let to = suji_dan_to_ms(suji_dst, dan_dst);
-            let to_pc = uchu.ky.get_km_by_ms(to);
+            let to_pc = uchu.ky.get_pc_by_sq(to);
             match to_pc {
                 Piece::Kara => {
                     // 駒が無いところに打つ
@@ -99,7 +99,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                         }
                     }
                     for num_kms_da in drop_pt_hashset {
-                        let pt = num_to_kms(num_kms_da);
+                        let pt = num_to_pt(num_kms_da);
                         some_moves_hashset.insert(
                             Sasite {
                                 src: SS_SRC_DA, // 駒大
@@ -132,7 +132,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
     assert_banjo_ms(to, "Ｉnsert_ss_by_ms_km_on_banjo");
 
     // 手番の先後、駒種類
-    let (phase, _kms_dst) = km_to_sn_kms(&to_pc);
+    let (phase, _kms_dst) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
     if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
@@ -191,7 +191,7 @@ pub fn insert_ss_by_ms_km_on_da(
     assert_banjo_ms(to, "Ｉnsert_ss_by_ms_km_on_da");
 
     // 手番の先後、駒種類
-    let (phase, _kms_dst) = km_to_sn_kms(&to_pc);
+    let (phase, _kms_dst) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
     if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
@@ -214,7 +214,7 @@ pub fn insert_ss_by_ms_km_on_da(
     insert_drop_pt_by_sq_pc(to, &to_pc, &uchu, &mut drop_pt_hashset);
     // 打
     for num_kms_da in drop_pt_hashset.iter() {
-        let kms_da = num_to_kms(*num_kms_da);
+        let kms_da = num_to_pt(*num_kms_da);
 
         let hash_ss = Sasite {
             src: SS_SRC_DA,

@@ -183,7 +183,7 @@ impl GoteJin {
 
 /// 持ち駒の駒のうち、最大の枚数は歩の 18。
 pub const MG_MAX: usize = 18;
-pub const KM_LN: usize = 30;
+pub const PC_LEN: usize = 30;
 ///
 /// 先後付きの駒と空白
 ///
@@ -404,7 +404,7 @@ impl KmSyugo {
         let sn0 = uchu.get_teban(&jiai);
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
-            let (sn1, _kms) = km_to_sn_kms(pc);
+            let (sn1, _kms) = pc_to_ph_pt(pc);
             if match_sn(&sn0, &sn1) {
                 num_syugo1.insert(km_to_num(pc));
             }
@@ -488,7 +488,7 @@ impl fmt::Display for PieceType {
 ///
 /// 駒種類の一致比較
 ///
-pub fn match_kms(a: &PieceType, b: &PieceType) -> bool {
+pub fn match_pt(a: &PieceType, b: &PieceType) -> bool {
     kms_to_num(a) == kms_to_num(b)
 }
 
