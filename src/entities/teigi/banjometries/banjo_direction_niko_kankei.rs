@@ -16,7 +16,7 @@ use super::super::super::teigi::shogi_syugo::*;
 ///
 pub fn get_dir8_to_slider_from_target(
     ms_slider: Square,
-    km_slider: &Piece,
+    pc_slider: &Piece,
     ms_target: Square,
 ) -> Dir8 {
     debug_assert!(
@@ -31,7 +31,7 @@ pub fn get_dir8_to_slider_from_target(
     let p_slider = ms_to_p(ms_slider);
     let p_target = ms_to_p(ms_target);
 
-    let (sn_slider, pt) = pc_to_ph_pt(&km_slider);
+    let (sn_slider, pt) = pc_to_ph_pt(&pc_slider);
     use super::super::super::teigi::shogi_syugo::Phase::*;
     use super::super::super::teigi::shogi_syugo::PieceType::*;
     match pt {

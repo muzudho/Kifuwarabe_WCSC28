@@ -43,7 +43,7 @@ impl Sasite {
     pub fn to_hash(&self) -> u64 {
         let mut hash = 0;
         // 正順で取り出すことを考えて、逆順で押し込む☆（＾～＾）
-        hash = push_kms_to_hash(hash, &self.drop); // TODO 持駒の種類に絞りこみたい
+        hash = push_pt_to_hash(hash, &self.drop); // TODO 持駒の種類に絞りこみたい
         hash = push_bool_to_hash(hash, self.pro);
         hash = push_ms_to_hash(hash, self.dst);
         push_ms_to_hash(hash, self.src)
@@ -53,7 +53,7 @@ impl Sasite {
         let (hash, src) = pop_ms_from_hash(hash);
         let (hash, dst) = pop_ms_from_hash(hash);
         let (hash, pro) = pop_bool_from_hash(hash);
-        let (_hash, drop) = pop_kms_from_hash(hash);
+        let (_hash, drop) = pop_pt_from_hash(hash);
         Sasite {
             src: src,
             dst: dst,

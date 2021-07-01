@@ -79,13 +79,13 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
 
                     /*
                     // 打
-                    for kms_da in drop_pt_hashset.iter() {
-                        let km_da = ph_pt_to_pc( &phase, &kms_da );
+                    for pt_drop in drop_pt_hashset.iter() {
+                        let pc_drop = ph_pt_to_pc( &phase, &pt_drop );
                         let hash_ss = Sasite{
                             src:SS_SRC_DA,
                             dst:to,
                             pro:false,
-                            drop:km_da,
+                            drop:pc_drop,
                         }.to_hash();
                         &uchu.vision_tree_by_sn[phase].ss_tume_hashset.insert( hash_ss );
                     }

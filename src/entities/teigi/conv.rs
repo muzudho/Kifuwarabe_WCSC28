@@ -258,9 +258,9 @@ pub fn pc_to_num(pc: &Piece) -> usize {
         Owari => 29,
     }
 }
-pub fn num_to_km(km_num: usize) -> Piece {
+pub fn num_to_pc(pc_num: usize) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
-    match km_num {
+    match pc_num {
         0 => R0,
         1 => K0,
         2 => Z0,
@@ -296,17 +296,17 @@ pub fn num_to_km(km_num: usize) -> Piece {
 ///
 /// ハッシュ値を作る
 ///
-pub fn push_km_to_hash(hash: u64, pc: &Piece) -> u64 {
+pub fn push_pc_to_hash(hash: u64, pc: &Piece) -> u64 {
     // 使ってるのは30駒番号ぐらいなんで、32(=2^5) あれば十分
     (hash << 5) + pc_to_num(pc) as u64
 }
 ///
 /// ハッシュ値から作る
 ///
-pub fn pop_km_from_hash(hash: u64) -> (u64, Piece) {
+pub fn pop_pc_from_hash(hash: u64) -> (u64, Piece) {
     // 使ってるのは30駒番号ぐらいなんで、32(=2^5) あれば十分
-    let km_num = num_to_km((hash & 0b11111) as usize);
-    (hash >> 5, km_num)
+    let pc_num = num_to_pc((hash & 0b11111) as usize);
+    (hash >> 5, pc_num)
 }
 ///
 /// 駒→成駒　（成れない駒は、そのまま）
@@ -387,8 +387,8 @@ pub fn pro_pc_to_pc(pc: &Piece) -> Piece {
 ///
 /// 駒→長い利きの有無
 ///
-pub fn km_is_nagaikiki(pc: &Piece) -> bool {
-    kms_is_nagaikiki(&pc_to_pt(pc))
+pub fn pc_is_long_control(pc: &Piece) -> bool {
+    pt_is_long_control(&pc_to_pt(pc))
 }
 ///
 /// 先後付き駒→駒種類
@@ -517,9 +517,9 @@ pub fn pc_to_pt(pc: &Piece) -> PieceType {
 /// 先後付き駒　を　持ち駒種類　へ変換。
 /// 持ち駒にするので、先後は反転するぜ☆（＾～＾）
 ///
-pub fn pc_to_hand(km_cap: Piece) -> Piece {
+pub fn pc_to_hand(pc_cap: Piece) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
-    match km_cap {
+    match pc_cap {
         R0 => Owari,
         K0 => K1,
         Z0 => Z1,
@@ -604,17 +604,17 @@ pub fn num_to_pt(n: usize) -> PieceType {
 ///
 /// ハッシュ値を作る
 ///
-pub fn push_kms_to_hash(hash: u64, pt: &PieceType) -> u64 {
+pub fn push_pt_to_hash(hash: u64, pt: &PieceType) -> u64 {
     // 使ってるのは16駒種類番号ぐらいなんで、16(=2^4) あれば十分
     (hash << 4) + pt_to_num(pt) as u64
 }
 ///
 /// ハッシュ値から作る
 ///
-pub fn pop_kms_from_hash(hash: u64) -> (u64, PieceType) {
+pub fn pop_pt_from_hash(hash: u64) -> (u64, PieceType) {
     // 使ってるのは16駒種類番号ぐらいなんで、16(=2^4) あれば十分
-    let kms_num = num_to_pt((hash & 0b1111) as usize);
-    (hash >> 4, kms_num)
+    let pt_num = num_to_pt((hash & 0b1111) as usize);
+    (hash >> 4, pt_num)
 }
 // 駒種類→｛　成駒,（不成駒、それ以外）　｝
 pub fn pt_is_pro(pt: &PieceType) -> bool {
@@ -639,7 +639,7 @@ pub fn pt_is_pro(pt: &PieceType) -> bool {
     }
 }
 // 成り駒種類→成る前の駒種類。成り駒でなければ、空に戻る。
-pub fn prokms_to_kms(pt: &PieceType) -> PieceType {
+pub fn pro_pt_to_pt(pt: &PieceType) -> PieceType {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
         K => Kara,
@@ -664,7 +664,7 @@ pub fn prokms_to_kms(pt: &PieceType) -> PieceType {
 /// 駒種類→｛　長い利きの駒か否か　｝
 /// 合い駒で防ぎえる可能性があれば真
 ///
-pub fn kms_is_nagaikiki(pt: &PieceType) -> bool {
+pub fn pt_is_long_control(pt: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
         K => false,
@@ -688,7 +688,7 @@ pub fn kms_is_nagaikiki(pt: &PieceType) -> bool {
 ///
 /// 成れる駒
 ///
-pub fn kms_can_pro(pt: &PieceType) -> bool {
+pub fn pt_can_pro(pt: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
         K => false,
@@ -712,7 +712,7 @@ pub fn kms_can_pro(pt: &PieceType) -> bool {
 ///
 /// 打てる駒
 ///
-pub fn kms_can_da(pt: &PieceType) -> bool {
+pub fn pt_can_drop(pt: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
         K => false,
@@ -779,7 +779,7 @@ pub fn ph_pt_to_pc(phase: &Phase, pt: &PieceType) -> Piece {
 ///
 /// 上下反転
 ///
-pub fn hanten_kmdir_joge(pc_dir: &PcDir) -> PcDir {
+pub fn hanten_pc_dir_joge(pc_dir: &PcDir) -> PcDir {
     use super::super::teigi::shogi_syugo::PcDir::*;
     match *pc_dir {
         // 東
@@ -811,7 +811,7 @@ pub fn hanten_kmdir_joge(pc_dir: &PcDir) -> PcDir {
     }
 }
 /*
-pub fn kmdir_id(pc_dir:&PcDir) -> usize{
+pub fn pc_dir_id(pc_dir:&PcDir) -> usize{
     use teigi::shogi_syugo::PcDir::*;
     match *pc_dir {
         E  (b)=>if b { 0}else{ 1},

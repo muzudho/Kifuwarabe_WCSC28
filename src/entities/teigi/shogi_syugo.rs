@@ -295,7 +295,7 @@ pub fn match_pc(a: &Piece, b: &Piece) -> bool {
     pc_to_num(a) == pc_to_num(b)
 }
 
-pub const KM_ARRAY_HALF_LN: usize = 14;
+pub const PC_ARRAY_HALF_LEN: usize = 14;
 pub const PC_ARRAY_LEN: usize = 28;
 pub const PC_ARRAY: [Piece; PC_ARRAY_LEN] = [
     Piece::R0,  // らいおん
@@ -327,7 +327,7 @@ pub const PC_ARRAY: [Piece; PC_ARRAY_LEN] = [
     Piece::PS1, // ぱわーあっぷいのしし
     Piece::PH1, // ぱわーあっぷひよこ
 ];
-pub const SN_KM_ARRAY: [[Piece; KM_ARRAY_HALF_LN]; SN_LN] = [
+pub const PH_PC_ARRAY: [[Piece; PC_ARRAY_HALF_LEN]; SN_LN] = [
     [
         Piece::R0,  // らいおん
         Piece::K0,  // きりん
@@ -380,27 +380,27 @@ pub const SN_KM_ARRAY: [[Piece; KM_ARRAY_HALF_LN]; SN_LN] = [
 ///
 /// 駒集合
 ///
-pub struct KmSyugo {
+pub struct PcSyugo {
     num_syugo: HashSet<usize>,
 }
-impl KmSyugo {
+impl PcSyugo {
     ///
     /// 全ての元を含む
     ///
-    pub fn new_all() -> KmSyugo {
+    pub fn new_all() -> PcSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
             num_syugo1.insert(pc_to_num(pc));
         }
-        let km_syugo = KmSyugo {
+        let pc_syugo = PcSyugo {
             num_syugo: num_syugo1,
         };
-        km_syugo
+        pc_syugo
     }
     ///
     /// 自分相手
     ///
-    pub fn new_jiai(&self, jiai: &Jiai, uchu: &Uchu) -> KmSyugo {
+    pub fn new_jiai(&self, jiai: &Jiai, uchu: &Uchu) -> PcSyugo {
         let sn0 = uchu.get_teban(&jiai);
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
@@ -409,10 +409,10 @@ impl KmSyugo {
                 num_syugo1.insert(pc_to_num(pc));
             }
         }
-        let km_syugo = KmSyugo {
+        let pc_syugo = PcSyugo {
             num_syugo: num_syugo1,
         };
-        km_syugo
+        pc_syugo
     }
     pub fn remove(&mut self, pc: &Piece) {
         self.num_syugo.remove(&pc_to_num(pc));
@@ -422,9 +422,9 @@ impl KmSyugo {
 ///
 /// 駒種類
 ///
-pub const KMS_LN: usize = 16;
+pub const PT_LEN: usize = 16;
 /// 駒の動ける方向数、終端子込み
-pub const KM_UGOKI_LN: usize = 9;
+pub const PC_UGOKI_LEN: usize = 9;
 /// 先後なしの駒と空白
 #[derive(Copy, Clone)]
 pub enum PieceType {
@@ -513,9 +513,9 @@ pub const PT_ARRAY: [PieceType; PT_ARRAY_LEN] = [
 ];
 
 /// 非成 駒種類数
-pub const KMS_NPRO_ARRAY_LN: usize = 8;
+pub const PT_NPRO_ARRAY_LEN: usize = 8;
 /// 非成 駒種類
-pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
+pub const PT_NPRO_ARRAY: [PieceType; PT_NPRO_ARRAY_LEN] = [
     PieceType::K, // らいおん
     PieceType::R, // きりん
     PieceType::B, // ぞう
@@ -527,9 +527,9 @@ pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
 ];
 
 /// 成 駒種類数
-pub const KMS_PRO_ARRAY_LN: usize = 6;
+pub const PT_PRO_ARRAY_LEN: usize = 6;
 /// 成 駒種類
-pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
+pub const PT_PRO_ARRAY: [PieceType; PT_PRO_ARRAY_LEN] = [
     PieceType::PR, // ぱわーあっぷきりん
     PieceType::PB, // ぱわーあっぷぞう
     PieceType::PS, // ぱわーあっぷねこ
@@ -566,10 +566,10 @@ impl PtSyugo {
         for pt in PT_ARRAY.iter() {
             num_syugo1.insert(pt_to_num(pt));
         }
-        let kms_syugo = PtSyugo {
+        let pt_syugo = PtSyugo {
             num_syugo: num_syugo1,
         };
-        kms_syugo
+        pt_syugo
     }
     pub fn remove(&mut self, pt: &PieceType) {
         self.num_syugo.remove(&pt_to_num(pt));
@@ -705,9 +705,9 @@ impl fmt::Display for PcDir {
 }
 /// 駒が戻る動き
 #[allow(dead_code)]
-pub struct KmUgoki {
+pub struct PcUgoki {
     // 駒種類ごとに、駒の動きを保持。動ける方向は、駒ごとに可変長配列
-    pub back: [[PcDir; KM_UGOKI_LN]; KMS_LN],
+    pub back: [[PcDir; PC_UGOKI_LEN]; PT_LEN],
 }
 ///
 /// 駒が戻る動き。投了図から現局面へ逆向きに指す思想。
@@ -717,7 +717,7 @@ pub struct KmUgoki {
 /// （２）後手から見て、普通に駒の動きが　登録されている。
 ///       先手から見たとき、back （後ろ向きの動き）となる。
 ///
-pub const PC_UGOKI: KmUgoki = KmUgoki {
+pub const PC_UGOKI: PcUgoki = PcUgoki {
     back: [
         // 東,北東,北,北西,西,南西,南南西,南,南南東,南東,終わり
         /*ら  */

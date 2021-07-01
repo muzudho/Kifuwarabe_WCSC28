@@ -32,7 +32,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                 // 手番の駒
 
                 let mut dst_hashset: HashSet<Square> = HashSet::new();
-                insert_dst_by_ms_km(
+                insert_dst_by_sq_pc(
                     from,
                     &pc_from,
                     false, // 成らず
@@ -40,7 +40,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                     &mut dst_hashset,
                 );
 
-                // g_writeln("テスト ポテンシャルムーブ insert_dst_by_ms_km(成らず).");
+                // g_writeln("テスト ポテンシャルムーブ insert_dst_by_sq_pc(成らず).");
                 // use consoles::visuals::dumps::*;
                 // print_sq_hashset( &dst_hashset );
 
@@ -57,7 +57,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                 }
 
                 dst_hashset.clear();
-                insert_dst_by_ms_km(
+                insert_dst_by_sq_pc(
                     from,
                     &pc_from,
                     true, // 成り
@@ -91,15 +91,15 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                     // 駒が無いところに打つ
 
                     let mut drop_pt_hashset = HashSet::new();
-                    for kms_motigoma in MGS_ARRAY.iter() {
-                        let km_motigoma = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), kms_motigoma);
-                        if 0 < uchu.ky.get_mg(&km_motigoma) {
+                    for pt_hand in MGS_ARRAY.iter() {
+                        let pc_hand = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), pt_hand);
+                        if 0 < uchu.ky.get_mg(&pc_hand) {
                             // 駒を持っていれば
-                            insert_drop_pt_by_sq_pc(to, &km_motigoma, &uchu, &mut drop_pt_hashset);
+                            insert_drop_pt_by_sq_pc(to, &pc_hand, &uchu, &mut drop_pt_hashset);
                         }
                     }
-                    for num_kms_da in drop_pt_hashset {
-                        let pt = num_to_pt(num_kms_da);
+                    for num_pt_drop in drop_pt_hashset {
+                        let pt = num_to_pt(num_pt_drop);
                         some_moves_hashset.insert(
                             Sasite {
                                 src: SS_SRC_DA, // 駒大
@@ -129,10 +129,10 @@ pub fn insert_move_by_sq_pc_on_board(
     to_pc: &Piece,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
-    assert_banjo_ms(to, "Ｉnsert_ss_by_ms_km_on_banjo");
+    assert_banjo_ms(to, "insert_move_by_sq_pc_on_board");
 
     // 手番の先後、駒種類
-    let (phase, _kms_dst) = pc_to_ph_pt(&to_pc);
+    let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
     if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
@@ -152,7 +152,7 @@ pub fn insert_move_by_sq_pc_on_board(
     // +----------------+
     insert_nopromote_from_by_sq_pc(to, &to_pc, &uchu, &mut mv_from_hashset);
     for from in &mv_from_hashset {
-        assert_banjo_ms(*from, "Ｉnsert_ss_by_ms_km_on_banjo from(成らず)");
+        assert_banjo_ms(*from, "insert_move_by_sq_pc_on_board(成らず)");
 
         ss_hash_builder.src = *from;
         // 成らず
@@ -167,7 +167,7 @@ pub fn insert_move_by_sq_pc_on_board(
     mv_from_hashset.clear();
     insert_beforepromote_from_by_sq_pc(to, &to_pc, &uchu, &mut mv_from_hashset);
     for from in &mv_from_hashset {
-        assert_banjo_ms(*from, "Ｉnsert_ss_by_ms_km_on_banjo from(成り)");
+        assert_banjo_ms(*from, "insert_move_by_sq_pc_on_board(成り)");
 
         ss_hash_builder.src = *from;
         // 成り
@@ -188,10 +188,10 @@ pub fn insert_move_by_sq_pc_on_drop(
     to_pc: &Piece,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
-    assert_banjo_ms(to, "Ｉnsert_ss_by_ms_km_on_da");
+    assert_banjo_ms(to, "insert_move_by_sq_pc_on_drop");
 
     // 手番の先後、駒種類
-    let (phase, _kms_dst) = pc_to_ph_pt(&to_pc);
+    let (phase, _pt_to) = pc_to_ph_pt(&to_pc);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
     if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
@@ -213,14 +213,14 @@ pub fn insert_move_by_sq_pc_on_drop(
     let mut drop_pt_hashset: HashSet<usize> = HashSet::new();
     insert_drop_pt_by_sq_pc(to, &to_pc, &uchu, &mut drop_pt_hashset);
     // 打
-    for num_kms_da in drop_pt_hashset.iter() {
-        let kms_da = num_to_pt(*num_kms_da);
+    for num_pt_drop in drop_pt_hashset.iter() {
+        let pt_drop = num_to_pt(*num_pt_drop);
 
         let hash_ss = Sasite {
             src: SS_SRC_DA,
             dst: to,
             pro: false,
-            drop: kms_da,
+            drop: pt_drop,
         }
         .to_hash();
         some_moves_hashset.insert(hash_ss);

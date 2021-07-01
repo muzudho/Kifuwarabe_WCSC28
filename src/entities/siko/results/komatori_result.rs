@@ -46,10 +46,10 @@ impl fmt::Display for KomatoriResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "KmTori:{}{}{}{}",
+            "PCTori:{}{}{}{}",
             self.ms_attacker,
             self.pc_attacker,
-            if km_is_nagaikiki(&self.pc_attacker) {
+            if pc_is_long_control(&self.pc_attacker) {
                 "-->"
             } else {
                 "->"
@@ -68,15 +68,15 @@ impl KomatoriResult {
         // 正順で取り出すことを考えて、逆順で押し込む☆（＾～＾）
         hash = push_ms_to_hash(hash, self.ms_target);
         hash = push_ms_to_hash(hash, self.ms_attacker);
-        push_km_to_hash(hash, &self.pc_attacker)
+        push_pc_to_hash(hash, &self.pc_attacker)
     }
     pub fn from_hash(hash: u64) -> KomatoriResult {
         // 逆順で押し込んであるんで、正順に引き出す☆（＾～＾）
-        let (hash, km_atk) = pop_km_from_hash(hash);
+        let (hash, pc_atk) = pop_pc_from_hash(hash);
         let (hash, ms_atk) = pop_ms_from_hash(hash);
         let (_hash, ms_tgt) = pop_ms_from_hash(hash);
         KomatoriResult {
-            pc_attacker: km_atk,
+            pc_attacker: pc_atk,
             ms_attacker: ms_atk,
             ms_target: ms_tgt,
         }
@@ -99,7 +99,7 @@ impl KomatoriResult {
         }
 
         // (2-1)
-        if km_is_nagaikiki(&self.pc_attacker) {
+        if pc_is_long_control(&self.pc_attacker) {
             assert_banjo_ms(ss.dst, "(205b2)Ｇet_result");
             assert_banjo_ms(self.ms_attacker, "(205b3)Ｇet_result");
             assert_banjo_ms(self.ms_target, "(205b4)Ｇet_result");
