@@ -160,15 +160,18 @@ impl KomatoriResult {
 ///
 /// 王手という原因を作っている関係を、（確率的洗いざらい）調べるぜ☆（＾～＾）
 ///
-/// sn        : 駒を「動かす」方はどっちだぜ☆（＾～＾）
+/// phase        : 駒を「動かす」方はどっちだぜ☆（＾～＾）
 /// ms_target : 取りたい駒がいる升
 ///
 /// return u64 : KomatoriResult のハッシュ
 ///
-pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Phase, ms_target: Square) -> HashSet<u64> {
+pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> HashSet<u64> {
     assert_banjo_ms(
         ms_target,
-        &format!("(119)Ｌookup_banjo_catch sn={} ms_target={}", sn, ms_target),
+        &format!(
+            "(119)Ｌookup_banjo_catch phase={} ms_target={}",
+            phase, ms_target
+        ),
     );
 
     let mut hash = HashSet::new();
@@ -181,8 +184,8 @@ pub fn lookup_banjo_catch(uchu: &Uchu, sn: &Phase, ms_target: Square) -> HashSet
 
     for kms_dst in KMS_ARRAY.iter() {
         // 移動した後の相手の駒
-        let km_dst = sn_kms_to_km(&sn, kms_dst);
-        //let km_dst = sn_kms_to_km( &sn, rnd_kms() );
+        let km_dst = sn_kms_to_km(&phase, kms_dst);
+        //let km_dst = sn_kms_to_km( &phase, rnd_kms() );
         // 指定マスに移動できるか
         // 打は除く
 

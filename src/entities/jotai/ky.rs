@@ -72,12 +72,12 @@ impl Kyokumen {
         ];
     }
     /// 歩が置いてあるか確認
-    pub fn exists_fu_by_sn_suji(&self, sn: &Phase, suji: i8) -> bool {
+    pub fn exists_fu_by_sn_suji(&self, phase: &Phase, suji: i8) -> bool {
         for dan in DAN_1..DAN_10 {
             let sq = suji_dan_to_ms(suji, dan);
             let pc = self.get_km_by_ms(sq);
             let (sn_km, kms) = km_to_sn_kms(&pc);
-            if match_sn(&sn_km, sn) && match_kms(&kms, &KmSyurui::H) {
+            if match_sn(&sn_km, phase) && match_kms(&kms, &KmSyurui::H) {
                 return true;
             }
         }
@@ -109,7 +109,7 @@ impl Kyokumen {
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
     ///
     /// return : 取った駒
-    pub fn do_sasite(&mut self, sn: &Phase, ss: &Sasite) -> Piece {
+    pub fn do_sasite(&mut self, phase: &Phase, ss: &Sasite) -> Piece {
         // 動かす駒
         let pc;
         // 取った駒
@@ -117,7 +117,7 @@ impl Kyokumen {
 
         // 打かどうか
         if ss.src == SS_SRC_DA {
-            pc = sn_kms_to_km(&sn, &ss.drop);
+            pc = sn_kms_to_km(&phase, &ss.drop);
             // 自分の持ち駒を減らす
             self.add_mg(pc, -1);
         } else {
@@ -149,13 +149,13 @@ impl Kyokumen {
 
     /// 指し手の　進む戻る　を逆さにして、盤上の駒配置を動かすぜ☆（＾～＾）
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
-    pub fn undo_sasite(&mut self, sn: &Phase, ss: &Sasite, cap: &Piece) {
+    pub fn undo_sasite(&mut self, phase: &Phase, ss: &Sasite, cap: &Piece) {
         // 移動先の駒
         let pc;
 
         // 打かどうか
         if ss.src == SS_SRC_DA {
-            pc = sn_kms_to_km(sn, &ss.drop);
+            pc = sn_kms_to_km(phase, &ss.drop);
             // 自分の持ち駒を増やす
             //let mg = km_to_mg(pc);
             //self.add_mg(mg,1);

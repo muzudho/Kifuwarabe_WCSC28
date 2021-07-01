@@ -52,7 +52,7 @@ pub struct KyHashSeed {
     // 持ち駒
     pub mg: [[u64; MG_MAX]; KM_LN],
     // 先後
-    pub sn: [u64; SN_LN],
+    pub phase: [u64; SN_LN],
 }
 
 /// グローバル変数の作り方が分からないので、
@@ -102,7 +102,7 @@ impl Uchu {
                 // 持ち駒
                 mg: [[0; MG_MAX]; KM_LN],
                 // 先後
-                sn: [0; SN_LN],
+                phase: [0; SN_LN],
             },
             teme: 0,
             kifu: [
@@ -698,7 +698,7 @@ impl Uchu {
         }
         // 先後
         for i_sn in 0..SN_LN {
-            self.ky_hash_seed.sn[i_sn] = rand::thread_rng().gen_range(0, 18446744073709551615);
+            self.ky_hash_seed.phase[i_sn] = rand::thread_rng().gen_range(0, 18446744073709551615);
         }
     }
     /// 初期局面、現局面ともにクリアーします。
@@ -739,9 +739,9 @@ impl Uchu {
         self.ky0.mg[pc as usize] = maisu;
     }
     pub fn get_jiai_by_km(&self, pc: &Piece) -> Jiai {
-        let (sn, _kms) = km_to_sn_kms(pc);
+        let (phase, _kms) = km_to_sn_kms(pc);
 
-        if match_sn(&sn, &self.get_teban(&Jiai::Ji)) {
+        if match_sn(&phase, &self.get_teban(&Jiai::Ji)) {
             Jiai::Ji
         } else {
             Jiai::Ai
@@ -992,10 +992,10 @@ impl Uchu {
     }
 
     /// 表示
-    pub fn kaku_number_board(&self, sn: &Phase, pc: &Piece) -> String {
-        let nb = match *sn {
+    pub fn kaku_number_board(&self, phase: &Phase, pc: &Piece) -> String {
+        let nb = match *phase {
             Phase::Owari => &self.kiki_su_by_km[km_to_num(&pc)],
-            _ => &self.kiki_su_by_sn[sn_to_num(&sn)],
+            _ => &self.kiki_su_by_sn[sn_to_num(&phase)],
         };
 
         // 数盤表示
@@ -1125,8 +1125,8 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
     /// 入れた指し手の通り指すぜ☆（＾～＾）
     pub fn do_ss(&mut self, ss: &Sasite) {
         // もう入っているかも知れないが、棋譜に入れる☆
-        let sn = self.get_teban(&Jiai::Ji);
-        let cap = self.ky.do_sasite(&sn, ss);
+        let phase = self.get_teban(&Jiai::Ji);
+        let cap = self.ky.do_sasite(&phase, ss);
         let teme = self.teme;
         self.kifu[teme] = *ss;
         self.set_cap(teme, cap);
@@ -1142,10 +1142,10 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         if 0 < self.teme {
             // 棋譜から読取、手目も減る
             self.teme -= 1;
-            let sn = self.get_teban(&Jiai::Ji);
+            let phase = self.get_teban(&Jiai::Ji);
             let ss = &self.get_sasite();
             let cap = self.cap[self.teme];
-            self.ky.undo_sasite(&sn, &ss, &cap);
+            self.ky.undo_sasite(&phase, &ss, &cap);
             // 棋譜にアンドゥした指し手がまだ残っているが、とりあえず残しとく
             true
         } else {
@@ -1154,9 +1154,9 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
     }
 
     pub fn remake_visions(&mut self) {
-        for sn in SN_ARRAY.iter() {
+        for phase in SN_ARRAY.iter() {
             // 全部忘れる☆（＾～＾）
-            self.vision_tree_by_sn[sn_to_num(sn)].clear();
+            self.vision_tree_by_sn[sn_to_num(phase)].clear();
         }
     }
 
@@ -1165,7 +1165,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         let mut hash = self.ky0.create_hash(&self);
 
         // 手番ハッシュ（後手固定）
-        hash ^= self.ky_hash_seed.sn[SN_GO];
+        hash ^= self.ky_hash_seed.phase[SN_GO];
 
         hash
     }
@@ -1177,8 +1177,8 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         // 手番ハッシュ
         use teigi::shogi_syugo::Phase::*;
         match self.get_teban(&Jiai::Ji) {
-            Sen => hash ^= self.ky_hash_seed.sn[SN_SEN],
-            Go => hash ^= self.ky_hash_seed.sn[SN_GO],
+            First => hash ^= self.ky_hash_seed.phase[SN_SEN],
+            Second => hash ^= self.ky_hash_seed.phase[SN_GO],
             _ => {}
         }
 

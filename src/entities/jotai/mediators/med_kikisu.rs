@@ -18,8 +18,8 @@ pub fn read_kikisu(uchu: &mut Uchu) {
         &uchu.kiki_su_by_km[km_to_num(pc)].clear();
     }
 
-    for sn in SN_ARRAY.iter() {
-        &uchu.kiki_su_by_sn[sn_to_num(sn)].clear();
+    for phase in SN_ARRAY.iter() {
+        &uchu.kiki_su_by_sn[sn_to_num(phase)].clear();
     }
 
     // カウント
@@ -36,13 +36,13 @@ pub fn read_kikisu(uchu: &mut Uchu) {
                 insert_narumae_src_by_ms_km(to, &km_dst, &uchu, &mut mv_src_hashset);
                 // 打は考えない。盤上の利き数なので
                 let kikisu = mv_src_hashset.len();
-                let sn = km_to_sn(&km_dst);
+                let phase = km_to_sn(&km_dst);
 
                 // 駒別
                 uchu.kiki_su_by_km[km_to_num(&km_dst)].add_su_by_ms(to, kikisu as i8);
 
                 // 先後別
-                uchu.kiki_su_by_sn[sn_to_num(&sn)].add_su_by_ms(to, kikisu as i8);
+                uchu.kiki_su_by_sn[sn_to_num(&phase)].add_su_by_ms(to, kikisu as i8);
             }
         }
     }

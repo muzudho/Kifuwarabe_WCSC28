@@ -74,8 +74,8 @@ pub fn get_dir8_to_slider_from_target(
         S => {
             // 先後
             match sn_slider {
-                Sen => Dir8::N,
-                Go => Dir8::S,
+                First => Dir8::N,
+                Second => Dir8::S,
                 _ => Dir8::Owari,
             }
         }

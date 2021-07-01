@@ -100,17 +100,17 @@ pub fn pop_dir8_from_hash(hash: u64) -> (u64, Dir8) {
 ///
 /// 先後
 ///
-pub fn sn_to_num(sn: &Phase) -> usize {
+pub fn sn_to_num(phase: &Phase) -> usize {
     use super::super::teigi::shogi_syugo::Phase::*;
-    match *sn {
+    match *phase {
         First => 0,
         Second => 1,
         Owari => 2,
     }
 }
-pub fn hanten_sn(sn: &Phase) -> Phase {
+pub fn hanten_sn(phase: &Phase) -> Phase {
     use super::super::teigi::shogi_syugo::Phase::*;
-    match *sn {
+    match *phase {
         First => Second,
         Second => First,
         Owari => Owari,
@@ -212,9 +212,9 @@ pub fn num_to_lower_case(num: i8) -> &'static str {
 ///
 /// 先手であれば、後手のように番号を振った座標に変換
 ///
-pub fn kaiten180_ms_by_ms_sn(sq: Square, sn: &Phase) -> Square {
+pub fn kaiten180_ms_by_ms_sn(sq: Square, phase: &Phase) -> Square {
     use super::super::teigi::shogi_syugo::Phase::*;
-    match *sn {
+    match *phase {
         First => BAN_MAX - sq + BAN_MIN,
         _ => sq,
     }
@@ -734,10 +734,10 @@ pub fn kms_can_da(kms: &KmSyurui) -> bool {
     }
 }
 /// 先後＆駒種類→先後付き駒
-pub fn sn_kms_to_km(sn: &Phase, kms: &KmSyurui) -> Piece {
+pub fn sn_kms_to_km(phase: &Phase, kms: &KmSyurui) -> Piece {
     use super::super::teigi::shogi_syugo::KmSyurui::*;
     use super::super::teigi::shogi_syugo::Piece::*;
-    match *sn {
+    match *phase {
         Phase::First => match *kms {
             R => R0,
             K => K0,

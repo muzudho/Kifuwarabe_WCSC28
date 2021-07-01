@@ -26,9 +26,9 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
         for file_from in 1..10 {
             let from = suji_dan_to_ms(file_from, rank_from);
             let pc_from = uchu.ky.get_km_by_ms(from);
-            let sn = km_to_sn(&pc_from);
+            let phase = km_to_sn(&pc_from);
 
-            if match_sn(&sn, &uchu.get_teban(&Jiai::Ji)) {
+            if match_sn(&phase, &uchu.get_teban(&Jiai::Ji)) {
                 // 手番の駒
 
                 let mut dst_hashset: HashSet<Square> = HashSet::new();
@@ -132,10 +132,10 @@ pub fn insert_ss_by_ms_km_on_banjo(
     assert_banjo_ms(to, "Ｉnsert_ss_by_ms_km_on_banjo");
 
     // 手番の先後、駒種類
-    let (sn, _kms_dst) = km_to_sn_kms(&km_dst);
+    let (phase, _kms_dst) = km_to_sn_kms(&km_dst);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
-    if match_sn(&uchu.ky.get_sn_by_ms(to), &sn) {
+    if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
         return;
     }
 
@@ -191,10 +191,10 @@ pub fn insert_ss_by_ms_km_on_da(
     assert_banjo_ms(to, "Ｉnsert_ss_by_ms_km_on_da");
 
     // 手番の先後、駒種類
-    let (sn, _kms_dst) = km_to_sn_kms(&km_dst);
+    let (phase, _kms_dst) = km_to_sn_kms(&km_dst);
 
     // 移動先に自駒があれば、指し手は何もない。終わり。
-    if match_sn(&uchu.ky.get_sn_by_ms(to), &sn) {
+    if match_sn(&uchu.ky.get_sn_by_ms(to), &phase) {
         return;
     }
 

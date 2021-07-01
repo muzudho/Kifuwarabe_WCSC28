@@ -37,17 +37,17 @@ impl VisionTree {
 /// 楽観筋
 ///
 pub fn insert_rakkansuji(uchu: &mut Uchu) {
-    for sn in SN_ARRAY.iter() {
-        let ai_sn = hanten_sn(sn);
+    for phase in SN_ARRAY.iter() {
+        let ai_sn = hanten_sn(phase);
 
         // 相手の　らいおん　の位置を覚える
-        &uchu.vision_tree_by_sn[sn_to_num(sn)].set_ai_r(uchu.ky.ms_r[sn_to_num(&ai_sn)]);
+        &uchu.vision_tree_by_sn[sn_to_num(phase)].set_ai_r(uchu.ky.ms_r[sn_to_num(&ai_sn)]);
         // 盤上に相手の　らいおん１枚　しかないと想定して、アタックする手
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
         //let mut da_kms_hashset : HashSet<usize> = HashSet::new();
 
         for kms_dst in KMS_ARRAY.iter() {
-            let km_dst = sn_kms_to_km(&sn, &kms_dst);
+            let km_dst = sn_kms_to_km(&phase, &kms_dst);
             for x in SUJI_1..SUJI_10 {
                 // 9..0 みたいに降順に書いても動かない？
                 for y in DAN_1..DAN_10 {
@@ -72,7 +72,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                             drop: KmSyurui::Kara,
                         }
                         .to_hash();
-                        &uchu.vision_tree_by_sn[sn_to_num(sn)]
+                        &uchu.vision_tree_by_sn[sn_to_num(phase)]
                             .ss_tume_hashset
                             .insert(hash_ss);
                     }
@@ -80,18 +80,18 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                     /*
                     // 打
                     for kms_da in da_kms_hashset.iter() {
-                        let km_da = sn_kms_to_km( &sn, &kms_da );
+                        let km_da = sn_kms_to_km( &phase, &kms_da );
                         let hash_ss = Sasite{
                             src:SS_SRC_DA,
                             dst:to,
                             pro:false,
                             drop:km_da,
                         }.to_hash();
-                        &uchu.vision_tree_by_sn[sn].ss_tume_hashset.insert( hash_ss );
+                        &uchu.vision_tree_by_sn[phase].ss_tume_hashset.insert( hash_ss );
                     }
                     */
                 }
             }
         }
-    } //sn
+    } //phase
 }
