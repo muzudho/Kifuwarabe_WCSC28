@@ -431,7 +431,7 @@ pub enum PieceType {
     // らいおん
     KING,
     // 飛車 Rook
-    K,
+    R,
     // 角 Bishop
     B,
     // 金 Gold
@@ -467,7 +467,7 @@ impl fmt::Display for PieceType {
         use super::super::teigi::shogi_syugo::PieceType::*;
         match *self {
             KING => write!(f, "ら"),
-            K => write!(f, "き"),
+            R => write!(f, "き"),
             B => write!(f, "ぞ"),
             G => write!(f, "い"),
             S => write!(f, "ね"),
@@ -497,7 +497,7 @@ pub const KMS_ARRAY_LN: usize = 14;
 /// 駒種類
 pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::KING, // らいおん
-    PieceType::K,    // きりん
+    PieceType::R,    // きりん
     PieceType::B,    // ぞう
     PieceType::G,    // いぬ
     PieceType::S,    // ねこ
@@ -517,7 +517,7 @@ pub const KMS_NPRO_ARRAY_LN: usize = 8;
 /// 非成 駒種類
 pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
     PieceType::KING, // らいおん
-    PieceType::K,    // きりん
+    PieceType::R,    // きりん
     PieceType::B,    // ぞう
     PieceType::G,    // いぬ
     PieceType::S,    // ねこ
@@ -542,7 +542,7 @@ pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
 pub const MGS_ARRAY_LN: usize = 7;
 /// 持駒種類
 pub const MGS_ARRAY: [PieceType; MGS_ARRAY_LN] = [
-    PieceType::K,
+    PieceType::R,
     PieceType::B,
     PieceType::G,
     PieceType::S,

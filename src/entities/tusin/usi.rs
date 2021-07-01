@@ -87,7 +87,7 @@ impl fmt::Display for Sasite {
                 f,
                 "{}*{}{}{}",
                 match self.drop {
-                    K => {
+                    R => {
                         "R"
                     }
                     B => {
@@ -167,7 +167,7 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
         "R" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(PieceType::K);
+            uchu.set_sasite_drop(PieceType::R);
         }
         "B" => {
             *starts += 2;

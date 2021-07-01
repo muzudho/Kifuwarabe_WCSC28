@@ -35,7 +35,7 @@ pub fn get_dir8_to_slider_from_target(
     use super::super::super::teigi::shogi_syugo::Phase::*;
     use super::super::super::teigi::shogi_syugo::PieceType::*;
     match kms {
-        K => {
+        R => {
             // 筋か、段かのどちらかが同じ
             if match_argangle0_p_p(&p_slider, &p_target) {
                 if match_a_south_of_b(&p_slider, &p_target) {
