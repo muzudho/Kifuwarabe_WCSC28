@@ -428,8 +428,8 @@ pub const KM_UGOKI_LN: usize = 9;
 /// 先後なしの駒と空白
 #[derive(Copy, Clone)]
 pub enum PieceType {
-    // らいおん
-    KING,
+    // 玉 King
+    K,
     // 飛車 Rook
     R,
     // 角 Bishop
@@ -466,7 +466,7 @@ impl fmt::Display for PieceType {
         // 文字列リテラルでないとダメみたいなんで、他に似たようなコードがあるのに、また書くことに☆（＾～＾）
         use super::super::teigi::shogi_syugo::PieceType::*;
         match *self {
-            KING => write!(f, "ら"),
+            K => write!(f, "ら"),
             R => write!(f, "き"),
             B => write!(f, "ぞ"),
             G => write!(f, "い"),
@@ -496,34 +496,34 @@ pub fn match_kms(a: &PieceType, b: &PieceType) -> bool {
 pub const KMS_ARRAY_LN: usize = 14;
 /// 駒種類
 pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
-    PieceType::KING, // らいおん
-    PieceType::R,    // きりん
-    PieceType::B,    // ぞう
-    PieceType::G,    // いぬ
-    PieceType::S,    // ねこ
-    PieceType::N,    // うさぎ
-    PieceType::L,    // いのしし
-    PieceType::P,    // ひよこ
-    PieceType::PR,   // ぱわーあっぷきりん
-    PieceType::PB,   // ぱわーあっぷぞう
-    PieceType::PS,   // ぱわーあっぷねこ
-    PieceType::PN,   // ぱわーあっぷうさぎ
-    PieceType::PL,   // ぱわーあっぷいのしし
-    PieceType::PP,   // ぱわーあっぷひよこ
+    PieceType::K,  // らいおん
+    PieceType::R,  // きりん
+    PieceType::B,  // ぞう
+    PieceType::G,  // いぬ
+    PieceType::S,  // ねこ
+    PieceType::N,  // うさぎ
+    PieceType::L,  // いのしし
+    PieceType::P,  // ひよこ
+    PieceType::PR, // ぱわーあっぷきりん
+    PieceType::PB, // ぱわーあっぷぞう
+    PieceType::PS, // ぱわーあっぷねこ
+    PieceType::PN, // ぱわーあっぷうさぎ
+    PieceType::PL, // ぱわーあっぷいのしし
+    PieceType::PP, // ぱわーあっぷひよこ
 ];
 
 /// 非成 駒種類数
 pub const KMS_NPRO_ARRAY_LN: usize = 8;
 /// 非成 駒種類
 pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
-    PieceType::KING, // らいおん
-    PieceType::R,    // きりん
-    PieceType::B,    // ぞう
-    PieceType::G,    // いぬ
-    PieceType::S,    // ねこ
-    PieceType::N,    // うさぎ
-    PieceType::L,    // いのしし
-    PieceType::P,    // ひよこ
+    PieceType::K, // らいおん
+    PieceType::R, // きりん
+    PieceType::B, // ぞう
+    PieceType::G, // いぬ
+    PieceType::S, // ねこ
+    PieceType::N, // うさぎ
+    PieceType::L, // いのしし
+    PieceType::P, // ひよこ
 ];
 
 /// 成 駒種類数

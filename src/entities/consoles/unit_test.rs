@@ -107,7 +107,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         }
         {
             g_writeln("利きテスト2");
-            let kms = PieceType::KING; // らいおん
+            let kms = PieceType::K; // らいおん
             let pc = sn_kms_to_km(&Phase::First, &kms); // ▼ら
             let to = 58;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
