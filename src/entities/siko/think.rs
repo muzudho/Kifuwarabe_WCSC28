@@ -6,12 +6,12 @@ extern crate rand;
 use rand::Rng;
 use std::collections::HashSet;
 
+use super::super::super::genmove::sasite_seisei::*;
+use super::super::super::genmove::sasite_sentaku::*;
 use super::super::jotai::mediators::med_kikisu::*;
 use super::super::jotai::uchu::*;
 use super::super::kasetu;
 use super::super::siko::visions::vision_tree::*;
-use super::super::syazo::sasite_seisei::*;
-use super::super::syazo::sasite_sentaku::*;
 use super::super::tusin::usi::*;
 
 ///

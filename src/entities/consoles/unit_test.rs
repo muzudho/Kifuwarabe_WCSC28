@@ -3,11 +3,11 @@
 //!
 //! test コマンドで実行しろだぜ☆（＾～＾）
 //!
+use super::super::super::genmove::sasite_element::*;
 use super::super::consoles::visuals::dumps::*;
 use super::super::jotai::uchu::*;
 use super::super::meidai::math_meidai::*;
 use super::super::siko::randommove;
-use super::super::syazo::sasite_element::*;
 use super::super::teigi::conv::*;
 use super::super::teigi::geometries::geo_teigi::*;
 use super::super::teigi::shogi_syugo::*;

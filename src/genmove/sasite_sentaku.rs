@@ -6,13 +6,13 @@ extern crate rand;
 use rand::Rng;
 use std::collections::HashSet;
 
-use super::super::consoles::asserts::*;
-use super::super::jotai::uchu::*;
-use super::super::siko::results::komatori_result::*;
-use super::super::syazo::sasite_element::*;
-use super::super::teigi::conv::*;
-use super::super::teigi::shogi_syugo::*;
-use super::super::tusin::usi::*;
+use super::super::entities::consoles::asserts::*;
+use super::super::entities::jotai::uchu::*;
+use super::super::entities::siko::results::komatori_result::*;
+use super::super::entities::teigi::conv::*;
+use super::super::entities::teigi::shogi_syugo::*;
+use super::super::entities::tusin::usi::*;
+use super::super::genmove::sasite_element::*;
 
 pub fn choice_1ss_by_hashset(ss_hashset: &HashSet<u64>) -> Sasite {
     let index = if ss_hashset.len() == 0 {

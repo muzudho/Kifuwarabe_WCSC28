@@ -15,25 +15,26 @@ extern crate toml;
 // use したい モジュールは、最初に読み取られる　この main.rs ファイルに並べる
 pub mod config;
 pub mod entities;
+pub mod genmove;
 
 use crate::config::EngineFile;
-use crate::config::ExeConfigFile;
-use std::collections::HashSet;
-use std::io;
+// use crate::config::ExeConfigFile;
 
 use entities::consoles::unit_test::*;
 use entities::consoles::visuals::dumps::*;
 use entities::consoles::visuals::title::*;
 use entities::jotai::uchu::*;
 use entities::siko::think::*;
-use entities::syazo::sasite_seisei::*;
 use entities::teigi::constants::*;
 use entities::teigi::conv::*;
 use entities::teigi::shogi_syugo::*;
 use entities::tusin::usi::*;
+use genmove::sasite_seisei::*;
 use rand::Rng;
-use std::fs::{self};
-use std::path::Path;
+use std::collections::HashSet;
+use std::io;
+// use std::fs::{self};
+// use std::path::Path;
 
 fn main() {
     // 宇宙

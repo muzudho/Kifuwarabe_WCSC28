@@ -2,9 +2,9 @@
 //! 利き数
 //!
 
+use super::super::super::super::genmove::sasite_element::*;
 use super::super::super::consoles::asserts::*;
 use super::super::super::jotai::uchu::*;
-use super::super::super::syazo::sasite_element::*;
 use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 use std::collections::HashSet;

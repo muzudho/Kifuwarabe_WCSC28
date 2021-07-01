@@ -2,12 +2,12 @@
 //! 現局面を使った指し手生成
 //!
 
-use super::super::consoles::asserts::*;
-use super::super::jotai::uchu::*;
-use super::super::syazo::sasite_element::*;
-use super::super::teigi::conv::*;
-use super::super::teigi::shogi_syugo::*;
-use super::super::tusin::usi::*;
+use super::super::entities::consoles::asserts::*;
+use super::super::entities::jotai::uchu::*;
+use super::super::entities::teigi::conv::*;
+use super::super::entities::teigi::shogi_syugo::*;
+use super::super::entities::tusin::usi::*;
+use super::super::genmove::sasite_element::*;
 use std::collections::HashSet;
 
 ///

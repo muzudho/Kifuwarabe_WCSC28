@@ -2,10 +2,10 @@
 //! 指し手の要素☆（＾～＾）
 //!
 
-use super::super::consoles::asserts::*;
-use super::super::jotai::uchu::*;
-use super::super::teigi::conv::*;
-use super::super::teigi::shogi_syugo::*;
+use super::super::entities::consoles::asserts::*;
+use super::super::entities::jotai::uchu::*;
+use super::super::entities::teigi::conv::*;
+use super::super::entities::teigi::shogi_syugo::*;
 use std::collections::HashSet;
 
 ///
@@ -46,7 +46,7 @@ pub fn insert_narazu_src_by_ms_km(
     let kms_num = kms_to_num(&kms_dst);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-    use super::super::teigi::shogi_syugo::Koma::*;
+    use super::super::entities::teigi::shogi_syugo::Koma::*;
     match *km_dst {
         U0 => {
             // ▼うさぎ　は１、２段目には進めない
@@ -87,7 +87,7 @@ pub fn insert_narazu_src_by_ms_km(
         };
 
         // 移動先を開始地点にして、駒の位置を終了地点にする
-        use super::super::teigi::shogi_syugo::KmDir::*;
+        use super::super::entities::teigi::shogi_syugo::KmDir::*;
         match *p_kmdir {
             // 東
             E(b) => {
@@ -373,7 +373,7 @@ pub fn insert_narumae_src_by_ms_km(
     // 「ぱひ」は、敵陣の１～３段目にいて、動きが北だった場合、元が「ひ」の可能性がある。
     let kms_src_narumae = prokms_to_kms(&kms_dst);
 
-    use super::super::teigi::shogi_syugo::KmSyurui::*;
+    use super::super::entities::teigi::shogi_syugo::KmSyurui::*;
     match kms_src_narumae {
         Kara => {
             return;
@@ -395,7 +395,7 @@ pub fn insert_narumae_src_by_ms_km(
         };
 
         // 移動先を開始地点にして、駒の位置を終了地点にする
-        use super::super::teigi::shogi_syugo::KmDir::*;
+        use super::super::entities::teigi::shogi_syugo::KmDir::*;
         match *p_kmdir {
             // 東
             E(b) => {
@@ -691,7 +691,7 @@ pub fn insert_da_kms_by_ms_km(
     //let (_x,y) = ms_to_suji_dan(ms);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-    use super::super::teigi::shogi_syugo::Koma::*;
+    use super::super::entities::teigi::shogi_syugo::Koma::*;
     match *km_dst {
         U0 => {
             // ▼うさぎ　は１、２段目には進めない
@@ -780,7 +780,7 @@ pub fn insert_dst_by_ms_km(
         };
 
         // 駒の位置を開始地点に、離れていくように調べていく
-        use super::super::teigi::shogi_syugo::KmDir::*;
+        use super::super::entities::teigi::shogi_syugo::KmDir::*;
         match *p_kmdir {
             // 東
             E(b) => {
@@ -1046,7 +1046,7 @@ pub fn insert_dst_by_ms_km(
         // +------------------------------+
         // | 成れる動き以外での成りの禁止 |
         // +------------------------------+
-        use super::super::teigi::shogi_syugo::Koma::*;
+        use super::super::entities::teigi::shogi_syugo::Koma::*;
         match *km_src {
             K0 | Z0 | N0 => {
                 // ▼きりん、▼ぞう、▼ねこ　は
@@ -1120,7 +1120,7 @@ pub fn insert_dst_by_ms_km(
         // +----------------------------------------+
         // | 行先の無いところに駒を進めることの禁止 |
         // +----------------------------------------+
-        use super::super::teigi::shogi_syugo::Koma::*;
+        use super::super::entities::teigi::shogi_syugo::Koma::*;
         match *km_src {
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
@@ -1214,7 +1214,7 @@ pub fn insert_narazu_src_by_sn_ms(
     for kms in KMS_ARRAY.iter() {
         // 行先の無いところに駒を進めることの禁止☆（＾～＾）
         let km = sn_kms_to_km(&sn, &kms);
-        use super::super::teigi::shogi_syugo::Koma::*;
+        use super::super::entities::teigi::shogi_syugo::Koma::*;
         match km {
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
@@ -1263,7 +1263,7 @@ pub fn insert_narazu_src_by_sn_ms(
 
             // 指定升を開始地点に、離れていくように調べていく
             // 指定先後の駒があれば追加
-            use super::super::teigi::shogi_syugo::KmDir::*;
+            use super::super::entities::teigi::shogi_syugo::KmDir::*;
             match *p_kmdir {
                 // 東
                 E(b) => {
@@ -1608,7 +1608,7 @@ pub fn insert_narumae_src_by_sn_ms(
 
             // 指定升を開始地点に、離れていくように調べていく
             // 指定先後の駒があれば追加
-            use super::super::teigi::shogi_syugo::KmDir::*;
+            use super::super::entities::teigi::shogi_syugo::KmDir::*;
             match *p_kmdir {
                 // 東
                 E(b) => {
