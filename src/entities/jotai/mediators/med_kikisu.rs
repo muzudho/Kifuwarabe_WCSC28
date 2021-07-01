@@ -15,7 +15,7 @@ use std::collections::HashSet;
 pub fn read_kikisu(uchu: &mut Uchu) {
     // ゼロ・リセット
     for pc in PC_ARRAY.iter() {
-        &uchu.kiki_su_by_km[km_to_num(pc)].clear();
+        &uchu.kiki_su_by_km[pc_to_num(pc)].clear();
     }
 
     for phase in SN_ARRAY.iter() {
@@ -36,10 +36,10 @@ pub fn read_kikisu(uchu: &mut Uchu) {
                 insert_beforepromote_from_by_sq_pc(to, &to_pc, &uchu, &mut mv_src_hashset);
                 // 打は考えない。盤上の利き数なので
                 let kikisu = mv_src_hashset.len();
-                let phase = km_to_sn(&to_pc);
+                let phase = pc_to_ph(&to_pc);
 
                 // 駒別
-                uchu.kiki_su_by_km[km_to_num(&to_pc)].add_su_by_ms(to, kikisu as i8);
+                uchu.kiki_su_by_km[pc_to_num(&to_pc)].add_su_by_ms(to, kikisu as i8);
 
                 // 先後別
                 uchu.kiki_su_by_sn[sn_to_num(&phase)].add_su_by_ms(to, kikisu as i8);

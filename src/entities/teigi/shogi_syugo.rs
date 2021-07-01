@@ -291,8 +291,8 @@ impl fmt::Display for Piece {
 ///
 /// 駒の一致比較
 ///
-pub fn match_km(a: &Piece, b: &Piece) -> bool {
-    km_to_num(a) == km_to_num(b)
+pub fn match_pc(a: &Piece, b: &Piece) -> bool {
+    pc_to_num(a) == pc_to_num(b)
 }
 
 pub const KM_ARRAY_HALF_LN: usize = 14;
@@ -390,7 +390,7 @@ impl KmSyugo {
     pub fn new_all() -> KmSyugo {
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
-            num_syugo1.insert(km_to_num(pc));
+            num_syugo1.insert(pc_to_num(pc));
         }
         let km_syugo = KmSyugo {
             num_syugo: num_syugo1,
@@ -406,7 +406,7 @@ impl KmSyugo {
         for pc in PC_ARRAY.iter() {
             let (sn1, _kms) = pc_to_ph_pt(pc);
             if match_sn(&sn0, &sn1) {
-                num_syugo1.insert(km_to_num(pc));
+                num_syugo1.insert(pc_to_num(pc));
             }
         }
         let km_syugo = KmSyugo {
@@ -415,7 +415,7 @@ impl KmSyugo {
         km_syugo
     }
     pub fn remove(&mut self, pc: &Piece) {
-        self.num_syugo.remove(&km_to_num(pc));
+        self.num_syugo.remove(&pc_to_num(pc));
     }
 }
 

@@ -26,7 +26,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
         for file_from in 1..10 {
             let from = suji_dan_to_ms(file_from, rank_from);
             let pc_from = uchu.ky.get_pc_by_sq(from);
-            let phase = km_to_sn(&pc_from);
+            let phase = pc_to_ph(&pc_from);
 
             if match_sn(&phase, &uchu.get_teban(&Jiai::Ji)) {
                 // 手番の駒

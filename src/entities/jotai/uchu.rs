@@ -994,7 +994,7 @@ impl Uchu {
     /// 表示
     pub fn kaku_number_board(&self, phase: &Phase, pc: &Piece) -> String {
         let nb = match *phase {
-            Phase::Owari => &self.kiki_su_by_km[km_to_num(&pc)],
+            Phase::Owari => &self.kiki_su_by_km[pc_to_num(&pc)],
             _ => &self.kiki_su_by_sn[sn_to_num(&phase)],
         };
 

@@ -182,9 +182,9 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
 
     let mut ss_hashset = HashSet::new();
 
-    for kms_dst in KMS_ARRAY.iter() {
+    for to_pt in KMS_ARRAY.iter() {
         // 移動した後の相手の駒
-        let to_pc = ph_pt_to_pc(&phase, kms_dst);
+        let to_pc = ph_pt_to_pc(&phase, to_pt);
         //let to_pc = ph_pt_to_pc( &phase, rnd_pt() );
         // 指定マスに移動できるか
         // 打は除く
@@ -192,7 +192,7 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
         ss_hashset.clear();
         insert_ss_by_ms_km_on_banjo(&uchu, ms_target, &to_pc, &mut ss_hashset);
 
-        // g_writeln( &format!("テスト lookup_banjo_catch insert_ss_by_ms_km_on_banjo kms_dst={}.",kms_dst) );
+        // g_writeln( &format!("テスト lookup_banjo_catch insert_ss_by_ms_km_on_banjo to_pt={}.",to_pt) );
         // use consoles::visuals::dumps::*;
         // hyoji_ss_hashset( &ss_hashset );
 

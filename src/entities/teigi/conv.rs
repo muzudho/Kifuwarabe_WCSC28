@@ -223,7 +223,7 @@ pub fn kaiten180_ms_by_ms_sn(sq: Square, phase: &Phase) -> Square {
 ///
 /// 先後付き駒の数値化
 ///
-pub fn km_to_num(pc: &Piece) -> usize {
+pub fn pc_to_num(pc: &Piece) -> usize {
     use super::super::teigi::shogi_syugo::Piece::*;
     match *pc {
         R0 => 0,
@@ -298,7 +298,7 @@ pub fn num_to_km(km_num: usize) -> Piece {
 ///
 pub fn push_km_to_hash(hash: u64, pc: &Piece) -> u64 {
     // 使ってるのは30駒番号ぐらいなんで、32(=2^5) あれば十分
-    (hash << 5) + km_to_num(pc) as u64
+    (hash << 5) + pc_to_num(pc) as u64
 }
 ///
 /// ハッシュ値から作る
@@ -311,7 +311,7 @@ pub fn pop_km_from_hash(hash: u64) -> (u64, Piece) {
 ///
 /// 駒→成駒　（成れない駒は、そのまま）
 ///
-pub fn km_to_prokm(pc: &Piece) -> Piece {
+pub fn pc_to_pro_pc(pc: &Piece) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
     match *pc {
         R0 => R0,
@@ -349,7 +349,7 @@ pub fn km_to_prokm(pc: &Piece) -> Piece {
 ///
 /// 成駒→駒
 ///
-pub fn prokm_to_km(pc: &Piece) -> Piece {
+pub fn pro_pc_to_pc(pc: &Piece) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
     match *pc {
         R0 => R0,
@@ -388,7 +388,7 @@ pub fn prokm_to_km(pc: &Piece) -> Piece {
 /// 駒→長い利きの有無
 ///
 pub fn km_is_nagaikiki(pc: &Piece) -> bool {
-    kms_is_nagaikiki(&km_to_kms(pc))
+    kms_is_nagaikiki(&pc_to_pt(pc))
 }
 ///
 /// 先後付き駒→駒種類
@@ -436,7 +436,7 @@ pub fn pc_to_ph_pt(pc: &Piece) -> (Phase, PieceType) {
 /// 先後付き駒　を　先後　へ変換。
 ///
 #[allow(dead_code)]
-pub fn km_to_sn(pc: &Piece) -> Phase {
+pub fn pc_to_ph(pc: &Piece) -> Phase {
     use super::super::teigi::shogi_syugo::Phase::*;
     use super::super::teigi::shogi_syugo::Piece::*;
     match *pc {
@@ -475,7 +475,7 @@ pub fn km_to_sn(pc: &Piece) -> Phase {
 ///
 /// 先後付き駒→駒種類
 ///
-pub fn km_to_kms(pc: &Piece) -> PieceType {
+pub fn pc_to_pt(pc: &Piece) -> PieceType {
     // use super::super::teigi::shogi_syugo::PieceType;
     use super::super::teigi::shogi_syugo::PieceType::*;
     // use super::super::teigi::shogi_syugo::Piece;
@@ -517,7 +517,7 @@ pub fn km_to_kms(pc: &Piece) -> PieceType {
 /// 先後付き駒　を　持ち駒種類　へ変換。
 /// 持ち駒にするので、先後は反転するぜ☆（＾～＾）
 ///
-pub fn km_to_mg(km_cap: Piece) -> Piece {
+pub fn pc_to_hand(km_cap: Piece) -> Piece {
     use super::super::teigi::shogi_syugo::Piece::*;
     match km_cap {
         R0 => Owari,
@@ -617,7 +617,7 @@ pub fn pop_kms_from_hash(hash: u64) -> (u64, PieceType) {
     (hash >> 4, kms_num)
 }
 // 駒種類→｛　成駒,（不成駒、それ以外）　｝
-pub fn kms_is_pro(pt: &PieceType) -> bool {
+pub fn pt_is_pro(pt: &PieceType) -> bool {
     use super::super::teigi::shogi_syugo::PieceType::*;
     match *pt {
         K => false,

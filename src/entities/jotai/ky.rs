@@ -99,10 +99,10 @@ impl Kyokumen {
     }
     /// 持ち駒の枚数を加算
     pub fn add_mg(&mut self, mg: Piece, maisu: i8) {
-        self.mg[km_to_num(&mg)] += maisu;
+        self.mg[pc_to_num(&mg)] += maisu;
     }
     pub fn get_mg(&self, mg: &Piece) -> i8 {
-        self.mg[km_to_num(mg)]
+        self.mg[pc_to_num(mg)]
     }
 
     /// 指し手の通りに、盤上の駒配置を動かすぜ☆（＾～＾）
@@ -124,7 +124,7 @@ impl Kyokumen {
             // 打で無ければ、元の升の駒を消す。
             if ss.pro {
                 // 成りなら
-                pc = km_to_prokm(&self.get_pc_by_sq(ss.src));
+                pc = pc_to_pro_pc(&self.get_pc_by_sq(ss.src));
             } else {
                 pc = self.get_pc_by_sq(ss.src);
             }
@@ -137,7 +137,7 @@ impl Kyokumen {
         } else {
             // 移動先升の駒を盤上から消し、自分の持ち駒に増やす
             cap = self.get_pc_by_sq(ss.dst);
-            let mg = km_to_mg(cap);
+            let mg = pc_to_hand(cap);
             self.add_mg(mg, 1);
         }
 
@@ -157,14 +157,14 @@ impl Kyokumen {
         if ss.src == SS_SRC_DA {
             pc = ph_pt_to_pc(phase, &ss.drop);
             // 自分の持ち駒を増やす
-            //let mg = km_to_mg(pc);
+            //let mg = pc_to_hand(pc);
             //self.add_mg(mg,1);
             self.add_mg(pc, 1);
         } else {
             // 打で無ければ
             if ss.pro {
                 // 成ったなら、成る前へ
-                pc = prokm_to_km(&self.get_pc_by_sq(ss.dst));
+                pc = pro_pc_to_pc(&self.get_pc_by_sq(ss.dst));
             } else {
                 pc = self.get_pc_by_sq(ss.dst);
             }
@@ -176,7 +176,7 @@ impl Kyokumen {
             Piece::Kara => {}
             _ => {
                 // 自分の持ち駒を減らす
-                let mg = km_to_mg(*cap);
+                let mg = pc_to_hand(*cap);
                 self.add_mg(mg, -1);
             }
         }
@@ -186,29 +186,29 @@ impl Kyokumen {
     }
 
     /// 指定の升に駒があれば真
-    pub fn exists_km(&self, sq: Square) -> bool {
-        !match_km(&self.get_pc_by_sq(sq), &Piece::Kara)
+    pub fn exists_pc(&self, sq: Square) -> bool {
+        !match_pc(&self.get_pc_by_sq(sq), &Piece::Kara)
     }
 
     /// 指定の升に指定の駒があれば真
-    pub fn has_ms_km(&self, sq: Square, pc: &Piece) -> bool {
-        match_km(&self.get_pc_by_sq(sq), pc)
+    pub fn has_sq_pc(&self, sq: Square, pc: &Piece) -> bool {
+        match_pc(&self.get_pc_by_sq(sq), pc)
     }
 
     /// 指定の升にある駒の先後、または空升
     pub fn get_sn_by_ms(&self, sq: Square) -> Phase {
-        km_to_sn(&self.get_pc_by_sq(sq))
+        pc_to_ph(&self.get_pc_by_sq(sq))
     }
 
     /// 移動先と移動元を比較し、違う駒があれば、成ったと判定するぜ☆（＾～＾）
     pub fn is_natta(&self, ms_src: Square, to: Square) -> bool {
-        let km_src = &self.get_pc_by_sq(ms_src);
-        let kms_src = km_to_kms(&km_src);
+        let pc_from = &self.get_pc_by_sq(ms_src);
+        let from_pt = pc_to_pt(&pc_from);
         let to_pc = &self.get_pc_by_sq(to);
-        let kms_dst = km_to_kms(&to_pc);
+        let to_pt = pc_to_pt(&to_pc);
         // 移動先の駒が成り駒で、 移動元の駒が不成駒なら、成る
-        let pro_dst = kms_is_pro(&kms_dst);
-        let pro_src = kms_is_pro(&kms_src);
+        let pro_dst = pt_is_pro(&to_pt);
+        let pro_src = pt_is_pro(&from_pt);
 
         // 成り
         pro_dst && !pro_src
@@ -221,14 +221,14 @@ impl Kyokumen {
         // 盤上の駒
         for i_ms in MASU_0..BAN_SIZE {
             let pc = self.get_pc_by_sq(i_ms as Square);
-            let num_km = km_to_num(&pc);
-            hash ^= uchu.ky_hash_seed.pc[i_ms][num_km];
+            let num_pc = pc_to_num(&pc);
+            hash ^= uchu.ky_hash_seed.pc[i_ms][num_pc];
         }
 
         // 持ち駒ハッシュ
         for i_km in 0..KM_ARRAY_LN {
             let pc = PC_ARRAY[i_km];
-            let num_km = km_to_num(&pc);
+            let num_pc = pc_to_num(&pc);
 
             let maisu = self.get_mg(&pc);
             debug_assert!(
@@ -239,7 +239,7 @@ impl Kyokumen {
                 MG_MAX
             );
 
-            hash ^= uchu.ky_hash_seed.mg[num_km][maisu as usize];
+            hash ^= uchu.ky_hash_seed.mg[num_pc][maisu as usize];
         }
 
         // 手番ハッシュ はここでは算出しないぜ☆（＾～＾）
