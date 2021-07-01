@@ -94,8 +94,8 @@ impl Kyokumen {
         self.ban[sq] = pc;
         use super::super::teigi::shogi_syugo::Phase::*;
         match pc {
-            Piece::KING0 => self.ms_r[First as usize] = sq,
-            Piece::KING1 => self.ms_r[Second as usize] = sq,
+            Piece::K1 => self.ms_r[First as usize] = sq,
+            Piece::K2 => self.ms_r[Second as usize] = sq,
             _ => {}
         }
     }

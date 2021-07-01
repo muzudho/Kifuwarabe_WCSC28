@@ -482,82 +482,82 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "K" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::KING0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::K1);
                 suji -= 1;
             }
             "R" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::R0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::R1);
                 suji -= 1;
             }
             "B" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::B0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::B1);
                 suji -= 1;
             }
             "G" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::G0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::G1);
                 suji -= 1;
             }
             "S" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::S0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::S1);
                 suji -= 1;
             }
             "N" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::N0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::N1);
                 suji -= 1;
             }
             "L" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::L0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::L1);
                 suji -= 1;
             }
             "P" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::P0);
+                uchu.set_pos0_board_pc(suji, dan, Piece::P1);
                 suji -= 1;
             }
             "k" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::KING1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::K2);
                 suji -= 1;
             }
             "r" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::K1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::R2);
                 suji -= 1;
             }
             "b" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::Z1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::B2);
                 suji -= 1;
             }
             "g" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::I1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::G2);
                 suji -= 1;
             }
             "s" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::N1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::S2);
                 suji -= 1;
             }
             "n" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::U1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::N2);
                 suji -= 1;
             }
             "l" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::L1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::L2);
                 suji -= 1;
             }
             "p" => {
                 *starts += 1;
-                uchu.set_pos0_board_pc(suji, dan, Piece::H1);
+                uchu.set_pos0_board_pc(suji, dan, Piece::P2);
                 suji -= 1;
             }
             "+" => {
@@ -565,62 +565,62 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
                 match &line[*starts..(*starts + 1)] {
                     "R" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PR0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PR1);
                         suji -= 1;
                     }
                     "B" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PB0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PB1);
                         suji -= 1;
                     }
                     "S" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PS0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PS1);
                         suji -= 1;
                     }
                     "N" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PN0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PN1);
                         suji -= 1;
                     }
                     "L" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PL0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PL1);
                         suji -= 1;
                     }
                     "P" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PP0);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PP1);
                         suji -= 1;
                     }
                     "r" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PK1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PR2);
                         suji -= 1;
                     }
                     "b" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PZ1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PB2);
                         suji -= 1;
                     }
                     "s" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PN1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PS2);
                         suji -= 1;
                     }
                     "n" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PU1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PN2);
                         suji -= 1;
                     }
                     "l" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PL1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PL2);
                         suji -= 1;
                     }
                     "p" => {
                         *starts += 1;
-                        uchu.set_pos0_board_pc(suji, dan, Piece::PH1);
+                        uchu.set_pos0_board_pc(suji, dan, Piece::PP2);
                         suji -= 1;
                     }
                     _ => {
@@ -779,59 +779,59 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                     let pc: Piece;
                     match &line[starts..(starts + 1)] {
                         "R" => {
-                            pc = R0;
+                            pc = R1;
                             starts += 1;
                         }
                         "B" => {
-                            pc = B0;
+                            pc = B1;
                             starts += 1;
                         }
                         "G" => {
-                            pc = G0;
+                            pc = G1;
                             starts += 1;
                         }
                         "S" => {
-                            pc = S0;
+                            pc = S1;
                             starts += 1;
                         }
                         "N" => {
-                            pc = N0;
-                            starts += 1;
-                        }
-                        "L" => {
-                            pc = L0;
-                            starts += 1;
-                        }
-                        "P" => {
-                            pc = P0;
-                            starts += 1;
-                        }
-                        "r" => {
-                            pc = K1;
-                            starts += 1;
-                        }
-                        "b" => {
-                            pc = Z1;
-                            starts += 1;
-                        }
-                        "g" => {
-                            pc = I1;
-                            starts += 1;
-                        }
-                        "s" => {
                             pc = N1;
                             starts += 1;
                         }
-                        "n" => {
-                            pc = U1;
-                            starts += 1;
-                        }
-                        "l" => {
+                        "L" => {
                             pc = L1;
                             starts += 1;
                         }
+                        "P" => {
+                            pc = P1;
+                            starts += 1;
+                        }
+                        "r" => {
+                            pc = R2;
+                            starts += 1;
+                        }
+                        "b" => {
+                            pc = B2;
+                            starts += 1;
+                        }
+                        "g" => {
+                            pc = G2;
+                            starts += 1;
+                        }
+                        "s" => {
+                            pc = S2;
+                            starts += 1;
+                        }
+                        "n" => {
+                            pc = N2;
+                            starts += 1;
+                        }
+                        "l" => {
+                            pc = L2;
+                            starts += 1;
+                        }
                         "p" => {
-                            pc = H1;
+                            pc = P2;
                             starts += 1;
                         }
                         _ => {
