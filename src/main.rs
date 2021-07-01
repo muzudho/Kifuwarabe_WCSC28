@@ -120,18 +120,18 @@ fn main() {
             g_writeln("----指し手生成 ここまで----");
         } else if 4 < len && &line[starts..5] == "rndms" {
             // 乱升
-            let ms = entities::siko::randommove::rnd_ms();
-            g_writeln(&format!("乱升={}", ms));
+            let sq = entities::siko::randommove::rnd_ms();
+            g_writeln(&format!("乱升={}", sq));
         } else if 3 < len && &line[starts..4] == "teigi::conv" {
             g_writeln("teigi::convのテスト");
 
-            for ms in 11..19 {
+            for sq in 11..19 {
                 for hash in 0..10 {
-                    let next = push_ms_to_hash(hash, ms);
+                    let next = push_ms_to_hash(hash, sq);
                     let (hash_orig, ms_orig) = pop_ms_from_hash(next);
                     g_writeln( &format!("push_ms_to_hash(0b{:4b},0b{:5b})=0b{:11b} pop_ms_from_hash(...)=(0b{:4b},0b{:5b})"
                         ,hash
-                        ,ms
+                        ,sq
                         ,next
                         ,hash_orig
                         ,ms_orig

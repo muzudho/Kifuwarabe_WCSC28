@@ -28,8 +28,8 @@ impl VisionTree {
     pub fn clear(&mut self) {
         self.ss_tume_hashset.clear();
     }
-    pub fn set_ai_r(&mut self, ms: Square) {
-        self.ms_ai_r = ms;
+    pub fn set_ai_r(&mut self, sq: Square) {
+        self.ms_ai_r = sq;
     }
 }
 

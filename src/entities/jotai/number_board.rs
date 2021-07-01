@@ -26,14 +26,14 @@ impl NumberBoard {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         ];
     }
-    pub fn add_su_by_ms(&mut self, ms: Square, su: i8) {
-        self.ban[ms] += su
+    pub fn add_su_by_ms(&mut self, sq: Square, su: i8) {
+        self.ban[sq] += su
     }
-    pub fn get_su_by_ms(&self, ms: Square) -> i8 {
-        self.ban[ms]
+    pub fn get_su_by_ms(&self, sq: Square) -> i8 {
+        self.ban[sq]
     }
     #[allow(dead_code)]
-    pub fn set_su_by_ms(&mut self, ms: Square, su: i8) {
-        self.ban[ms] = su
+    pub fn set_su_by_ms(&mut self, sq: Square, su: i8) {
+        self.ban[sq] = su
     }
 }

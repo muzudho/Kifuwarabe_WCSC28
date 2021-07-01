@@ -145,15 +145,15 @@ pub fn hanten_jiai(jiai: &Jiai) -> Jiai {
 /// 93 83 73
 /// ...
 ///
-pub fn ms_to_suji_dan(ms: Square) -> (i8, i8) {
-    assert_banjo_ms(ms, "(203)Ｍs_to_suji_dan");
-    ((ms / 10) as i8, (ms % 10) as i8)
+pub fn ms_to_suji_dan(sq: Square) -> (i8, i8) {
+    assert_banjo_ms(sq, "(203)Ｍs_to_suji_dan");
+    ((sq / 10) as i8, (sq % 10) as i8)
 }
-pub fn ms_to_p(ms: Square) -> Point {
-    assert_banjo_ms(ms, "(203b)ms_to_p");
+pub fn ms_to_p(sq: Square) -> Point {
+    assert_banjo_ms(sq, "(203b)ms_to_p");
     Point {
-        x: (ms / 10) as i8,
-        y: (ms % 10) as i8,
+        x: (sq / 10) as i8,
+        y: (sq % 10) as i8,
     }
 }
 pub fn suji_dan_to_ms(suji: i8, dan: i8) -> Square {
@@ -177,10 +177,10 @@ pub fn p_to_ms(p: &Point) -> Square {
 ///
 /// ハッシュ値を作る
 ///
-pub fn push_ms_to_hash(hash: u64, ms: Square) -> u64 {
+pub fn push_ms_to_hash(hash: u64, sq: Square) -> u64 {
     // 0筋とか 0段とか 使ってないが、そのまま足す。
     // 0～100の101升と、ちょいなんで、128(=2^7) あれば十分
-    (hash << 7) + ms as u64
+    (hash << 7) + sq as u64
 }
 ///
 /// ハッシュ値から作る
@@ -212,11 +212,11 @@ pub fn num_to_lower_case(num: i8) -> &'static str {
 ///
 /// 先手であれば、後手のように番号を振った座標に変換
 ///
-pub fn kaiten180_ms_by_ms_sn(ms: Square, sn: &Sengo) -> Square {
+pub fn kaiten180_ms_by_ms_sn(sq: Square, sn: &Sengo) -> Square {
     use super::super::teigi::shogi_syugo::Sengo::*;
     match *sn {
-        Sen => BAN_MAX - ms + BAN_MIN,
-        _ => ms,
+        Sen => BAN_MAX - sq + BAN_MIN,
+        _ => sq,
     }
 }
 

@@ -6,8 +6,8 @@ use super::super::super::jotai::uchu::*;
 use super::super::super::teigi::conv::*;
 use super::super::super::teigi::shogi_syugo::*;
 
-pub fn is_ji_km_by_ms(ms: Square, uchu: &Uchu) -> bool {
-    let km = uchu.ky.get_km_by_ms(ms);
+pub fn is_ji_km_by_ms(sq: Square, uchu: &Uchu) -> bool {
+    let km = uchu.ky.get_km_by_ms(sq);
     let (sn, _kms) = km_to_sn_kms(&km);
     match_sn(&sn, &uchu.get_teban(&Jiai::Ji))
 }

@@ -14,10 +14,10 @@ use std::collections::HashSet;
 /// 升を表示
 pub fn hyoji_ms_hashset(ms_hashset: &HashSet<Square>) {
     g_writeln(&format!("ms_hashset.len()={}", ms_hashset.len()));
-    for ms in ms_hashset {
-        match *ms {
+    for sq in ms_hashset {
+        match *sq {
             MASU_0 => break,
-            _ => g_writeln(&format!("ms({})", ms)),
+            _ => g_writeln(&format!("sq({})", sq)),
         }
     }
 }
@@ -25,10 +25,10 @@ pub fn hyoji_ms_hashset(ms_hashset: &HashSet<Square>) {
 /// 升を表示
 pub fn hyoji_ms_vec(ms_vec: &Vec<Square>) {
     g_writeln(&format!("ms_vec.len()={}", ms_vec.len()));
-    for ms in ms_vec {
-        match *ms {
+    for sq in ms_vec {
+        match *sq {
             MASU_0 => break,
-            _ => g_writeln(&format!("ms({})", ms)),
+            _ => g_writeln(&format!("sq({})", sq)),
         }
     }
 }

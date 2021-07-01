@@ -685,10 +685,10 @@ pub fn insert_da_kms_by_ms_km(
      * 11 21 31 ...
      */
     let sn = km_to_sn(km_dst);
-    let ms = kaiten180_ms_by_ms_sn(ms_dst, &sn);
+    let sq = kaiten180_ms_by_ms_sn(ms_dst, &sn);
 
-    assert_banjo_ms(ms, "Ｉnsert_da_kms_by_ms_km＜その２＞");
-    //let (_x,y) = ms_to_suji_dan(ms);
+    assert_banjo_ms(sq, "Ｉnsert_da_kms_by_ms_km＜その２＞");
+    //let (_x,y) = ms_to_suji_dan(sq);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
     use super::super::entities::teigi::shogi_syugo::Koma::*;

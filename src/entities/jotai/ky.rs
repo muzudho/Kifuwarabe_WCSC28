@@ -74,8 +74,8 @@ impl Kyokumen {
     /// 歩が置いてあるか確認
     pub fn exists_fu_by_sn_suji(&self, sn: &Sengo, suji: i8) -> bool {
         for dan in DAN_1..DAN_10 {
-            let ms = suji_dan_to_ms(suji, dan);
-            let km = self.get_km_by_ms(ms);
+            let sq = suji_dan_to_ms(suji, dan);
+            let km = self.get_km_by_ms(sq);
             let (sn_km, kms) = km_to_sn_kms(&km);
             if match_sn(&sn_km, sn) && match_kms(&kms, &KmSyurui::H) {
                 return true;
@@ -84,16 +84,16 @@ impl Kyokumen {
         false
     }
     /// 升で指定して駒を取る
-    pub fn get_km_by_ms(&self, ms: Square) -> Koma {
-        self.ban[ms]
+    pub fn get_km_by_ms(&self, sq: Square) -> Koma {
+        self.ban[sq]
     }
     /// 升で指定して駒を置く
-    pub fn set_km_by_ms(&mut self, ms: Square, km: Koma) {
-        self.ban[ms] = km;
+    pub fn set_km_by_ms(&mut self, sq: Square, km: Koma) {
+        self.ban[sq] = km;
         use super::super::teigi::shogi_syugo::Sengo::*;
         match km {
-            Koma::R0 => self.ms_r[Sen as usize] = ms,
-            Koma::R1 => self.ms_r[Go as usize] = ms,
+            Koma::R0 => self.ms_r[Sen as usize] = sq,
+            Koma::R1 => self.ms_r[Go as usize] = sq,
             _ => {}
         }
     }
@@ -186,18 +186,18 @@ impl Kyokumen {
     }
 
     /// 指定の升に駒があれば真
-    pub fn exists_km(&self, ms: Square) -> bool {
-        !match_km(&self.get_km_by_ms(ms), &Koma::Kara)
+    pub fn exists_km(&self, sq: Square) -> bool {
+        !match_km(&self.get_km_by_ms(sq), &Koma::Kara)
     }
 
     /// 指定の升に指定の駒があれば真
-    pub fn has_ms_km(&self, ms: Square, km: &Koma) -> bool {
-        match_km(&self.get_km_by_ms(ms), km)
+    pub fn has_ms_km(&self, sq: Square, km: &Koma) -> bool {
+        match_km(&self.get_km_by_ms(sq), km)
     }
 
     /// 指定の升にある駒の先後、または空升
-    pub fn get_sn_by_ms(&self, ms: Square) -> Sengo {
-        km_to_sn(&self.get_km_by_ms(ms))
+    pub fn get_sn_by_ms(&self, sq: Square) -> Sengo {
+        km_to_sn(&self.get_km_by_ms(sq))
     }
 
     /// 移動先と移動元を比較し、違う駒があれば、成ったと判定するぜ☆（＾～＾）

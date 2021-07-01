@@ -21,7 +21,7 @@ pub fn get_dir8_to_slider_from_target(
 ) -> Dir8 {
     debug_assert!(
         ms_slider != ms_target,
-        "dosn't ms{}!={}",
+        "dosn't sq{}!={}",
         ms_slider,
         ms_target
     );
