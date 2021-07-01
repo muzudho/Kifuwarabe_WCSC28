@@ -201,10 +201,10 @@ impl Kyokumen {
     }
 
     /// 移動先と移動元を比較し、違う駒があれば、成ったと判定するぜ☆（＾～＾）
-    pub fn is_natta(&self, ms_src: Square, ms_dst: Square) -> bool {
+    pub fn is_natta(&self, ms_src: Square, to: Square) -> bool {
         let km_src = &self.get_km_by_ms(ms_src);
         let kms_src = km_to_kms(&km_src);
-        let km_dst = &self.get_km_by_ms(ms_dst);
+        let km_dst = &self.get_km_by_ms(to);
         let kms_dst = km_to_kms(&km_dst);
         // 移動先の駒が成り駒で、 移動元の駒が不成駒なら、成る
         let pro_dst = kms_is_pro(&kms_dst);

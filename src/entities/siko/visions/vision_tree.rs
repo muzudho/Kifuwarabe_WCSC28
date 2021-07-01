@@ -51,23 +51,23 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
             for x in SUJI_1..SUJI_10 {
                 // 9..0 みたいに降順に書いても動かない？
                 for y in DAN_1..DAN_10 {
-                    let ms_dst = suji_dan_to_ms(x, y);
+                    let to = suji_dan_to_ms(x, y);
 
                     mv_src_hashset.clear();
                     //da_kms_hashset.clear();
-                    insert_narazu_src_by_ms_km(ms_dst, &km_dst, &uchu, &mut mv_src_hashset);
-                    insert_narumae_src_by_ms_km(ms_dst, &km_dst, &uchu, &mut mv_src_hashset);
+                    insert_narazu_src_by_ms_km(to, &km_dst, &uchu, &mut mv_src_hashset);
+                    insert_narumae_src_by_ms_km(to, &km_dst, &uchu, &mut mv_src_hashset);
                     // TODO 王手になるところに打ちたい
-                    //insert_da_kms_by_ms_km      ( &ms_dst, &km_dst, &uchu, &mut da_kms_hashset );
+                    //insert_da_kms_by_ms_km      ( &to, &km_dst, &uchu, &mut da_kms_hashset );
 
                     // 盤上
                     for ms_src in mv_src_hashset.iter() {
                         // 成り
-                        let pro = &uchu.ky.is_natta(*ms_src, ms_dst);
+                        let pro = &uchu.ky.is_natta(*ms_src, to);
 
                         let hash_ss = Sasite {
                             src: *ms_src,
-                            dst: ms_dst,
+                            dst: to,
                             pro: *pro,
                             drop: KmSyurui::Kara,
                         }
@@ -83,7 +83,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                         let km_da = sn_kms_to_km( &sn, &kms_da );
                         let hash_ss = Sasite{
                             src:SS_SRC_DA,
-                            dst:ms_dst,
+                            dst:to,
                             pro:false,
                             drop:km_da,
                         }.to_hash();
