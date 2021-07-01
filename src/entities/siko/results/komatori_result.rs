@@ -113,7 +113,7 @@ impl KomatoriResult {
             // これから動かす駒は、狙われている駒ではないとする
             ss.src != self.ms_target
                 // あるいは打か
-                || ss.src == SS_SRC_DA
+                || ss.src == MOVE_FROM_DROP
             {
                 // 利きの線分上に、駒を置いたか？
                 if intersect_point_on_line_segment(&p_dst, &p_atk, &p_tgt) {
@@ -176,7 +176,7 @@ pub fn lookup_banjo_catch(uchu: &Uchu, phase: &Phase, ms_target: Square) -> Hash
 
     let mut hash = HashSet::new();
 
-    if ms_target == MASU_0 {
+    if ms_target == SQ_0 {
         return hash;
     }
 

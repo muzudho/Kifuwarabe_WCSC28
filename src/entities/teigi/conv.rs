@@ -120,19 +120,19 @@ pub fn hanten_sn(phase: &Phase) -> Phase {
 ///
 /// 自分相手
 ///
-pub fn jiai_to_num(jiai: &Jiai) -> usize {
-    use super::super::teigi::shogi_syugo::Jiai::*;
+pub fn jiai_to_num(jiai: &Person) -> usize {
+    use super::super::teigi::shogi_syugo::Person::*;
     match *jiai {
-        Ji => 0,
-        Ai => 1,
+        Friend => 0,
+        Opponent => 1,
         Owari => 2,
     }
 }
-pub fn hanten_jiai(jiai: &Jiai) -> Jiai {
-    use super::super::teigi::shogi_syugo::Jiai::*;
+pub fn hanten_jiai(jiai: &Person) -> Person {
+    use super::super::teigi::shogi_syugo::Person::*;
     match *jiai {
-        Ji => Ai,
-        Ai => Ji,
+        Friend => Opponent,
+        Opponent => Friend,
         Owari => Owari,
     }
 }
@@ -158,7 +158,7 @@ pub fn ms_to_p(sq: Square) -> Point {
 }
 pub fn file_rank_to_sq(suji: i8, dan: i8) -> Square {
     debug_assert!(
-        (SUJI_0 < suji && suji < SUJI_10) && (DAN_0 < dan && dan < DAN_10),
+        (FILE_0 < suji && suji < FILE_10) && (RANK_0 < dan && dan < RANK_10),
         "(204)file_rank_to_sq suji={},dan={}",
         suji,
         dan
@@ -167,7 +167,7 @@ pub fn file_rank_to_sq(suji: i8, dan: i8) -> Square {
     (suji * 10 + dan) as Square
 }
 pub fn p_in_ban(p: &Point) -> bool {
-    (SUJI_0 < p.x && p.x < SUJI_10) && (DAN_0 < p.y && p.y < DAN_10)
+    (FILE_0 < p.x && p.x < FILE_10) && (RANK_0 < p.y && p.y < RANK_10)
 }
 pub fn p_to_ms(p: &Point) -> Square {
     debug_assert!(p_in_ban(&p), "(204b)p_to_ms x={},y={}", p.x, p.y);
@@ -215,7 +215,7 @@ pub fn num_to_lower_case(num: i8) -> &'static str {
 pub fn kaiten180_ms_by_ms_sn(sq: Square, phase: &Phase) -> Square {
     use super::super::teigi::shogi_syugo::Phase::*;
     match *phase {
-        First => BAN_MAX - sq + BAN_MIN,
+        First => SQ_MAX - sq + SQ_MIN,
         _ => sq,
     }
 }

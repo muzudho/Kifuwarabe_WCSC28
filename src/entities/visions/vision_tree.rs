@@ -37,7 +37,7 @@ impl VisionTree {
 /// 楽観筋
 ///
 pub fn insert_rakkansuji(uchu: &mut Uchu) {
-    for phase in SN_ARRAY.iter() {
+    for phase in PH_ARRAY.iter() {
         let ai_sn = hanten_sn(phase);
 
         // 相手の　らいおん　の位置を覚える
@@ -48,9 +48,9 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
 
         for to_pt in PT_ARRAY.iter() {
             let to_pc = ph_pt_to_pc(&phase, &to_pt);
-            for x in SUJI_1..SUJI_10 {
+            for x in FILE_1..FILE_10 {
                 // 9..0 みたいに降順に書いても動かない？
-                for y in DAN_1..DAN_10 {
+                for y in RANK_1..RANK_10 {
                     let to = file_rank_to_sq(x, y);
 
                     mv_src_hashset.clear();
@@ -82,7 +82,7 @@ pub fn insert_rakkansuji(uchu: &mut Uchu) {
                     for pt_drop in drop_pt_hashset.iter() {
                         let pc_drop = ph_pt_to_pc( &phase, &pt_drop );
                         let hash_ss = Sasite{
-                            src:SS_SRC_DA,
+                            src:MOVE_FROM_DROP,
                             dst:to,
                             pro:false,
                             drop:pc_drop,

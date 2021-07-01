@@ -12,7 +12,7 @@ pub fn cmd_kikisu(uchu: &Uchu) {
         g_writeln(&s);
     }
 
-    for phase in SN_ARRAY.iter() {
+    for phase in PH_ARRAY.iter() {
         g_writeln(&format!("利き数：{}", phase));
         let s = uchu.kaku_number_board(&phase, &Piece::Owari);
         g_writeln(&s);

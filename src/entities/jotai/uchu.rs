@@ -48,11 +48,11 @@ pub fn g_writeln(s: &str) {
 /// ゾブリストハッシュを使って、局面の一致判定をするのに使う☆（＾～＾）
 pub struct KyHashSeed {
     // 盤上の駒
-    pub pc: [[u64; PC_LEN]; BAN_SIZE],
+    pub pc: [[u64; PC_LEN]; BOARD_AREA],
     // 持ち駒
-    pub mg: [[u64; MG_MAX]; PC_LEN],
+    pub mg: [[u64; HAND_MAX]; PC_LEN],
     // 先後
-    pub phase: [u64; SN_LN],
+    pub phase: [u64; PHASE_LEN],
 }
 
 /// グローバル変数の作り方が分からないので、
@@ -72,19 +72,19 @@ pub struct Uchu {
     pub teme: usize,
     // 棋譜
     //#[derive(Copy, Clone)]
-    pub kifu: [Sasite; TEME_LN],
+    pub kifu: [Sasite; PLY_LEN],
     // 初期局面ハッシュ
     pub ky0_hash: u64,
     // 現局面ハッシュ
-    pub ky_hash: [u64; TEME_LN],
+    pub ky_hash: [u64; PLY_LEN],
     /// 取った駒
-    pub cap: [Piece; TEME_LN],
+    pub cap: [Piece; PLY_LEN],
     // 利きの数（先後別）
-    pub kiki_su_by_sn: [NumberBoard; SN_LN],
+    pub kiki_su_by_sn: [NumberBoard; PHASE_LEN],
     // 利きの数（先後付き駒別）
     pub kiki_su_by_pc: [NumberBoard; PC_LEN],
     // ビジョン・ツリー
-    pub vision_tree_by_sn: [VisionTree; SN_LN],
+    pub vision_tree_by_sn: [VisionTree; PHASE_LEN],
 }
 
 impl Uchu {
@@ -98,11 +98,11 @@ impl Uchu {
             ky: Kyokumen::new(),
             ky_hash_seed: KyHashSeed {
                 // 盤上の駒
-                pc: [[0; PC_LEN]; BAN_SIZE],
+                pc: [[0; PC_LEN]; BOARD_AREA],
                 // 持ち駒
-                mg: [[0; MG_MAX]; PC_LEN],
+                mg: [[0; HAND_MAX]; PC_LEN],
                 // 先後
-                phase: [0; SN_LN],
+                phase: [0; PHASE_LEN],
             },
             teme: 0,
             kifu: [
@@ -682,7 +682,7 @@ impl Uchu {
         // 局面ハッシュの種をリセット
 
         // 盤上の駒
-        for i_ms in MASU_0..BAN_SIZE {
+        for i_ms in SQ_0..BOARD_AREA {
             for i_pc in 0..PC_LEN {
                 // FIXME 18446744073709551615 が含まれないだろ、どうなってるんだぜ☆（＾～＾）！？
                 self.ky_hash_seed.pc[i_ms][i_pc] =
@@ -691,13 +691,13 @@ impl Uchu {
         }
         // 持ち駒
         for i_pc in 0..PC_LEN {
-            for i_mg in 0..MG_MAX {
+            for i_mg in 0..HAND_MAX {
                 self.ky_hash_seed.mg[i_pc][i_mg] =
                     rand::thread_rng().gen_range(0, 18446744073709551615);
             }
         }
         // 先後
-        for i_sn in 0..SN_LN {
+        for i_sn in 0..PHASE_LEN {
             self.ky_hash_seed.phase[i_sn] = rand::thread_rng().gen_range(0, 18446744073709551615);
         }
     }
@@ -711,7 +711,7 @@ impl Uchu {
     /// 初期局面を、現局面にコピーします
     pub fn copy_ky0_to_ky1(&mut self) {
         // 盤上
-        for i_ms in 0..BAN_SIZE {
+        for i_ms in 0..BOARD_AREA {
             self.ky.set_pc_by_sq(i_ms, self.ky0.get_pc_by_sq(i_ms));
         }
         // 持ち駒
@@ -738,13 +738,13 @@ impl Uchu {
     pub fn set_ky0_mg(&mut self, pc: Piece, maisu: i8) {
         self.ky0.mg[pc as usize] = maisu;
     }
-    pub fn get_jiai_by_pc(&self, pc: &Piece) -> Jiai {
+    pub fn get_jiai_by_pc(&self, pc: &Piece) -> Person {
         let (phase, _pt) = pc_to_ph_pt(pc);
 
-        if match_ph(&phase, &self.get_teban(&Jiai::Ji)) {
-            Jiai::Ji
+        if match_ph(&phase, &self.get_teban(&Person::Friend)) {
+            Person::Friend
         } else {
-            Jiai::Ai
+            Person::Opponent
         }
     }
 
@@ -757,10 +757,10 @@ impl Uchu {
         self.teme
     }
     /// 手番
-    pub fn get_teban(&self, jiai: &Jiai) -> Phase {
-        use teigi::shogi_syugo::Jiai::*;
+    pub fn get_teban(&self, jiai: &Person) -> Phase {
+        use teigi::shogi_syugo::Person::*;
         match *jiai {
-            Ji => {
+            Friend => {
                 // 手番
                 if self.teme % 2 == 0 {
                     Phase::First
@@ -768,7 +768,7 @@ impl Uchu {
                     Phase::Second
                 }
             }
-            Ai => {
+            Opponent => {
                 // 相手番
                 if self.teme % 2 == 0 {
                     Phase::Second
@@ -836,7 +836,7 @@ impl Uchu {
     /// 自陣
     #[allow(dead_code)]
     pub fn get_ji_jin(&self) -> Vec<Square> {
-        if let Phase::First = self.get_teban(&Jiai::Ji) {
+        if let Phase::First = self.get_teban(&Person::Friend) {
             teigi::shogi_syugo::SenteJin::to_elm()
         } else {
             teigi::shogi_syugo::GoteJin::to_elm()
@@ -845,7 +845,7 @@ impl Uchu {
     /// 相手陣
     #[allow(dead_code)]
     pub fn get_aite_jin(&self) -> Vec<Square> {
-        if let Phase::First = self.get_teban(&Jiai::Ji) {
+        if let Phase::First = self.get_teban(&Person::Friend) {
             teigi::shogi_syugo::GoteJin::to_elm()
         } else {
             teigi::shogi_syugo::SenteJin::to_elm()
@@ -856,10 +856,10 @@ impl Uchu {
     ///
     /// 後手から見た盤を表示するぜ☆（＾～＾）
     /// デカルト座標の第一象限と x,y 方向が一致するメリットがあるぜ☆（＾～＾）
-    pub fn kaku_ky(&self, num: &KyNums) -> String {
+    pub fn kaku_ky(&self, num: &PosNums) -> String {
         let ky = match *num {
-            KyNums::Current => &self.ky,
-            KyNums::Start => &self.ky0,
+            PosNums::Current => &self.ky,
+            PosNums::Start => &self.ky0,
         };
 
         // 局面表示
@@ -986,7 +986,7 @@ impl Uchu {
             ky.mg[Piece::L2 as usize],
             ky.mg[Piece::P2 as usize],
             self.get_teme(),
-            self.get_teban(&Jiai::Ji),
+            self.get_teban(&Person::Friend),
             self.count_same_ky()
         )
     }
@@ -1125,7 +1125,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
     /// 入れた指し手の通り指すぜ☆（＾～＾）
     pub fn do_ss(&mut self, ss: &Sasite) {
         // もう入っているかも知れないが、棋譜に入れる☆
-        let phase = self.get_teban(&Jiai::Ji);
+        let phase = self.get_teban(&Person::Friend);
         let cap = self.ky.do_sasite(&phase, ss);
         let teme = self.teme;
         self.kifu[teme] = *ss;
@@ -1142,7 +1142,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         if 0 < self.teme {
             // 棋譜から読取、手目も減る
             self.teme -= 1;
-            let phase = self.get_teban(&Jiai::Ji);
+            let phase = self.get_teban(&Person::Friend);
             let ss = &self.get_sasite();
             let cap = self.cap[self.teme];
             self.ky.undo_sasite(&phase, &ss, &cap);
@@ -1154,7 +1154,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
     }
 
     pub fn remake_visions(&mut self) {
-        for phase in SN_ARRAY.iter() {
+        for phase in PH_ARRAY.iter() {
             // 全部忘れる☆（＾～＾）
             self.vision_tree_by_sn[sn_to_num(phase)].clear();
         }
@@ -1165,7 +1165,7 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
         let mut hash = self.ky0.create_hash(&self);
 
         // 手番ハッシュ（後手固定）
-        hash ^= self.ky_hash_seed.phase[SN_GO];
+        hash ^= self.ky_hash_seed.phase[PHASE_SECOND];
 
         hash
     }
@@ -1176,9 +1176,9 @@ a1  |{72:4}|{73:4}|{74:4}|{75:4}|{76:4}|{77:4}|{78:4}|{79:4}|{80:4}|
 
         // 手番ハッシュ
         use teigi::shogi_syugo::Phase::*;
-        match self.get_teban(&Jiai::Ji) {
-            First => hash ^= self.ky_hash_seed.phase[SN_SEN],
-            Second => hash ^= self.ky_hash_seed.phase[SN_GO],
+        match self.get_teban(&Person::Friend) {
+            First => hash ^= self.ky_hash_seed.phase[PHASE_FIRST],
+            Second => hash ^= self.ky_hash_seed.phase[PHASE_SECOND],
             _ => {}
         }
 

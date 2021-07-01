@@ -18,13 +18,13 @@ use super::super::tusin::usi::*;
 pub struct Kyokumen {
     /// 10の位を筋、1の位を段とする。
     /// 0筋、0段は未使用
-    ban: [Piece; BAN_SIZE],
+    ban: [Piece; BOARD_AREA],
     /// 持ち駒数。持ち駒に使える、成らずの駒の部分だけ使用。
     /// 増減させたいので、u8 ではなく i8。
     pub mg: [i8; PC_LEN],
     /// らいおんの位置
     /// [先後]
-    pub ms_r: [Square; SN_LN],
+    pub ms_r: [Square; PHASE_LEN],
 }
 impl Kyokumen {
     pub fn new() -> Kyokumen {
@@ -75,7 +75,7 @@ impl Kyokumen {
     }
     /// 歩が置いてあるか確認
     pub fn exists_fu_by_sn_suji(&self, phase: &Phase, suji: i8) -> bool {
-        for dan in DAN_1..DAN_10 {
+        for dan in RANK_1..RANK_10 {
             let sq = file_rank_to_sq(suji, dan);
             let pc = self.get_pc_by_sq(sq);
             let (ph_pc, pt) = pc_to_ph_pt(&pc);
@@ -118,7 +118,7 @@ impl Kyokumen {
         let cap;
 
         // 打かどうか
-        if ss.src == SS_SRC_DA {
+        if ss.src == MOVE_FROM_DROP {
             pc = ph_pt_to_pc(&phase, &ss.drop);
             // 自分の持ち駒を減らす
             self.add_mg(pc, -1);
@@ -156,7 +156,7 @@ impl Kyokumen {
         let pc;
 
         // 打かどうか
-        if ss.src == SS_SRC_DA {
+        if ss.src == MOVE_FROM_DROP {
             pc = ph_pt_to_pc(phase, &ss.drop);
             // 自分の持ち駒を増やす
             //let mg = pc_to_hand(pc);
@@ -221,7 +221,7 @@ impl Kyokumen {
         let mut hash: u64 = 0;
 
         // 盤上の駒
-        for i_ms in MASU_0..BAN_SIZE {
+        for i_ms in SQ_0..BOARD_AREA {
             let pc = self.get_pc_by_sq(i_ms as Square);
             let num_pc = pc_to_num(&pc);
             hash ^= uchu.ky_hash_seed.pc[i_ms][num_pc];
@@ -234,11 +234,11 @@ impl Kyokumen {
 
             let maisu = self.get_mg(&pc);
             debug_assert!(
-                -1 < maisu && maisu <= MG_MAX as i8,
+                -1 < maisu && maisu <= HAND_MAX as i8,
                 "持ち駒 {} の枚数 {} <= {}",
                 pc,
                 maisu,
-                MG_MAX
+                HAND_MAX
             );
 
             hash ^= uchu.ky_hash_seed.mg[num_pc][maisu as usize];

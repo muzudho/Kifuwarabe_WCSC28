@@ -4,7 +4,7 @@ use super::super::teigi::shogi_syugo::*;
 pub struct NumberBoard {
     /// 10の位を筋、1の位を段とする。
     /// 0筋、0段は未使用
-    ban: [i8; BAN_SIZE],
+    ban: [i8; BOARD_AREA],
 }
 impl NumberBoard {
     pub fn new() -> NumberBoard {

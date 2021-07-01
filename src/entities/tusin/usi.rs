@@ -66,7 +66,7 @@ impl Sasite {
     /// 考えた結果、指し手が考え付いていれば真。
     ///
     pub fn exists(&self) -> bool {
-        self.dst != MASU_0
+        self.dst != SQ_0
     }
 }
 impl fmt::Display for Sasite {
@@ -81,7 +81,7 @@ impl fmt::Display for Sasite {
         assert_banjo_ms(self.dst, "Ｓasite Ｄisplay");
         let (dx, dy) = sq_to_file_rank(self.dst);
 
-        if self.src == SS_SRC_DA {
+        if self.src == MOVE_FROM_DROP {
             use super::super::teigi::shogi_syugo::PieceType::*;
             write!(
                 f,
@@ -117,7 +117,7 @@ impl fmt::Display for Sasite {
                 if self.pro { "+" } else { "" }
             )
         } else {
-            let (sx, sy) = if self.src == MASU_0 {
+            let (sx, sy) = if self.src == SQ_0 {
                 // エラー・データも表示したい
                 (0, 0)
             } else {
@@ -408,13 +408,13 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
 ///
 pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
     // 盤部
-    let mut suji = SUJI_9; //９筋から右方向へ読取
-    let mut dan = DAN_1;
+    let mut suji = FILE_9; //９筋から右方向へ読取
+    let mut dan = RANK_1;
     'ban: while 0 < (len - *starts) {
         match &line[*starts..(*starts + 1)] {
             "/" => {
                 *starts += 1;
-                suji = SUJI_9;
+                suji = FILE_9;
                 dan += 1;
             }
             "1" => {
@@ -873,7 +873,7 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
         uchu.do_ss(&ss);
 
         // 現局面表示
-        //let s1 = &uchu.kaku_ky( &KyNums::Current );
+        //let s1 = &uchu.kaku_ky( &PosNums::Current );
         //g_writeln( &s1 );
     }
 }

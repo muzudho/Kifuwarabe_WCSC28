@@ -37,12 +37,12 @@ pub fn choice_1ss_by_hashset(ss_hashset: &HashSet<u64>) -> Sasite {
 ///
 pub fn filtering_ss_except_oute(ss_hashset_input: &mut HashSet<u64>, uchu: &mut Uchu) {
     // 自玉の位置
-    let ms_r = uchu.get_ms_r(&Jiai::Ji);
+    let ms_r = uchu.get_ms_r(&Person::Friend);
     g_writeln(&format!("info string My raion {}.", ms_r));
 
     // 王手の一覧を取得
     let komatori_result_hashset: HashSet<u64> =
-        lookup_banjo_catch(uchu, &uchu.get_teban(&Jiai::Ai), ms_r);
+        lookup_banjo_catch(uchu, &uchu.get_teban(&Person::Opponent), ms_r);
     if 0 < komatori_result_hashset.len() {
         // 王手されていれば
 
@@ -103,7 +103,7 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
     let mut ss_hashset_pickup: HashSet<u64> = HashSet::new();
 
     // 自玉の位置
-    let ms_r = uchu.ky.ms_r[sn_to_num(&uchu.get_teban(&Jiai::Ji))];
+    let ms_r = uchu.ky.ms_r[sn_to_num(&uchu.get_teban(&Person::Friend))];
 
     // 王手回避カードを発行する
     // TODO 王手が２か所から掛かっていたら、全部回避しないといけない☆
@@ -115,7 +115,7 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
         // その手を指してみる
         uchu.do_ss(&ss_potential);
         // // 現局面表示
-        // let s1 = &uchu.kaku_ky( &KyNums::Current );
+        // let s1 = &uchu.kaku_ky( &PosNums::Current );
         // g_writeln( &s1 );
 
         // 狙われている方の玉の位置
@@ -129,14 +129,14 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
         // 有り得る移動元が入る☆（＾～＾）
         let mut attackers: HashSet<Square> = HashSet::new();
         insert_narazu_src_by_sn_ms(
-            &uchu.get_teban(&Jiai::Ji), // 指定の升に駒を動かそうとしている手番
-            ms_r_new,                   // 指定の升
+            &uchu.get_teban(&Person::Friend), // 指定の升に駒を動かそうとしている手番
+            ms_r_new,                         // 指定の升
             &uchu,
             &mut attackers,
         );
         insert_narumae_src_by_sn_ms(
-            &uchu.get_teban(&Jiai::Ji), // 指定の升に駒を動かそうとしている手番
-            ms_r_new,                   // 指定の升
+            &uchu.get_teban(&Person::Friend), // 指定の升に駒を動かそうとしている手番
+            ms_r_new,                         // 指定の升
             &uchu,
             &mut attackers,
         );
@@ -147,7 +147,7 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
             "info {} evaluated => {} attackers. offence={}->{}",
             ss_potential,
             attackers.len(),
-            uchu.get_teban(&Jiai::Ji),
+            uchu.get_teban(&Person::Friend),
             ms_r_new
         ));
         for ms_atk in attackers.iter() {
@@ -157,7 +157,7 @@ pub fn filtering_ss_except_jisatusyu(ss_hashset_input: &mut HashSet<u64>, uchu: 
         // 手を戻す
         uchu.undo_ss();
         // // 現局面表示
-        // let s2 = &uchu.kaku_ky( &KyNums::Current );
+        // let s2 = &uchu.kaku_ky( &PosNums::Current );
         // g_writeln( &s2 );
 
         if jisatusyu {
@@ -194,7 +194,7 @@ pub fn filtering_ss_except_sennitite(ss_hashset_input: &mut HashSet<u64>, uchu: 
         // その手を指してみる
         uchu.do_ss(&ss);
         // 現局面表示
-        // let s1 = &uchu.kaku_ky( &KyNums::Current );
+        // let s1 = &uchu.kaku_ky( &PosNums::Current );
         // g_writeln( &s1 );
 
         // 千日手かどうかを判定する☆（＾～＾）
@@ -207,7 +207,7 @@ pub fn filtering_ss_except_sennitite(ss_hashset_input: &mut HashSet<u64>, uchu: 
         // 手を戻す FIXME: 打った象が戻ってない？
         uchu.undo_ss();
         // 現局面表示
-        // let s2 = &uchu.kaku_ky( &KyNums::Current );
+        // let s2 = &uchu.kaku_ky( &PosNums::Current );
         // g_writeln( &s2 );
     }
 

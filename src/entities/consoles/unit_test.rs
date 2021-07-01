@@ -26,7 +26,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 駒の移動元升
         g_writeln("駒の移動元升");
         let pt = randommove::rnd_pt();
-        let pc = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), pt);
+        let pc = ph_pt_to_pc(&uchu.get_teban(&Person::Friend), pt);
         let to = randommove::rnd_sq();
         g_writeln(&format!("pt={} pc={} to={}", pt, pc, to));
         let mut mv_src_hashset: HashSet<Square> = HashSet::new();
@@ -40,7 +40,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         *starts += 4;
         // 移動後の駒
         let pt = randommove::rnd_pt();
-        let pc = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), &pt);
+        let pc = ph_pt_to_pc(&uchu.get_teban(&Person::Friend), &pt);
         // 移動先の升、および　不成駒／成駒
         let to = randommove::rnd_sq();
         let pro_dst = randommove::rnd_bool();

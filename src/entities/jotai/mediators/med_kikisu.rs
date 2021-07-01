@@ -18,15 +18,15 @@ pub fn read_kikisu(uchu: &mut Uchu) {
         &uchu.kiki_su_by_pc[pc_to_num(pc)].clear();
     }
 
-    for phase in SN_ARRAY.iter() {
+    for phase in PH_ARRAY.iter() {
         &uchu.kiki_su_by_sn[sn_to_num(phase)].clear();
     }
 
     // カウント
     for to_pc in PC_ARRAY.iter() {
-        for x in SUJI_1..SUJI_10 {
+        for x in FILE_1..FILE_10 {
             // 9..0 みたいに降順に書いても動かない？
-            for y in DAN_1..DAN_10 {
+            for y in RANK_1..RANK_10 {
                 let to = file_rank_to_sq(x, y);
                 assert_banjo_ms(to, "think 利き調べ");
 

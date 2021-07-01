@@ -11,13 +11,13 @@ use std::fmt;
 /// 手目数。何手目まで指せるか。
 /// 棋譜を残す配列のサイズでもある。
 /// 大会ルールが 256手として、終端子として投了を１個入れておけるようにする。
-pub const TEME_LN: usize = 257;
+pub const PLY_LEN: usize = 257;
 ///
 /// 同一局面何回で千日手
 ///
 pub const SENNTITE_NUM: i8 = 4;
 
-pub const SN_LN: usize = 3;
+pub const PHASE_LEN: usize = 3;
 ///
 /// 先後。単純にプレイヤー１を先手、プレイヤー２を後手とする。
 /// 駒落ち戦での通称　上手／下手　の場合、上手は先手、下手は後手とする。
@@ -29,8 +29,8 @@ pub enum Phase {
     // 空升の先後を調べようとした場合等
     Owari,
 }
-pub const SN_SEN: usize = 0;
-pub const SN_GO: usize = 1;
+pub const PHASE_FIRST: usize = 0;
+pub const PHASE_SECOND: usize = 1;
 ///
 /// 後手（上手）を盤の下側に持ってきて表示するのを基本とするぜ☆（＾～＾）
 ///
@@ -52,40 +52,40 @@ pub fn match_ph(a: &Phase, b: &Phase) -> bool {
     sn_to_num(a) == sn_to_num(b)
 }
 
-pub const SN_ARRAY_LN: usize = 2;
-pub const SN_ARRAY: [Phase; SN_ARRAY_LN] = [Phase::First, Phase::Second];
+pub const PH_ARRAY_LEN: usize = 2;
+pub const PH_ARRAY: [Phase; PH_ARRAY_LEN] = [Phase::First, Phase::Second];
 
-/// 先後とは別物
-pub const JIAI_LN: usize = 3;
+/// 先後とは別物。自分と相手
+pub const PERSON_LEN: usize = 3;
 
-/// 先後。単純にプレイヤー１を先手、プレイヤー２を後手とする。
+/// 自分と相手。単純にプレイヤー１を先手、プレイヤー２を後手とする。
 /// 駒落ち戦での通称　上手／下手　の場合、上手は先手、下手は後手とする。
 #[derive(Clone)]
-pub enum Jiai {
-    Ji,
-    Ai,
+pub enum Person {
+    Friend,
+    Opponent,
     Owari,
 }
-pub const JIAI_JI: usize = 0;
-pub const JIAI_AI: usize = 1;
-impl fmt::Display for Jiai {
+pub const PERSON_FRIEND: usize = 0;
+pub const PERSON_OPPONENT: usize = 1;
+impl fmt::Display for Person {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use super::super::teigi::shogi_syugo::Jiai::*;
+        use super::super::teigi::shogi_syugo::Person::*;
         match *self {
-            Ji => write!(f, "自"),
-            Ai => write!(f, "相"),
+            Friend => write!(f, "自"),
+            Opponent => write!(f, "相"),
             Owari => write!(f, "×"),
         }
     }
 }
 
 /// 一致比較
-pub fn match_jiai(a: &Jiai, b: &Jiai) -> bool {
+pub fn match_person(a: &Person, b: &Person) -> bool {
     jiai_to_num(a) == jiai_to_num(b)
 }
 
-pub const JIAI_ARRAY_LN: usize = 2;
-pub const JIAI_ARRAY: [Jiai; JIAI_ARRAY_LN] = [Jiai::Ji, Jiai::Ai];
+pub const PERSON_ARRAY_LEN: usize = 2;
+pub const PERSON_ARRAY: [Person; PERSON_ARRAY_LEN] = [Person::Friend, Person::Opponent];
 
 /// 盤の符号は、後手番から見る
 ///
@@ -103,11 +103,11 @@ pub const JIAI_ARRAY: [Jiai; JIAI_ARRAY_LN] = [Jiai::Ji, Jiai::Ai];
 ///
 ///
 /// 盤を回転するのに使うぜ☆（＾～＾）
-pub const BAN_MIN: usize = 11;
+pub const SQ_MIN: usize = 11;
 ///
 /// 盤を回転するのに使うぜ☆（＾～＾）
 ///
-pub const BAN_MAX: usize = 99;
+pub const SQ_MAX: usize = 99;
 
 //
 // 盤のヨコ幅、タテ幅。
@@ -116,28 +116,28 @@ pub const BAN_MAX: usize = 99;
 //pub const BAN_W :i8 = 9;
 //pub const BAN_H :i8 = 9;
 
-pub const BAN_SIZE: usize = 100;
+pub const BOARD_AREA: usize = 100;
 
 // 1辺の長さ
 //pub const BAN_LINE :usize = 10;
 
 /// 筋、段は 1 から始まる、という明示。
 /// 増減はよく使うので u8 ではなく i8 にした。
-pub const SUJI_0: i8 = 0;
-pub const SUJI_1: i8 = 1;
-pub const SUJI_9: i8 = 9;
-pub const SUJI_10: i8 = 10;
-pub const DAN_0: i8 = 0;
-pub const DAN_1: i8 = 1;
-pub const DAN_2: i8 = 2;
-pub const DAN_3: i8 = 3;
-pub const DAN_4: i8 = 4;
-pub const DAN_5: i8 = 5;
-pub const DAN_6: i8 = 6;
-pub const DAN_7: i8 = 7;
-pub const DAN_8: i8 = 8; //うさぎの打てる段の上限
-pub const DAN_9: i8 = 9;
-pub const DAN_10: i8 = 10;
+pub const FILE_0: i8 = 0;
+pub const FILE_1: i8 = 1;
+pub const FILE_9: i8 = 9;
+pub const FILE_10: i8 = 10;
+pub const RANK_0: i8 = 0;
+pub const RANK_1: i8 = 1;
+pub const RANK_2: i8 = 2;
+pub const RANK_3: i8 = 3;
+pub const RANK_4: i8 = 4;
+pub const RANK_5: i8 = 5;
+pub const RANK_6: i8 = 6;
+pub const RANK_7: i8 = 7;
+pub const RANK_8: i8 = 8; //うさぎの打てる段の上限
+pub const RANK_9: i8 = 9;
+pub const RANK_10: i8 = 10;
 ///
 /// 升番号 0～99。
 /// 10の位を筋、1の位を段とする。0筋、0段は未使用（番兵として使用）
@@ -148,12 +148,12 @@ pub type Square = usize;
 ///
 /// 升の検索等で、該当なしの場合
 ///
-pub const MASU_0: Square = 0;
+pub const SQ_0: Square = 0;
 
 ///
 /// 指し手。打の場合のsrc
 ///
-pub const SS_SRC_DA: Square = 0;
+pub const MOVE_FROM_DROP: Square = 0;
 
 ///
 /// 先手陣
@@ -182,7 +182,7 @@ impl GoteJin {
 }
 
 /// 持ち駒の駒のうち、最大の枚数は歩の 18。
-pub const MG_MAX: usize = 18;
+pub const HAND_MAX: usize = 18;
 pub const PC_LEN: usize = 30;
 ///
 /// 先後付きの駒と空白
@@ -327,7 +327,7 @@ pub const PC_ARRAY: [Piece; PC_ARRAY_LEN] = [
     Piece::PL2, // ぱわーあっぷいのしし
     Piece::PP2, // ぱわーあっぷひよこ
 ];
-pub const PH_PC_ARRAY: [[Piece; PC_ARRAY_HALF_LEN]; SN_LN] = [
+pub const PH_PC_ARRAY: [[Piece; PC_ARRAY_HALF_LEN]; PHASE_LEN] = [
     [
         Piece::K1,  // らいおん
         Piece::R1,  // きりん
@@ -400,7 +400,7 @@ impl PcSyugo {
     ///
     /// 自分相手
     ///
-    pub fn new_jiai(&self, jiai: &Jiai, uchu: &Uchu) -> PcSyugo {
+    pub fn new_jiai(&self, jiai: &Person, uchu: &Uchu) -> PcSyugo {
         let sn0 = uchu.get_teban(&jiai);
         let mut num_syugo1: HashSet<usize> = HashSet::new();
         for pc in PC_ARRAY.iter() {
@@ -918,7 +918,7 @@ pub const PC_UGOKI: PcUgoki = PcUgoki {
 ///
 /// 局面
 ///
-pub enum KyNums {
+pub enum PosNums {
     /// 現局面
     Current,
     /// 初期局面

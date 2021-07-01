@@ -54,7 +54,7 @@ pub fn get_ss_by_random(uchu: &Uchu) -> Sasite {
         assert_banjo_ms(to, "Ｇet_ss_by_random");
 
         // 手番の、移動した先の駒
-        let to_pc = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), randommove::rnd_pt());
+        let to_pc = ph_pt_to_pc(&uchu.get_teban(&Person::Friend), randommove::rnd_pt());
 
         ss_hashset.clear();
         insert_move_by_sq_pc_on_board(&uchu, to, &to_pc, &mut ss_hashset);

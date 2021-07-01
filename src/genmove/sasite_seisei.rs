@@ -28,7 +28,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
             let pc_from = uchu.ky.get_pc_by_sq(from);
             let phase = pc_to_ph(&pc_from);
 
-            if match_ph(&phase, &uchu.get_teban(&Jiai::Ji)) {
+            if match_ph(&phase, &uchu.get_teban(&Person::Friend)) {
                 // 手番の駒
 
                 let mut to_hashset: HashSet<Square> = HashSet::new();
@@ -92,7 +92,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
 
                     let mut drop_pt_hashset = HashSet::new();
                     for pt_hand in MGS_ARRAY.iter() {
-                        let pc_hand = ph_pt_to_pc(&uchu.get_teban(&Jiai::Ji), pt_hand);
+                        let pc_hand = ph_pt_to_pc(&uchu.get_teban(&Person::Friend), pt_hand);
                         if 0 < uchu.ky.get_mg(&pc_hand) {
                             // 駒を持っていれば
                             insert_drop_pt_by_sq_pc(to, &pc_hand, &uchu, &mut drop_pt_hashset);
@@ -102,10 +102,10 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
                         let pt = num_to_pt(num_pt_drop);
                         some_moves_hashset.insert(
                             Sasite {
-                                src: SS_SRC_DA, // 駒大
-                                dst: to,        // どの升へ行きたいか
-                                pro: false,     // 打に成りは無し
-                                drop: pt,       // 打った駒種類
+                                src: MOVE_FROM_DROP, // 駒大
+                                dst: to,             // どの升へ行きたいか
+                                pro: false,          // 打に成りは無し
+                                drop: pt,            // 打った駒種類
                             }
                             .to_hash(),
                         );
@@ -217,7 +217,7 @@ pub fn insert_move_by_sq_pc_on_drop(
         let pt_drop = num_to_pt(*num_pt_drop);
 
         let hash_ss = Sasite {
-            src: SS_SRC_DA,
+            src: MOVE_FROM_DROP,
             dst: to,
             pro: false,
             drop: pt_drop,

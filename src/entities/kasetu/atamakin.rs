@@ -12,7 +12,7 @@ use super::super::teigi::shogi_syugo_seki::*;
 /// 後手視点で、相手らいおんの南側１升に、頭が丸い自駒がない？
 pub fn is_s(uchu: &Uchu) -> bool {
     // 相手玉の位置
-    let ms_r = uchu.get_ms_r(&Jiai::Ai);
+    let ms_r = uchu.get_ms_r(&Person::Opponent);
 
     let p_r = ms_to_p(ms_r);
     let p_south_r = p_r.to_south();
@@ -23,7 +23,7 @@ pub fn is_s(uchu: &Uchu) -> bool {
     let ms_south_r = p_to_ms(&p_south_r);
     let pc = uchu.ky.get_pc_by_sq(ms_south_r);
     let jiai_pc = uchu.get_jiai_by_pc(&pc);
-    if !match_jiai(&jiai_pc, &Jiai::Ji) {
+    if !match_person(&jiai_pc, &Person::Friend) {
         return true;
     }
 
@@ -85,7 +85,7 @@ pub fn is_atamakin(
     uchu: &Uchu,
 ) -> bool {
     // 相手らいおんのマス
-    let ms_ai_r = uchu.get_ms_r(&Jiai::Ai);
+    let ms_ai_r = uchu.get_ms_r(&Person::Opponent);
 
     // らいおん以外の相手の駒種類
     let mut pt_set_ai_c_r = PtSyugo::new_all();

@@ -77,7 +77,7 @@ fn main() {
                 hyoji_title();
             } else {
                 // 局面表示
-                let s = &uchu.kaku_ky(&KyNums::Current);
+                let s = &uchu.kaku_ky(&PosNums::Current);
                 g_writeln(&s);
             }
         // 文字数の長いものからチェック
@@ -184,7 +184,7 @@ fn main() {
             }
         } else if 2 < len && &line[starts..3] == "ky0" {
             // 初期局面表示
-            let s = uchu.kaku_ky(&KyNums::Start);
+            let s = uchu.kaku_ky(&PosNums::Start);
             g_writeln(&s);
         } else if 2 < len && &line[starts..3] == "usi" {
             let engine_file = EngineFile::read();
@@ -200,7 +200,7 @@ fn main() {
             g_writeln(&format!("bestmove {}", bestmove));
         } else if 1 < len && &line[starts..2] == "ky" {
             // 現局面表示
-            let s = &uchu.kaku_ky(&KyNums::Current);
+            let s = &uchu.kaku_ky(&PosNums::Current);
             g_writeln(&s);
         }
     } //loop
