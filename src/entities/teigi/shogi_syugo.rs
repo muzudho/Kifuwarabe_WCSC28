@@ -454,8 +454,8 @@ pub enum PieceType {
     PN,
     // 杏 Promoted Lance
     PL,
-    // ぱわーあっぷひよこ
-    PH,
+    // と Promoted Pawn
+    PP,
     // 空マス
     Kara,
     // 要素数より1小さい数。エラー値用に使っても可
@@ -479,7 +479,7 @@ impl fmt::Display for PieceType {
             PS => write!(f, "PS"),
             PN => write!(f, "PN"),
             PL => write!(f, "PL"),
-            PH => write!(f, "PH"),
+            PP => write!(f, "PP"),
             Kara => write!(f, "　"),
             Owari => write!(f, "×"),
         }
@@ -509,7 +509,7 @@ pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::PS,   // ぱわーあっぷねこ
     PieceType::PN,   // ぱわーあっぷうさぎ
     PieceType::PL,   // ぱわーあっぷいのしし
-    PieceType::PH,   // ぱわーあっぷひよこ
+    PieceType::PP,   // ぱわーあっぷひよこ
 ];
 
 /// 非成 駒種類数
@@ -535,7 +535,7 @@ pub const KMS_PRO_ARRAY: [PieceType; KMS_PRO_ARRAY_LN] = [
     PieceType::PS, // ぱわーあっぷねこ
     PieceType::PN, // ぱわーあっぷうさぎ
     PieceType::PL, // ぱわーあっぷいのしし
-    PieceType::PH, // ぱわーあっぷひよこ
+    PieceType::PP, // ぱわーあっぷひよこ
 ];
 
 /// 持駒種類数

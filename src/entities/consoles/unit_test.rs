@@ -65,7 +65,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         // 駒の移動元升
         {
             g_writeln("利きテスト1");
-            let kms = PieceType::PH; // ぱわーあっぷひよこ
+            let kms = PieceType::PP; // ぱわーあっぷひよこ
             let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 79;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
@@ -79,7 +79,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         }
         {
             g_writeln("利きテスト2");
-            let kms = PieceType::PH; // ぱわーあっぷひよこ
+            let kms = PieceType::PP; // ぱわーあっぷひよこ
             let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 68;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));
@@ -93,7 +93,7 @@ pub fn test(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu) {
         }
         {
             g_writeln("利きテスト3");
-            let kms = PieceType::PH; // ぱわーあっぷひよこ
+            let kms = PieceType::PP; // ぱわーあっぷひよこ
             let pc = sn_kms_to_km(&Phase::Second, &kms); // △ph
             let to = 77;
             g_writeln(&format!("kms={} pc={} to={}", kms, pc, to));

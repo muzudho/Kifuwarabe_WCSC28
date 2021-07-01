@@ -413,7 +413,7 @@ pub fn km_to_sn_kms(pc: &Piece) -> (Phase, PieceType) {
         PN0 => (First, PS),
         PU0 => (First, PN),
         PS0 => (First, PL),
-        PH0 => (First, PH),
+        PH0 => (First, PP),
         R1 => (Second, KING),
         K1 => (Second, R),
         Z1 => (Second, B),
@@ -427,7 +427,7 @@ pub fn km_to_sn_kms(pc: &Piece) -> (Phase, PieceType) {
         PN1 => (Second, PS),
         PU1 => (Second, PN),
         PS1 => (Second, PL),
-        PH1 => (Second, PH),
+        PH1 => (Second, PP),
         Piece::Kara => (Phase::Owari, PieceType::Kara),
         Piece::Owari => (Phase::Owari, PieceType::Owari),
     }
@@ -494,7 +494,7 @@ pub fn km_to_kms(pc: &Piece) -> PieceType {
         PN0 => PS,
         PU0 => PN,
         PS0 => PL,
-        PH0 => PH,
+        PH0 => PP,
         R1 => KING,
         K1 => R,
         Z1 => B,
@@ -508,7 +508,7 @@ pub fn km_to_kms(pc: &Piece) -> PieceType {
         PN1 => PS,
         PU1 => PN,
         PS1 => PL,
-        PH1 => PH,
+        PH1 => PP,
         Piece::Kara => PieceType::Kara,
         Piece::Owari => PieceType::Owari,
     }
@@ -572,7 +572,7 @@ pub fn kms_to_num(kms: &PieceType) -> usize {
         PS => 10,
         PN => 11,
         PL => 12,
-        PH => 13,
+        PP => 13,
         Kara => 14,
         Owari => 15,
     }
@@ -596,7 +596,7 @@ pub fn num_to_kms(n: usize) -> PieceType {
         10 => PS,
         11 => PN,
         12 => PL,
-        13 => PH,
+        13 => PP,
         14 => Kara,
         _ => Owari,
     }
@@ -633,7 +633,7 @@ pub fn kms_is_pro(kms: &PieceType) -> bool {
         PS => true,
         PN => true,
         PL => true,
-        PH => true,
+        PP => true,
         Kara => false,
         Owari => false,
     }
@@ -655,7 +655,7 @@ pub fn prokms_to_kms(kms: &PieceType) -> PieceType {
         PS => S,
         PN => N,
         PL => L,
-        PH => P,
+        PP => P,
         Kara => Kara,
         Owari => Owari,
     }
@@ -680,7 +680,7 @@ pub fn kms_is_nagaikiki(kms: &PieceType) -> bool {
         PS => false,
         PN => false,
         PL => false,
-        PH => false,
+        PP => false,
         Kara => false,
         Owari => false,
     }
@@ -704,7 +704,7 @@ pub fn kms_can_pro(kms: &PieceType) -> bool {
         PS => false,
         PN => false,
         PL => false,
-        PH => false,
+        PP => false,
         Kara => false,
         Owari => false,
     }
@@ -728,7 +728,7 @@ pub fn kms_can_da(kms: &PieceType) -> bool {
         PS => false,
         PN => false,
         PL => false,
-        PH => false,
+        PP => false,
         Kara => false,
         Owari => false,
     }
@@ -752,7 +752,7 @@ pub fn sn_kms_to_km(phase: &Phase, kms: &PieceType) -> Piece {
             PS => PN0,
             PN => PU0,
             PL => PS0,
-            PH => PH0,
+            PP => PH0,
             _ => Piece::Owari,
         },
         Phase::Second => match *kms {
@@ -769,7 +769,7 @@ pub fn sn_kms_to_km(phase: &Phase, kms: &PieceType) -> Piece {
             PS => PN1,
             PN => PU1,
             PL => PS1,
-            PH => PH1,
+            PP => PH1,
             _ => Piece::Owari,
         },
         Phase::Owari => Piece::Owari,
