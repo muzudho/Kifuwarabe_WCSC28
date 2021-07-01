@@ -105,7 +105,7 @@ impl fmt::Display for Sasite {
                     L => {
                         "L"
                     }
-                    H => {
+                    P => {
                         "P"
                     }
                     _ => {
@@ -197,7 +197,7 @@ pub fn read_sasite(line: &String, starts: &mut usize, len: usize, uchu: &mut Uch
         "P" => {
             *starts += 2;
             uchu.set_sasite_src(0);
-            uchu.set_sasite_drop(PieceType::H);
+            uchu.set_sasite_drop(PieceType::P);
         }
         _ => {
             // 残りは「筋の数字」、「段のアルファベット」のはず。

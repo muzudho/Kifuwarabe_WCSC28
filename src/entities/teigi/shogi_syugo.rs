@@ -442,8 +442,8 @@ pub enum PieceType {
     U,
     // 香 Lance
     L,
-    // ひよこ
-    H,
+    // 歩 Pawn
+    P,
     // ぱわーあっぷきりん
     PK,
     // ぱわーあっぷぞう
@@ -473,7 +473,7 @@ impl fmt::Display for PieceType {
             N => write!(f, "ね"),
             U => write!(f, "う"),
             L => write!(f, "い"),
-            H => write!(f, "ひ"),
+            P => write!(f, "ひ"),
             PK => write!(f, "PK"),
             PZ => write!(f, "PZ"),
             PN => write!(f, "PN"),
@@ -503,7 +503,7 @@ pub const KMS_ARRAY: [PieceType; KMS_ARRAY_LN] = [
     PieceType::N,    // ねこ
     PieceType::U,    // うさぎ
     PieceType::L,    // いのしし
-    PieceType::H,    // ひよこ
+    PieceType::P,    // ひよこ
     PieceType::PK,   // ぱわーあっぷきりん
     PieceType::PZ,   // ぱわーあっぷぞう
     PieceType::PN,   // ぱわーあっぷねこ
@@ -523,7 +523,7 @@ pub const KMS_NPRO_ARRAY: [PieceType; KMS_NPRO_ARRAY_LN] = [
     PieceType::N,    // ねこ
     PieceType::U,    // うさぎ
     PieceType::L,    // いのしし
-    PieceType::H,    // ひよこ
+    PieceType::P,    // ひよこ
 ];
 
 /// 成 駒種類数
@@ -548,7 +548,7 @@ pub const MGS_ARRAY: [PieceType; MGS_ARRAY_LN] = [
     PieceType::N,
     PieceType::U,
     PieceType::L,
-    PieceType::H,
+    PieceType::P,
 ];
 
 ///
