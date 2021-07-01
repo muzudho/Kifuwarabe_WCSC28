@@ -8,7 +8,7 @@ use super::super::teigi::shogi_syugo::*;
 /// 升 × 駒
 pub struct MsKm {
     sq: Square,
-    km: Koma,
+    km: Piece,
 }
 
 /// 升 × 駒種類

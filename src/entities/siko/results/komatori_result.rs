@@ -36,7 +36,7 @@ pub enum KomatoriResultResult {
 ///
 pub struct KomatoriResult {
     // 要因：王手をしてきている駒（１つ）
-    km_attacker: Koma,
+    km_attacker: Piece,
     // 要因：アタッカーが居る升
     ms_attacker: Square,
     // 要因：狙われている駒が居る升

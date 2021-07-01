@@ -10,7 +10,7 @@
 
 use super::super::jotai::uchu::*;
 use super::super::teigi::conv::*;
-use super::super::teigi::shogi_syugo::Koma::*;
+use super::super::teigi::shogi_syugo::Piece::*;
 use super::super::teigi::shogi_syugo::*;
 use super::super::tusin::usi::*;
 
@@ -18,7 +18,7 @@ use super::super::tusin::usi::*;
 pub struct Kyokumen {
     /// 10の位を筋、1の位を段とする。
     /// 0筋、0段は未使用
-    ban: [Koma; BAN_SIZE],
+    ban: [Piece; BAN_SIZE],
     /// 持ち駒数。持ち駒に使える、成らずの駒の部分だけ使用。
     /// 増減させたいので、u8 ではなく i8。
     pub mg: [i8; KM_LN],
@@ -52,7 +52,7 @@ impl Kyokumen {
         }
     }
     pub fn clear(&mut self) {
-        // use super::super::teigi::shogi_syugo::Koma::Kara;
+        // use super::super::teigi::shogi_syugo::Piece::Kara;
         self.ban = [
             Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
             Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara, Kara,
@@ -84,24 +84,24 @@ impl Kyokumen {
         false
     }
     /// 升で指定して駒を取る
-    pub fn get_km_by_ms(&self, sq: Square) -> Koma {
+    pub fn get_km_by_ms(&self, sq: Square) -> Piece {
         self.ban[sq]
     }
     /// 升で指定して駒を置く
-    pub fn set_km_by_ms(&mut self, sq: Square, km: Koma) {
+    pub fn set_km_by_ms(&mut self, sq: Square, km: Piece) {
         self.ban[sq] = km;
         use super::super::teigi::shogi_syugo::Sengo::*;
         match km {
-            Koma::R0 => self.ms_r[Sen as usize] = sq,
-            Koma::R1 => self.ms_r[Go as usize] = sq,
+            Piece::R0 => self.ms_r[Sen as usize] = sq,
+            Piece::R1 => self.ms_r[Go as usize] = sq,
             _ => {}
         }
     }
     /// 持ち駒の枚数を加算
-    pub fn add_mg(&mut self, mg: Koma, maisu: i8) {
+    pub fn add_mg(&mut self, mg: Piece, maisu: i8) {
         self.mg[km_to_num(&mg)] += maisu;
     }
-    pub fn get_mg(&self, mg: &Koma) -> i8 {
+    pub fn get_mg(&self, mg: &Piece) -> i8 {
         self.mg[km_to_num(mg)]
     }
 
@@ -109,7 +109,7 @@ impl Kyokumen {
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
     ///
     /// return : 取った駒
-    pub fn do_sasite(&mut self, sn: &Sengo, ss: &Sasite) -> Koma {
+    pub fn do_sasite(&mut self, sn: &Sengo, ss: &Sasite) -> Piece {
         // 動かす駒
         let km;
         // 取った駒
@@ -128,12 +128,12 @@ impl Kyokumen {
             } else {
                 km = self.get_km_by_ms(ss.src);
             }
-            self.set_km_by_ms(ss.src, Koma::Kara);
+            self.set_km_by_ms(ss.src, Piece::Kara);
         }
 
         // 移動先升に駒があるかどうか
-        if let Koma::Kara = self.get_km_by_ms(ss.dst) {
-            cap = Koma::Kara;
+        if let Piece::Kara = self.get_km_by_ms(ss.dst) {
+            cap = Piece::Kara;
         } else {
             // 移動先升の駒を盤上から消し、自分の持ち駒に増やす
             cap = self.get_km_by_ms(ss.dst);
@@ -149,7 +149,7 @@ impl Kyokumen {
 
     /// 指し手の　進む戻る　を逆さにして、盤上の駒配置を動かすぜ☆（＾～＾）
     /// 手目のカウントが増えたりはしないぜ☆（＾～＾）
-    pub fn undo_sasite(&mut self, sn: &Sengo, ss: &Sasite, cap: &Koma) {
+    pub fn undo_sasite(&mut self, sn: &Sengo, ss: &Sasite, cap: &Piece) {
         // 移動先の駒
         let km;
 
@@ -173,7 +173,7 @@ impl Kyokumen {
         // 移動先の駒を、取った駒（あるいは空）に戻す
         self.set_km_by_ms(ss.dst, *cap);
         match *cap {
-            Koma::Kara => {}
+            Piece::Kara => {}
             _ => {
                 // 自分の持ち駒を減らす
                 let mg = km_to_mg(*cap);
@@ -187,11 +187,11 @@ impl Kyokumen {
 
     /// 指定の升に駒があれば真
     pub fn exists_km(&self, sq: Square) -> bool {
-        !match_km(&self.get_km_by_ms(sq), &Koma::Kara)
+        !match_km(&self.get_km_by_ms(sq), &Piece::Kara)
     }
 
     /// 指定の升に指定の駒があれば真
-    pub fn has_ms_km(&self, sq: Square, km: &Koma) -> bool {
+    pub fn has_ms_km(&self, sq: Square, km: &Piece) -> bool {
         match_km(&self.get_km_by_ms(sq), km)
     }
 

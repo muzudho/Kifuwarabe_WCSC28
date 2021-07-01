@@ -419,145 +419,145 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
             }
             "1" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                 suji -= 1;
             }
             "2" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                 suji -= 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                 suji -= 1;
             }
             "3" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                 suji -= 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                 suji -= 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                 suji -= 1;
             }
             "4" => {
                 *starts += 1;
                 for _i_kara in 0..4 {
-                    uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                    uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                     suji -= 1;
                 }
             }
             "5" => {
                 *starts += 1;
                 for _i_kara in 0..5 {
-                    uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                    uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                     suji -= 1;
                 }
             }
             "6" => {
                 *starts += 1;
                 for _i_kara in 0..6 {
-                    uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                    uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                     suji -= 1;
                 }
             }
             "7" => {
                 *starts += 1;
                 for _i_kara in 0..7 {
-                    uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                    uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                     suji -= 1;
                 }
             }
             "8" => {
                 *starts += 1;
                 for _i_kara in 0..8 {
-                    uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                    uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                     suji -= 1;
                 }
             }
             "9" => {
                 *starts += 1;
                 for _i_kara in 0..9 {
-                    uchu.set_ky0_ban_km(suji, dan, Koma::Kara);
+                    uchu.set_ky0_ban_km(suji, dan, Piece::Kara);
                     suji -= 1;
                 }
             }
             "K" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::R0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::R0);
                 suji -= 1;
             }
             "R" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::K0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::K0);
                 suji -= 1;
             }
             "B" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Z0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Z0);
                 suji -= 1;
             }
             "G" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::I0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::I0);
                 suji -= 1;
             }
             "S" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::N0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::N0);
                 suji -= 1;
             }
             "N" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::U0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::U0);
                 suji -= 1;
             }
             "L" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::S0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::S0);
                 suji -= 1;
             }
             "P" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::H0);
+                uchu.set_ky0_ban_km(suji, dan, Piece::H0);
                 suji -= 1;
             }
             "k" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::R1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::R1);
                 suji -= 1;
             }
             "r" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::K1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::K1);
                 suji -= 1;
             }
             "b" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::Z1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::Z1);
                 suji -= 1;
             }
             "g" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::I1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::I1);
                 suji -= 1;
             }
             "s" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::N1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::N1);
                 suji -= 1;
             }
             "n" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::U1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::U1);
                 suji -= 1;
             }
             "l" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::S1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::S1);
                 suji -= 1;
             }
             "p" => {
                 *starts += 1;
-                uchu.set_ky0_ban_km(suji, dan, Koma::H1);
+                uchu.set_ky0_ban_km(suji, dan, Piece::H1);
                 suji -= 1;
             }
             "+" => {
@@ -565,62 +565,62 @@ pub fn read_banjo(line: &String, starts: &mut usize, len: usize, uchu: &mut Uchu
                 match &line[*starts..(*starts + 1)] {
                     "R" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PK0);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PK0);
                         suji -= 1;
                     }
                     "B" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PZ0);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PZ0);
                         suji -= 1;
                     }
                     "S" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PN0);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PN0);
                         suji -= 1;
                     }
                     "N" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PU0);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PU0);
                         suji -= 1;
                     }
                     "L" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PS0);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PS0);
                         suji -= 1;
                     }
                     "P" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PH0);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PH0);
                         suji -= 1;
                     }
                     "r" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PK1);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PK1);
                         suji -= 1;
                     }
                     "b" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PZ1);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PZ1);
                         suji -= 1;
                     }
                     "s" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PN1);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PN1);
                         suji -= 1;
                     }
                     "n" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PU1);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PU1);
                         suji -= 1;
                     }
                     "l" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PS1);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PS1);
                         suji -= 1;
                     }
                     "p" => {
                         *starts += 1;
-                        uchu.set_ky0_ban_km(suji, dan, Koma::PH1);
+                        uchu.set_ky0_ban_km(suji, dan, Piece::PH1);
                         suji -= 1;
                     }
                     _ => {
@@ -775,8 +775,8 @@ pub fn read_position(line: &String, uchu: &mut Uchu) {
                         _ => {} // 駒の名前か、エラーなら次へ
                     }
 
-                    use super::super::teigi::shogi_syugo::Koma::*;
-                    let km: Koma;
+                    use super::super::teigi::shogi_syugo::Piece::*;
+                    let km: Piece;
                     match &line[starts..(starts + 1)] {
                         "R" => {
                             km = K0;

@@ -87,7 +87,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
             let ms_dst = suji_dan_to_ms(suji_dst, dan_dst);
             let km_dst = uchu.ky.get_km_by_ms(ms_dst);
             match km_dst {
-                Koma::Kara => {
+                Piece::Kara => {
                     // 駒が無いところに打つ
 
                     let mut da_kms_hashset = HashSet::new();
@@ -131,7 +131,7 @@ pub fn insert_potential_move(uchu: &Uchu, some_moves_hashset: &mut HashSet<u64>)
 pub fn insert_ss_by_ms_km_on_banjo(
     uchu: &Uchu,
     ms_dst: Square,
-    km_dst: &Koma,
+    km_dst: &Piece,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_ss_by_ms_km_on_banjo");
@@ -190,7 +190,7 @@ pub fn insert_ss_by_ms_km_on_banjo(
 pub fn insert_ss_by_ms_km_on_da(
     uchu: &Uchu,
     ms_dst: Square,
-    km_dst: &Koma,
+    km_dst: &Piece,
     some_moves_hashset: &mut HashSet<u64>,
 ) {
     assert_banjo_ms(ms_dst, "Ｉnsert_ss_by_ms_km_on_da");

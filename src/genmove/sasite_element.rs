@@ -23,7 +23,7 @@ use std::collections::HashSet;
 ///
 pub fn insert_narazu_src_by_ms_km(
     to: Square,
-    km_dst: &Koma,
+    km_dst: &Piece,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
@@ -46,7 +46,7 @@ pub fn insert_narazu_src_by_ms_km(
     let kms_num = kms_to_num(&kms_dst);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-    use super::super::entities::teigi::shogi_syugo::Koma::*;
+    use super::super::entities::teigi::shogi_syugo::Piece::*;
     match *km_dst {
         U0 => {
             // ▼うさぎ　は１、２段目には進めない
@@ -334,7 +334,7 @@ pub fn insert_narazu_src_by_ms_km(
 ///
 pub fn insert_narumae_src_by_ms_km(
     to: Square,
-    km_dst: &Koma,
+    km_dst: &Piece,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
 ) {
@@ -642,7 +642,7 @@ pub fn insert_narumae_src_by_ms_km(
 ///
 pub fn insert_da_kms_by_ms_km(
     to: Square,
-    km_dst: &Koma,
+    km_dst: &Piece,
     uchu: &Uchu,
     result_kms: &mut HashSet<usize>,
 ) {
@@ -658,7 +658,7 @@ pub fn insert_da_kms_by_ms_km(
     // +------------------------+
     let km_banjo = uchu.ky.get_km_by_ms(to);
     match km_banjo {
-        Koma::Kara => {}
+        Piece::Kara => {}
         _ => {
             return;
         } // 駒があるところに打つ手は終了
@@ -691,7 +691,7 @@ pub fn insert_da_kms_by_ms_km(
     //let (_x,y) = ms_to_suji_dan(sq);
 
     // 行先の無いところに駒を進めることの禁止☆（＾～＾）
-    use super::super::entities::teigi::shogi_syugo::Koma::*;
+    use super::super::entities::teigi::shogi_syugo::Piece::*;
     match *km_dst {
         U0 => {
             // ▼うさぎ　は１、２段目には進めない
@@ -748,7 +748,7 @@ pub fn insert_da_kms_by_ms_km(
 ///
 pub fn insert_dst_by_ms_km(
     ms_src: Square,
-    km_src: &Koma,
+    km_src: &Piece,
     to_nari: bool,
     uchu: &Uchu,
     result: &mut HashSet<Square>,
@@ -1046,7 +1046,7 @@ pub fn insert_dst_by_ms_km(
         // +------------------------------+
         // | 成れる動き以外での成りの禁止 |
         // +------------------------------+
-        use super::super::entities::teigi::shogi_syugo::Koma::*;
+        use super::super::entities::teigi::shogi_syugo::Piece::*;
         match *km_src {
             K0 | Z0 | N0 => {
                 // ▼きりん、▼ぞう、▼ねこ　は
@@ -1120,7 +1120,7 @@ pub fn insert_dst_by_ms_km(
         // +----------------------------------------+
         // | 行先の無いところに駒を進めることの禁止 |
         // +----------------------------------------+
-        use super::super::entities::teigi::shogi_syugo::Koma::*;
+        use super::super::entities::teigi::shogi_syugo::Piece::*;
         match *km_src {
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
@@ -1214,7 +1214,7 @@ pub fn insert_narazu_src_by_sn_ms(
     for kms in KMS_ARRAY.iter() {
         // 行先の無いところに駒を進めることの禁止☆（＾～＾）
         let km = sn_kms_to_km(&sn, &kms);
-        use super::super::entities::teigi::shogi_syugo::Koma::*;
+        use super::super::entities::teigi::shogi_syugo::Piece::*;
         match km {
             U0 => {
                 // ▼うさぎ　は１、２段目には進めない
@@ -1580,7 +1580,7 @@ pub fn insert_narumae_src_by_sn_ms(
 
         let prokm_src = km_to_prokm(&km_src);
         match prokm_src {
-            Koma::Kara => {
+            Piece::Kara => {
                 continue;
             } // 成れない駒は、成る動きを考えなくていいぜ☆（＾～＾）
             _ => {} // 成れる駒は、成る前の駒の動きも調べる

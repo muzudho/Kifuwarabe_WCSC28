@@ -19,7 +19,7 @@ use std::collections::HashSet;
 ///
 /// km_dst : 移動した先の駒
 ///
-pub fn get_ido_ss_by_km_random(uchu: &Uchu, km_dst: &Koma) -> Sasite {
+pub fn get_ido_ss_by_km_random(uchu: &Uchu, km_dst: &Piece) -> Sasite {
     let mut ss_hashset = HashSet::new();
 
     // 数回リトライ

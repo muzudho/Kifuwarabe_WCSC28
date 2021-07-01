@@ -16,7 +16,7 @@ use super::super::super::teigi::shogi_syugo::*;
 ///
 pub fn get_dir8_to_slider_from_target(
     ms_slider: Square,
-    km_slider: &Koma,
+    km_slider: &Piece,
     ms_target: Square,
 ) -> Dir8 {
     debug_assert!(

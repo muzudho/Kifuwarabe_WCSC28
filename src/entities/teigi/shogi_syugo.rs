@@ -188,7 +188,7 @@ pub const KM_LN: usize = 30;
 /// 先後付きの駒と空白
 ///
 #[derive(Copy, Clone)]
-pub enum Koma {
+pub enum Piece {
     /// ▼らいおん
     R0,
     /// ▼きりん
@@ -250,10 +250,10 @@ pub enum Koma {
     /// 要素数より1小さい数。該当なしや、エラー値用としても兼用する
     Owari,
 }
-impl fmt::Display for Koma {
+impl fmt::Display for Piece {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // 文字列リテラルでないとダメみたいなんで、他に似たようなコードがあるのに、また書くことに☆（＾～＾）
-        use super::super::teigi::shogi_syugo::Koma::*;
+        use super::super::teigi::shogi_syugo::Piece::*;
         match *self {
             R0 => write!(f, "▼ら"),
             K0 => write!(f, "▼き"),
@@ -291,90 +291,90 @@ impl fmt::Display for Koma {
 ///
 /// 駒の一致比較
 ///
-pub fn match_km(a: &Koma, b: &Koma) -> bool {
+pub fn match_km(a: &Piece, b: &Piece) -> bool {
     km_to_num(a) == km_to_num(b)
 }
 
 pub const KM_ARRAY_HALF_LN: usize = 14;
 pub const KM_ARRAY_LN: usize = 28;
-pub const KM_ARRAY: [Koma; KM_ARRAY_LN] = [
-    Koma::R0,  // らいおん
-    Koma::K0,  // きりん
-    Koma::Z0,  // ぞう
-    Koma::I0,  // いぬ
-    Koma::N0,  // ねこ
-    Koma::U0,  // うさぎ
-    Koma::S0,  // いのしし
-    Koma::H0,  // ひよこ
-    Koma::PK0, // ぱわーあっぷきりん
-    Koma::PZ0, // ぱわーあっぷぞう
-    Koma::PN0, // ぱわーあっぷねこ
-    Koma::PU0, // ぱわーあっぷうさぎ
-    Koma::PS0, // ぱわーあっぷいのしし
-    Koma::PH0, // ぱわーあっぷひよこ
-    Koma::R1,  // らいおん
-    Koma::K1,  // きりん
-    Koma::Z1,  // ぞう
-    Koma::I1,  // いぬ
-    Koma::N1,  // ねこ
-    Koma::U1,  // うさぎ
-    Koma::S1,  // いのしし
-    Koma::H1,  // ひよこ
-    Koma::PK1, // ぱわーあっぷきりん
-    Koma::PZ1, // ぱわーあっぷぞう
-    Koma::PN1, // ぱわーあっぷねこ
-    Koma::PU1, // ぱわーあっぷうさぎ
-    Koma::PS1, // ぱわーあっぷいのしし
-    Koma::PH1, // ぱわーあっぷひよこ
+pub const KM_ARRAY: [Piece; KM_ARRAY_LN] = [
+    Piece::R0,  // らいおん
+    Piece::K0,  // きりん
+    Piece::Z0,  // ぞう
+    Piece::I0,  // いぬ
+    Piece::N0,  // ねこ
+    Piece::U0,  // うさぎ
+    Piece::S0,  // いのしし
+    Piece::H0,  // ひよこ
+    Piece::PK0, // ぱわーあっぷきりん
+    Piece::PZ0, // ぱわーあっぷぞう
+    Piece::PN0, // ぱわーあっぷねこ
+    Piece::PU0, // ぱわーあっぷうさぎ
+    Piece::PS0, // ぱわーあっぷいのしし
+    Piece::PH0, // ぱわーあっぷひよこ
+    Piece::R1,  // らいおん
+    Piece::K1,  // きりん
+    Piece::Z1,  // ぞう
+    Piece::I1,  // いぬ
+    Piece::N1,  // ねこ
+    Piece::U1,  // うさぎ
+    Piece::S1,  // いのしし
+    Piece::H1,  // ひよこ
+    Piece::PK1, // ぱわーあっぷきりん
+    Piece::PZ1, // ぱわーあっぷぞう
+    Piece::PN1, // ぱわーあっぷねこ
+    Piece::PU1, // ぱわーあっぷうさぎ
+    Piece::PS1, // ぱわーあっぷいのしし
+    Piece::PH1, // ぱわーあっぷひよこ
 ];
-pub const SN_KM_ARRAY: [[Koma; KM_ARRAY_HALF_LN]; SN_LN] = [
+pub const SN_KM_ARRAY: [[Piece; KM_ARRAY_HALF_LN]; SN_LN] = [
     [
-        Koma::R0,  // らいおん
-        Koma::K0,  // きりん
-        Koma::Z0,  // ぞう
-        Koma::I0,  // いぬ
-        Koma::N0,  // ねこ
-        Koma::U0,  // うさぎ
-        Koma::S0,  // いのしし
-        Koma::H0,  // ひよこ
-        Koma::PK0, // ぱわーあっぷきりん
-        Koma::PZ0, // ぱわーあっぷぞう
-        Koma::PN0, // ぱわーあっぷねこ
-        Koma::PU0, // ぱわーあっぷうさぎ
-        Koma::PS0, // ぱわーあっぷいのしし
-        Koma::PH0, // ぱわーあっぷひよこ
+        Piece::R0,  // らいおん
+        Piece::K0,  // きりん
+        Piece::Z0,  // ぞう
+        Piece::I0,  // いぬ
+        Piece::N0,  // ねこ
+        Piece::U0,  // うさぎ
+        Piece::S0,  // いのしし
+        Piece::H0,  // ひよこ
+        Piece::PK0, // ぱわーあっぷきりん
+        Piece::PZ0, // ぱわーあっぷぞう
+        Piece::PN0, // ぱわーあっぷねこ
+        Piece::PU0, // ぱわーあっぷうさぎ
+        Piece::PS0, // ぱわーあっぷいのしし
+        Piece::PH0, // ぱわーあっぷひよこ
     ],
     [
-        Koma::R1,  // らいおん
-        Koma::K1,  // きりん
-        Koma::Z1,  // ぞう
-        Koma::I1,  // いぬ
-        Koma::N1,  // ねこ
-        Koma::U1,  // うさぎ
-        Koma::S1,  // いのしし
-        Koma::H1,  // ひよこ
-        Koma::PK1, // ぱわーあっぷきりん
-        Koma::PZ1, // ぱわーあっぷぞう
-        Koma::PN1, // ぱわーあっぷねこ
-        Koma::PU1, // ぱわーあっぷうさぎ
-        Koma::PS1, // ぱわーあっぷいのしし
-        Koma::PH1, // ぱわーあっぷひよこ
+        Piece::R1,  // らいおん
+        Piece::K1,  // きりん
+        Piece::Z1,  // ぞう
+        Piece::I1,  // いぬ
+        Piece::N1,  // ねこ
+        Piece::U1,  // うさぎ
+        Piece::S1,  // いのしし
+        Piece::H1,  // ひよこ
+        Piece::PK1, // ぱわーあっぷきりん
+        Piece::PZ1, // ぱわーあっぷぞう
+        Piece::PN1, // ぱわーあっぷねこ
+        Piece::PU1, // ぱわーあっぷうさぎ
+        Piece::PS1, // ぱわーあっぷいのしし
+        Piece::PH1, // ぱわーあっぷひよこ
     ],
     [
-        Koma::Owari, // らいおん
-        Koma::Owari, // きりん
-        Koma::Owari, // ぞう
-        Koma::Owari, // いぬ
-        Koma::Owari, // ねこ
-        Koma::Owari, // うさぎ
-        Koma::Owari, // いのしし
-        Koma::Owari, // ひよこ
-        Koma::Owari, // ぱわーあっぷきりん
-        Koma::Owari, // ぱわーあっぷぞう
-        Koma::Owari, // ぱわーあっぷねこ
-        Koma::Owari, // ぱわーあっぷうさぎ
-        Koma::Owari, // ぱわーあっぷいのしし
-        Koma::Owari, // ぱわーあっぷひよこ
+        Piece::Owari, // らいおん
+        Piece::Owari, // きりん
+        Piece::Owari, // ぞう
+        Piece::Owari, // いぬ
+        Piece::Owari, // ねこ
+        Piece::Owari, // うさぎ
+        Piece::Owari, // いのしし
+        Piece::Owari, // ひよこ
+        Piece::Owari, // ぱわーあっぷきりん
+        Piece::Owari, // ぱわーあっぷぞう
+        Piece::Owari, // ぱわーあっぷねこ
+        Piece::Owari, // ぱわーあっぷうさぎ
+        Piece::Owari, // ぱわーあっぷいのしし
+        Piece::Owari, // ぱわーあっぷひよこ
     ],
 ];
 ///
@@ -414,7 +414,7 @@ impl KmSyugo {
         };
         km_syugo
     }
-    pub fn remove(&mut self, km: &Koma) {
+    pub fn remove(&mut self, km: &Piece) {
         self.num_syugo.remove(&km_to_num(km));
     }
 }
